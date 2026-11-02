@@ -51,6 +51,7 @@ const professionalServiceSchema = {
 };
 
 import { ThemeProvider } from '@/components/ThemeProvider';
+import ScrollProgressBar from '@/components/ScrollProgressBar';
 
 export default function RootLayout({
   children,
@@ -81,6 +82,7 @@ export default function RootLayout({
       </head>
       <body className="bg-[#FAFAFA] dark:bg-[#09090B] text-[#3F3F46] dark:text-zinc-300 min-h-screen flex flex-col antialiased font-sans transition-colors duration-200">
         <ThemeProvider>
+          <ScrollProgressBar />
           <Nav />
           <main id="main-content" className="flex-1">
             {children}

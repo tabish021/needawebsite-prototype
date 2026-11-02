@@ -5,6 +5,7 @@ import Section from '@/components/Section';
 import Card from '@/components/Card';
 import Faq from '@/components/Faq';
 import HeroMotion from '@/components/HeroMotion';
+import ProofBadges from '@/components/ProofBadges';
 import {
   ArrowRight,
   Check,
@@ -15,6 +16,51 @@ import {
   Phone,
   MessageCircle,
 } from 'lucide-react';
+import {
+  SiHtml5,
+  SiCss,
+  SiJavascript,
+  SiTypescript,
+  SiNodedotjs,
+  SiReact,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiFramer,
+  SiThreedotjs,
+  SiVite,
+} from 'react-icons/si';
+
+function LenisIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className || 'w-[1em] h-[1em]'}
+      aria-label="Lenis"
+    >
+      <path d="M4 6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6" />
+      <circle cx="18" cy="6" r="1.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+const techStackLogos = [
+  { name: 'HTML5', icon: SiHtml5, color: '#E34F26' },
+  { name: 'CSS3', icon: SiCss, color: '#1572B6' },
+  { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
+  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
+  { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
+  { name: 'React', icon: SiReact, color: '#61DAFB' },
+  { name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
+  { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
+  { name: 'Framer Motion', icon: SiFramer, color: '#0055FF' },
+  { name: 'Three.js', icon: SiThreedotjs, color: '#000000' },
+  { name: 'Lenis', icon: LenisIcon, color: '#333333' },
+];
 
 export const metadata: Metadata = {
   title: 'NeedAWebsite | Web Design Mumbai, Found on Google & AI',
@@ -156,6 +202,33 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* TECH STACK MARQUEE */}
+      <section className="py-12 bg-white dark:bg-[#0A0A0A] border-b border-[#E5E7EB] dark:border-zinc-800 overflow-hidden">
+        <div className="max-w-[1100px] mx-auto px-5 sm:px-6">
+          <p className="text-center text-sm font-semibold tracking-widest text-[#71717A] uppercase mb-6">Technologies I build with</p>
+        </div>
+        <div className="relative w-full overflow-hidden">
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-36 bg-gradient-to-r from-white dark:from-[#0A0A0A] to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-36 bg-gradient-to-l from-white dark:from-[#0A0A0A] to-transparent z-10" />
+
+          <div className="animate-marquee flex items-center">
+            {[...techStackLogos, ...techStackLogos].map((tech, idx) => {
+              const Icon = tech.icon;
+              return (
+                <div
+                  key={`${tech.name}-${idx}`}
+                  className="flex items-center justify-center px-8 sm:px-12 shrink-0 text-3xl md:text-4xl cursor-default"
+                  title={tech.name}
+                  aria-label={tech.name}
+                >
+                  <Icon className="w-[1em] h-[1em]" style={{ color: tech.color }} />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
       {/* 2. SECTION 2 (The Problem) */}
       <Section eyebrow="THE SHIFT" title="Customers have started asking AI instead of searching.">
         <p className="max-w-3xl text-lg text-[#52525B] dark:text-zinc-400 leading-relaxed">
@@ -245,6 +318,7 @@ export default function HomePage() {
           <p className="text-base text-[#52525B] dark:text-zinc-400 leading-relaxed">
             A clinical and sports nutrition practice. I built its website with a full SEO, AEO and GEO foundation (in plain words: set up to be found on Google and recommended by AI assistants), and I continue to support its rankings as it grows.
           </p>
+          <ProofBadges />
         </Card>
 
         <div className="mt-6 flex flex-col sm:flex-row gap-3">

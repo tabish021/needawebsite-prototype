@@ -1,0 +1,565 @@
+# PROMPT FOR GOOGLE AI STUDIO — NeedAWebsite.in (PHASE 1 PROTOTYPE, STATIC SITE)
+
+## ⚠️ READ THIS FIRST — WHAT SUCCESS LOOKS LIKE
+
+This is a **PHASE 1 PROTOTYPE**, not the final production build. It is a **purely static marketing site**. Read the Definition of Done below before you write any code. If you cannot meet any item, stop and tell me explicitly which one and why — **do not claim success you have not verified.**
+
+### ✅ DEFINITION OF DONE — verify each item before reporting complete
+
+Do not report the build as complete until every item below is objectively true. If you cannot meet an item, say so plainly rather than marking it done.
+
+1. **`npm run build` produces real per-route HTML.** After building with `output: 'export'` configured, the `out/` directory (Next.js static export output) must contain `index.html`, `services/index.html`, `about/index.html`, `contact/index.html` and `privacy/index.html` — **each containing the page's visible copy in the raw HTML**, not just an empty `<div id="root">` or `<div id="__next">`. This is the single most important item. If you cannot achieve real static HTML for all five routes, stop and report the blocker.
+2. **`out/llms.txt`, `out/robots.txt` and `out/sitemap.xml`** exist with the exact content below and the correct domain.
+3. **Viewing page source on each of the five routes** shows the correct per-page `<title>`, meta description, canonical, Open Graph tags, Twitter card tags, and that page's JSON-LD blocks. Not client-injected — present in the raw HTML.
+4. **Heading hierarchy**: each page has exactly one `<h1>`; H1 → H2 → H3 with no skipped levels.
+5. **FAQ answers exist in the DOM without JavaScript.** No lazy-render-on-click.
+6. **Contact form**: has the fields below and, on submit, shows the inline confirmation message. For this prototype, **do not open a mail client, do not POST to any endpoint** — it is a UI-only form. Leave a code comment marking where the handler goes in Phase 2.
+7. **All phone numbers are `tel:` links**; all WhatsApp links go to `wa.me/919987455707` with the prefilled message.
+8. **`/privacy` route resolves** and displays the placeholder copy below.
+9. **At 375px viewport**: no horizontal scroll, all buttons ≥ 44px tall, both comparison tables readable (horizontal scroll inside a container, or stacked).
+10. **No `<meta name="robots" content="noindex">` anywhere.**
+11. **No unresolved placeholders** — no `[XXXX]`, no `[Link to WhatsApp]`, no lorem ipsum, no `TODO` in visible copy.
+
+## ⚠️ WHAT THIS BUILD IS — AND WHAT IT IS NOT
+
+**It is:** a working, technically-complete static skeleton to test (a) whether the copy reads well on a real page, (b) whether the technical foundation is genuinely AI-readable, and (c) whether the layout works for a non-tech-savvy SMB owner.
+
+**It is not:** a final design pass. Clean and premium is the bar; pixel-perfect is not. We iterate on design in Phase 2.
+
+**Do not:**
+- Fabricate brand assets (fake logos, stock photos, invented testimonials)
+- Invent content — use the copy exactly as written
+- Deploy to a production domain or eject to GitHub without my say-so
+- Build a backend, server runtime, database, auth, or API routes — **this is a static export, not a full-stack app**
+- Skip any page — build all five routes (Home, Services, About, Contact, Privacy) before reporting done
+
+**Deferred to Phase 2 (do NOT attempt now):**
+- Final visual design, illustrations, brand assets
+- Contact form backend (prototype is UI-only)
+- Custom OG image, favicons (tags referenced, files supplied later)
+- Full Privacy Policy content (placeholder only)
+- Analytics, Search Console, custom domain, deployment
+
+## 🔒 LOCKED VALUES (use these exactly)
+
+- Primary domain: `https://needawebsite.in`
+- Scanner tool: `https://aiscan.needawebsite.in`
+- WhatsApp number: `919987455707`
+- WhatsApp prefilled message: `Hi Tabish, I'd like a quote for a website`
+- Phones displayed: `+91 9987455707` and `+91 9820795707`
+- Case study URL: `https://nourishbyneelam.com`
+- Response-time copy: `I'll get back to you shortly.` (first person — never "we")
+- Brand name: `NeedAWebsite` (no space, capital N, A, W)
+
+## 🛠 TECH STACK — WHY NEXT.JS, NOT VITE
+
+Use **Next.js 14+ (App Router) with `next.config.js` set to `output: 'export'`** and Tailwind CSS.
+
+**Do not use Vite + React Router.** Reason: Next.js's static export produces a real `index.html` per route automatically. Vite + React Router requires prerender plugins or Puppeteer hacks to achieve the same result, which is fragile. Static export is the correct tool for this site.
+
+- Next.js App Router, `output: 'export'` in `next.config.js`
+- `images: { unoptimized: true }` (required for static export)
+- Tailwind CSS **v3** with PostCSS (not v4)
+- `framer-motion` for subtle entrance animations only (fade / 12px slide-up). No parallax, no scroll-jacking, no autoplay video.
+- Per-page metadata via the App Router `metadata` export (or `generateMetadata`) — **this runs at build time and produces real per-route `<head>` tags**
+- **No API routes, no server components that fetch, no middleware, no `revalidate`, no `dynamic = 'force-dynamic'`.** Everything must be static. If a page needs to be a client component for the form, mark it `'use client'` but keep the page's metadata and JSON-LD in the server component wrapper.
+- No external image URLs. No lorem ipsum.
+
+## 📋 BUILD ORDER (follow this sequence, do not skip ahead)
+
+1. Scaffold Next.js App Router project. Configure `output: 'export'` in `next.config.js` and `images.unoptimized = true`.
+2. Add Tailwind v3 + PostCSS + framer-motion.
+3. Build shared layout: `<Nav>`, `<Footer>`, page shell.
+4. Build all five pages with full copy, no styling polish yet.
+5. Apply design system below.
+6. Create `public/llms.txt`, `public/robots.txt`, `public/sitemap.xml` **as plain files in the `public` directory** — not as React routes, not as API routes, not generated at runtime.
+7. Add per-page metadata using App Router `metadata` exports, and inject all JSON-LD via `<script type="application/ld+json" dangerouslySetInnerHTML={...}>` inside each page's server component.
+8. Wire contact form as UI-only (see Contact page spec).
+9. Run `npm run build`. **Verify each of the five routes produced a real HTML file in `out/` containing the visible copy.** Open each `out/<route>/index.html` and confirm.
+10. Self-check against Definition of Done above.
+
+## 🎨 DESIGN DIRECTION (Phase 1 — restrained, not final)
+
+- Bright, clean, premium — closer to Stripe or Linear than to a local agency site.
+- Background: white / very light grey (`#FAFAFA`). Cards: white with `1px solid #E5E7EB` border.
+- Text: near-black `#0A0A0A` for headings, `#3F3F46` for body.
+- Accent: one vibrant green, `#16A34A`, used **only** for primary buttons, links, and small accents.
+- Typography: Inter (or system sans fallback). Body line-height 1.6. Section vertical padding: 96px desktop / 64px mobile.
+- Content max-width: 1100px, centred.
+- Radius: 8px cards, 6px buttons. Buttons: solid green primary, ghost (border-only) secondary, 44px minimum tap height.
+- Semantic HTML: `<nav>`, `<header>`, `<main>`, `<section>`, `<article>`, `<footer>`. Exactly one `<h1>` and one `<main>` per page.
+- `<meta name="viewport" content="width=device-width, initial-scale=1">` on every page.
+- Descriptive `alt` on any `<img>`. For Phase 1, prefer zero images over decorative filler.
+
+---
+
+# PAGE 1: HOME (`/`)
+
+**Title:** `NeedAWebsite | Web Design Mumbai, Found on Google & AI`
+**Meta description:** `Mumbai web designer building fast, mobile-friendly websites that get found on Google, ChatGPT and Perplexity. One-page sites in 5 days. Free quote.`
+**Canonical:** `https://needawebsite.in/`
+**H1:** `Your Customers Are Asking AI. Will It Name You?`
+
+### Hero
+- H1 (above)
+- **Subheadline:** `I build fast, beautiful websites for small businesses across India, and set them up to be found on Google, ChatGPT and Perplexity, so the right customers find you first.`
+- **Primary button:** `Get a Free Quote` → `/contact`
+- **Secondary button:** `Check Your Website's AI Score` → `https://aiscan.needawebsite.in` (external, `target="_blank" rel="noopener"`)
+- **Trust strip (small text under buttons):** `Written quote before work starts · No hidden fees · You deal directly with the founder`
+
+### Section 2 — The Problem
+- **H2:** `Customers have started asking AI instead of searching.`
+- **Body:** `A few years ago, someone looking for a dentist typed a few words into Google and scrolled through a list. Today, a growing number of people simply ask ChatGPT, Perplexity or Google's AI: "Who is the best dentist near me?" They get one short answer with a few names. Not ten blue links. A handful of names. If your website isn't built in a way these tools can read and trust, they skip over you. Not because you're not good, but because they can't tell that you are. Meanwhile, a competitor with a better-prepared website gets the recommendation. The good news: this is fixable, and most businesses haven't started yet. That means acting now puts you ahead.`
+
+### Section 3 — What I Do
+- **H2:** `What I Do`
+- Three cards, each with an `<h3>`:
+  1. **Web Design & Development** — `Landing pages, portfolios and online stores that look sharp, load fast on any phone, and make it easy for visitors to call, book or buy. Your website should work as your best salesperson, every hour of the day.`
+  2. **AI Search Optimization** — `I prepare your website so ChatGPT, Perplexity and Google's AI can understand your business and confidently recommend it. Think of it as making sure the new search engines know exactly who you are and what you do.`
+  3. **Custom Web Apps & Dashboards** — `Need customers to book appointments, log in to a portal, or want a simple dashboard for your team? I build custom tools that take repetitive work off your plate.`
+
+### Section 4 — How It Works
+- **H2:** `How It Works`
+- Numbered list (`<ol>`):
+  1. `Tell me about your business. A short call or WhatsApp chat. I ask the questions, you answer in plain language.`
+  2. `I design and build. You see progress along the way. One-page sites are ready in 5 days. Larger projects take 4 to 8 weeks.`
+  3. `You launch, then grow. Your site goes live ready for Google and AI search, with edits and ranking support available afterwards.`
+
+### Section 5 — Proof
+- **H2:** `I don't just talk about AI search. I built the tool that measures it.`
+- **Body:** `To show business owners exactly how AI reads a website, I built the AI Visibility Scanner from scratch. Paste in any website address and see how easily AI assistants can find, understand and recommend it. It's free to use.`
+- **Case study (H3):** `Nourish by Neelam` — `A clinical and sports nutrition practice. I built its website with a full SEO, AEO and GEO foundation (in plain words: set up to be found on Google and recommended by AI assistants), and I continue to support its rankings as it grows.`
+- **Buttons:**
+  - `Read the Nourish by Neelam Case Study` → `https://nourishbyneelam.com` (external)
+  - `Try the Free AI Scanner` → `https://aiscan.needawebsite.in` (external)
+
+### Section 6 — Final CTA
+- **H2:** `Let's get your business found.`
+- **Body:** `Whether you need a brand new website or want to know why your current one isn't bringing in customers, let's talk. The first conversation and the quote are free, with no pressure and no jargon.`
+- **Buttons:**
+  - `Get a Free Quote` → `/contact`
+  - `Call +91 9987455707` → `tel:+919987455707`
+  - `WhatsApp me` → `https://wa.me/919987455707?text=Hi%20Tabish%2C%20I%27d%20like%20a%20quote%20for%20a%20website` (external)
+
+### FAQ
+- **H2:** `Frequently Asked Questions`
+- Use native `<details>`/`<summary>` so answers exist in the DOM without JS. Do not lazy-render answers.
+- **Q1:** `What does NeedAWebsite do?` — `NeedAWebsite is a Mumbai-based web design and development studio run by Tabish. I build fast, mobile-friendly websites for small businesses across India and set them up to be found on Google and AI assistants such as ChatGPT and Perplexity.`
+- **Q2:** `How much does a website cost?` — `Pricing depends on the type of site. You get a clear written quote before any work starts, with no hidden fees. Request a quote to get started.`
+- **Q3:** `How long does it take to build a website?` — `A one-page website is typically ready in 5 days. Multi-page websites, online stores and custom builds take 4 to 8 weeks, depending on size and complexity.`
+- **Q4:** `What does it mean for a website to be "found by ChatGPT"?` — `When people ask AI tools for a recommendation, the tool pulls answers from websites it can read and understand. A website that is clearly structured and clearly describes your business is far more likely to be mentioned. I build that structure into every site.`
+- **Q5:** `Do you work with businesses outside Mumbai?` — `Yes. I work remotely with small businesses across India, including dentists, boutiques, restaurants, clinics and local service providers. Everything happens over calls, WhatsApp and email.`
+- **Q6:** `Can I update the website myself after launch?` — `Yes, where it makes sense. I also offer ongoing edits and support, so you can simply message me when you need a change. Terms are agreed with you before you start.`
+
+---
+
+# PAGE 2: SERVICES (`/services`)
+
+**Title:** `Web Design & AI Search Optimization Services | NeedAWebsite`
+**Meta description:** `Website design, AI search optimization (GEO/AEO) and custom web apps for Indian businesses. Fast, mobile-ready sites that win customers. Free quote.`
+**Canonical:** `https://needawebsite.in/services`
+**H1:** `Websites Built to Win Customers on Google and AI Search`
+
+### Intro
+`Everything your business needs to be found, trusted and chosen. Three services, one goal: more of the right customers finding you online. Start with one, or combine them.`
+
+### Service 1 — Web Design & Development
+- **H2:** `1. Web Design & Development`
+- **Body:** `A good website does three things: it loads quickly, it works perfectly on a phone, and it makes the next step obvious. Most of your visitors will arrive on mobile, and most will leave within seconds if the site is slow or confusing. I build every site around those realities.`
+- **Comparison table:**
+
+| | One-Page Website | Full Website / E-commerce |
+|---|---|---|
+| **Best for** | Clinics, consultants, local services, new businesses, campaigns | Businesses with many services or products, or those that sell online |
+| **What you get** | One focused page: who you are, what you offer, proof, and a clear call to action | Multiple pages, product catalogue, cart, secure payments, order management |
+| **Delivery** | About 5 days | 4 to 8 weeks |
+| **Pricing** | Request a Custom Quote | Request a Custom Quote |
+
+- **H3:** `What every website includes` — bullets:
+  - `Speed: pages that load in moments, so visitors don't leave and Google ranks you higher.`
+  - `Mobile-friendly design: looks and works beautifully on every screen size.`
+  - `Built to convert: clear buttons, click-to-call, WhatsApp links and simple enquiry forms.`
+  - `Search-ready foundation: clean structure that Google and AI assistants can read.`
+
+### Service 2 — AI Search Optimization
+- **H2:** `2. AI Search Optimization (GEO & AEO)`
+- **H3:** `First, in plain English`
+- `Until recently, people found businesses by typing into Google and clicking links. Now many of them just ask a question and get a direct answer from ChatGPT, Perplexity or Google's AI summaries. AI Search Optimization is the work of making sure your business is one of the names in that answer.`
+- **H3:** `An easy way to picture it`
+- `Imagine a library. Traditional SEO is the card catalogue. It helps people look up the right shelf and find a list of books to go through themselves. AI search is a helpful librarian. You ask a question, and she hands you the answer, along with the two or three books she trusts most. SEO gets you into the catalogue. AI Search Optimization makes sure the librarian knows you, understands what you offer, and is comfortable recommending you.`
+- **H3:** `The technical names (for the curious)`
+  - `AEO (Answer Engine Optimization): shaping your website so it gives clear, direct answers to the questions your customers actually ask, which is what answer engines look for.`
+  - `GEO (Generative Engine Optimization): making your business easy for AI tools that write their own answers, like ChatGPT, to understand, trust and mention.`
+- **H3:** `What I set up for you`
+  - `An llms.txt file. A short, plain-text "introduction card" placed on your website that tells AI tools who you are, what you do, and which pages matter most.`
+  - `JSON-LD schema. Behind-the-scenes labels on your pages that say, in a language machines understand, "this is a dental clinic, here is the address, here are the opening hours, here are the services."`
+  - `Question-and-answer content. FAQs written the way your customers actually ask, so your answers can be quoted directly.`
+  - `Clean technical foundation. Fast loading, correct page structure and crawlable pages for Google and AI.`
+  - `Your AI Visibility Score. I test your site with my own scanner before and after, so you can see the improvement.`
+  - `Continuous ranking support. Search keeps changing, so I stay on hand to keep your foundation strong.`
+- **CTA:** `Request a Custom Quote` → `/contact`
+- **Honest note (small italic text):** `An honest note: nobody can promise a place in an AI's answer, and I won't. What I can do is build the strongest foundation possible and show you the proof.`
+
+### Service 3 — Custom Web Apps & Dashboards
+- **H2:** `3. Custom Web Apps & Dashboards`
+- **Body:** `Some businesses need more than a website. If you're still managing bookings on WhatsApp, customer details in notebooks, or reports in scattered spreadsheets, a custom tool can give you hours back every week. I build booking systems, client portals, internal dashboards, and simple business tools built around exactly how you work.`
+- **Delivery:** `Typically takes 4 to 8 weeks depending on scope.`
+- **CTA:** `Request a Custom Quote` → `/contact`
+
+### Ready to Start?
+- **H2:** `Ready to start?`
+- **Body:** `Tell me what you need. I'll recommend the simplest option that gets results and send a clear quote, free.`
+- **Buttons:** `Get a Free Quote` → `/contact` · `Check Your Website's AI Score` → `https://aiscan.needawebsite.in`
+
+### FAQ
+- **H2:** `Frequently Asked Questions`
+- **Q1:** `What is the difference between SEO, AEO and GEO?` — `SEO helps your website rank in a list of Google results. AEO (Answer Engine Optimization) helps your site give direct answers to customer questions. GEO (Generative Engine Optimization) helps AI tools like ChatGPT understand and recommend your business. A modern website needs all three.`
+- **Q2:** `What is an llms.txt file?` — `An llms.txt file is a short text file on your website that introduces your business to AI tools in plain language: who you are, what you offer and which pages matter most.`
+- **Q3:** `Can you guarantee that ChatGPT will recommend my business?` — `No one honestly can. AI tools decide for themselves. What I do is build the strongest possible foundation so your business is easy to find, understand and trust, and I measure your progress with a visibility score.`
+- **Q4:** `What is JSON-LD schema and why does my website need it?` — `JSON-LD schema is a set of hidden labels added to your pages that tell search engines and AI exactly what your business is, where it is and what it offers. It reduces confusion, so search engines and AI can describe you correctly.`
+- **Q5:** `How is a landing page different from a full website?` — `A landing page is one focused page designed to get a visitor to act, such as calling or booking. A full website has multiple pages for more services, content or products. An e-commerce store adds a catalogue, cart and payments.`
+
+---
+
+# PAGE 3: ABOUT (`/about`)
+
+**Title:** `About Tabish | Technical Web Specialist in Mumbai`
+**Meta description:** `Meet Tabish, a Mumbai web specialist who builds affordable, search-ready websites for small businesses and created the free AI Visibility Scanner.`
+**Canonical:** `https://needawebsite.in/about`
+**H1:** `Hi, I'm Tabish. I Build Websites That Get Found.`
+
+### Founder Story
+*(No H2 for this block — the H1 already introduces it. Adding "Hi, I'm Tabish" as an H2 would create a near-duplicate heading.)*
+
+Paragraphs, in order:
+1. `I'm a technical web specialist based in Mumbai, and I help small businesses get found online.`
+2. `I didn't start out in tech. A few years ago I decided to change my career path. I had always been drawn to technology, so I taught myself, one skill at a time: designing websites, building tools and apps, creating graphics, and understanding how SEO, AEO and GEO really work.`
+3. `Along the way I noticed something. Plenty of people now rely on AI assistants for answers, yet most small business websites are not set up for them. The owners aren't doing anything wrong. They just haven't been told that the rules of search have changed.`
+4. `That's why I built the AI Visibility Scanner. I wanted owners to be able to see for themselves how AI reads their website, and why even a basic foundation matters. A website that AI can read is a website you can keep improving. One that it can't read has nowhere to climb from.`
+5. `I started NeedAWebsite to make this easier for everyone who can benefit from it, without huge invoices. You get a real person who explains things in plain language, does the work properly and stays in touch.`
+6. `If your business is good, your website should prove it, to Google, to AI and most of all to your next customer.`
+
+Small sign-off: `Tabish, Founder, NeedAWebsite`
+
+### Why Choose NeedAWebsite
+- **H2:** `Why Choose NeedAWebsite`
+- Bullets:
+  - `You talk directly to the person building your site. No account managers, no passing messages along. I answer your calls and WhatsApp messages myself.`
+  - `Clear pricing, no hidden fees. You get a written quote before we begin. What we agree is what you pay.`
+  - `Future-proof by design. Every website is built for how people search now, on Google and on AI assistants, so you aren't paying for a rebuild next year.`
+
+### Where I Fit
+- **H2:** `Where I Fit`
+- **Body:** `Freelancers and large agencies each suit certain projects. I sit between them, aiming for the personal attention of one and the thoroughness of the other.`
+- **Comparison table:**
+
+| | Freelancers | NeedAWebsite | Large Agencies |
+|---|---|---|---|
+| **Who you speak to** | The freelancer | The founder, directly | Account and project managers |
+| **Pricing** | Often lowest, scope varies | Fair and clearly quoted | Typically highest |
+| **Search readiness** | Varies by person | Google and AI search built in | Often an extra service |
+| **Ongoing support** | Varies | Edits and ranking support available | Usually on a retainer |
+
+### FAQ
+- **H2:** `Frequently Asked Questions`
+- **Q1:** `Who is behind NeedAWebsite?` — `NeedAWebsite is run by Tabish, a technical web specialist based in Mumbai. He designs, builds and supports every website personally, so you always deal directly with the founder.`
+- **Q2:** `Why did you build the AI Visibility Scanner?` — `I built it so business owners can see for themselves how AI reads their website. So many people now depend on AI for information that every site needs at least a readable foundation, which can then be improved over time.`
+- **Q3:** `What is the AI Visibility Scanner?` — `It's a free tool at aiscan.needawebsite.in. Enter your website address and it checks how easily AI assistants and search engines can find, read and understand your site, then gives you a score.`
+- **Q4:** `Who do you work with?` — `Small and medium businesses across India: dentists, clinics, boutiques, restaurants, consultants and local service providers. If you want more customers from search, I can help.`
+- **Q5:** `How is NeedAWebsite different from a freelancer or a large agency?` — `Freelancers can be quick and affordable, and agencies bring large teams. I offer a middle path: direct access to the founder, clear pricing, and a website built for both Google and AI search from day one.`
+
+---
+
+# PAGE 4: CONTACT (`/contact`)
+
+**Title:** `Contact NeedAWebsite | Get a Free Website Quote, Mumbai`
+**Meta description:** `Get a free website quote. Call +91 9987455707, WhatsApp or use the form. Mumbai-based web design for businesses across India. Fast replies.`
+**Canonical:** `https://needawebsite.in/contact`
+**H1:** `Let's Talk About Your Website`
+
+### Intro
+- `Whether you're starting from scratch, want a redesign, or just want to know why customers aren't finding you, I'm happy to help. Tell me a little about your business and I'll come back with honest advice and a free quote. No pressure, no jargon.`
+- Small note: `I'll get back to you shortly.`
+
+### Ways to Reach Me
+- **H2:** `Ways to Reach Me`
+- `Fill out the form below and I'll reply personally.`
+- `Call me directly: +91 9987455707 or +91 9820795707` — both as `tel:` links (`tel:+919987455707`, `tel:+919820795707`).
+- `Message me on WhatsApp` → `https://wa.me/919987455707?text=Hi%20Tabish%2C%20I%27d%20like%20a%20quote%20for%20a%20website`
+
+### Contact Form — PROTOTYPE BEHAVIOUR (UI ONLY)
+
+**For this prototype the form does not submit anywhere.** No `mailto:`, no fetch, no API route, no third-party service. It is a UI-only form whose only job is to demonstrate the layout and confirm the flow visually.
+
+Fields (proper `<label>` on each, `required` where noted):
+- `Name` — text, required, helper: `Your name`
+- `Email` — email, required, helper: `Where should I send your quote?`
+- `Phone` — tel, required, helper: `Best number to reach you (WhatsApp is fine)`
+- `Website URL` — url, optional, helper: `Your current website, if you have one`
+- `What do you need help with?` — select, required. Options: `New Website`, `Redesign`, `AI Optimization`, `Custom App`
+
+- **Button:** `Send My Request`
+- **Subtext:** `Free quote. No spam. I'll only use your details to reply.`
+
+**On submit (client-side only):**
+1. Prevent default form submission.
+2. Show this inline confirmation in place of the form: `Thank you! I've received your request and will be in touch shortly.`
+3. Leave this exact comment above the handler: `// PROTOTYPE: UI-only form. Wire to Formspree / serverless handler in Phase 2.`
+
+Do **not** open a mail client. Do **not** POST to any endpoint. Do **not** show an error state as the default.
+
+Mark the form component `'use client'` if needed — but the page's metadata and JSON-LD must remain in a server component wrapper so they appear in the static HTML.
+
+### Not Sure Where to Start?
+- **H2:** `Not sure where to start?`
+- `Run your current website through the free AI Visibility Scanner and see your score in seconds. It's a good starting point for our conversation.`
+- **Button:** `Check Your Website's AI Score` → `https://aiscan.needawebsite.in`
+
+### FAQ
+- **H2:** `Frequently Asked Questions`
+- **Q1:** `How do I get a free quote for a website?` — `Fill out the form on this page, call +91 9987455707 or +91 9820795707, or message me on WhatsApp. Tell me what you need and I'll send a clear, written quote at no cost.`
+- **Q2:** `How quickly will you reply?` — `I'll get back to you shortly. For the fastest response, call or message me on WhatsApp.`
+- **Q3:** `What should I prepare before contacting you?` — `Nothing formal. Share your business name, what you sell or offer, and your current website if you have one. If you're not sure what you need, say so and I'll guide you.`
+- **Q4:** `Can you work with me if I'm not in Mumbai?` — `Yes. I'm based in Mumbai but work remotely with businesses across India, over calls, WhatsApp and email.`
+- **Q5:** `What happens after I send the form?` — `I review your request, get in touch to understand your business, and send a written quote. You decide whether to go ahead. There is no obligation.`
+
+---
+
+# PAGE 5: PRIVACY PLACEHOLDER (`/privacy`)
+
+- **Title:** `Privacy Policy | NeedAWebsite`
+- **Meta description:** `Privacy Policy for NeedAWebsite. How contact form details are used.` (short — placeholder)
+- **Canonical:** `https://needawebsite.in/privacy`
+- **H1:** `Privacy Policy`
+- **Body:** `[TODO — full privacy policy to be added in Phase 2. This page is a placeholder so the footer link resolves. In short: I collect only the details you submit through the contact form (name, email, phone, website URL and the service you're enquiring about) and use them solely to reply to your enquiry. I do not sell or share your data. For any privacy question, email hello@needawebsite.in.]`
+
+This page uses the site-wide ProfessionalService schema only. No FAQ, no other JSON-LD.
+
+---
+
+# FOOTER (all pages)
+
+- Text: `NeedAWebsite: Web design and AI search optimization for businesses across India. Based in Mumbai.`
+- Link row as a `<nav>` with descriptive anchor text (never "click here"):
+  - `Call +91 9987455707` → `tel:+919987455707`
+  - `Call +91 9820795707` → `tel:+919820795707`
+  - `WhatsApp` → `https://wa.me/919987455707`
+  - `Free AI Scanner` → `https://aiscan.needawebsite.in`
+  - `Privacy Policy` → `/privacy`
+- `© 2026 NeedAWebsite. All rights reserved.`
+
+---
+
+# ROOT FILES — create as plain files in `public/`, NOT as routes
+
+## `public/llms.txt`
+
+```
+# NeedAWebsite
+
+> NeedAWebsite is a Mumbai-based web design and development studio run by founder Tabish. It builds fast, mobile-friendly websites for small and medium businesses across India and prepares them to be found on Google and AI assistants such as ChatGPT and Perplexity (SEO, AEO and GEO).
+
+## Key pages
+- [Home](https://needawebsite.in/): Overview of services and proof of work
+- [Services](https://needawebsite.in/services): Web design and development, AI search optimization, custom web apps
+- [About](https://needawebsite.in/about): About the founder, Tabish
+- [Contact](https://needawebsite.in/contact): Free quote form, phone and WhatsApp
+
+## Tools
+- [AI Visibility Scanner](https://aiscan.needawebsite.in): Free tool that checks how readable a website is to search engines and AI assistants
+
+## Facts
+- Location: Mumbai, India. Serves clients across India remotely.
+- Phone: +91 9987455707, +91 9820795707
+- One-page websites: delivered in about 5 days. Multi-page and custom builds: 4 to 8 weeks.
+- Case study: Nourish by Neelam, a clinical and sports nutrition practice
+```
+
+## `public/robots.txt`
+
+```
+User-agent: *
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+Sitemap: https://needawebsite.in/sitemap.xml
+```
+
+## `public/sitemap.xml`
+
+Five `<url>` entries, each with `<loc>` and `<lastmod>` set to today's date:
+- `https://needawebsite.in/`
+- `https://needawebsite.in/services`
+- `https://needawebsite.in/about`
+- `https://needawebsite.in/contact`
+- `https://needawebsite.in/privacy`
+
+**Important:** These three files must be served at the site root (`/llms.txt`, `/robots.txt`, `/sitemap.xml`). Because Next.js copies `public/` to the output root during static export, placing them in `public/` is sufficient. Do not implement them as API routes or React pages.
+
+---
+
+# PER-PAGE METADATA (App Router `metadata` export)
+
+For each page, use Next.js App Router's `metadata` export (or `generateMetadata`) with these values. Because `output: 'export'` runs at build time, these will appear in the static HTML `<head>` automatically.
+
+Each page must produce:
+- `<title>` — exact title per page above
+- `<meta name="description">` — exact description per page above
+- `<link rel="canonical" href="...">` — exact canonical per page above
+- `<meta property="og:title">`, `<meta property="og:description">`, `<meta property="og:url">`, `<meta property="og:type" content="website">`, `<meta property="og:site_name" content="NeedAWebsite">`
+- `<meta property="og:image" content="https://needawebsite.in/og-image.png">` — Phase 1 references this tag; the file is supplied in Phase 2, so leave the tag in place.
+- `<meta name="twitter:card" content="summary_large_image">`, `<meta name="twitter:title">`, `<meta name="twitter:description">`, `<meta name="twitter:image">`
+
+Use `metadataBase: new URL('https://needawebsite.in')` in the root layout's metadata for canonical resolution.
+
+---
+
+# JSON-LD SCHEMA — inject in each page's server component
+
+Add these via `<script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />`. They will appear in the static HTML because they are rendered server-side.
+
+## Site-wide — add to ALL pages
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "NeedAWebsite",
+  "url": "https://needawebsite.in",
+  "description": "Web design and AI search optimization (SEO, AEO, GEO) for small businesses across India.",
+  "telephone": ["+91 9987455707", "+91 9820795707"],
+  "areaServed": "India",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Mumbai",
+    "addressRegion": "Maharashtra",
+    "addressCountry": "IN"
+  },
+  "founder": { "@type": "Person", "name": "Tabish" }
+}
+```
+
+## FAQPage — one per page (Home, Services, About, Contact)
+
+Generate one `Question` entry per visible FAQ, in the same order, with `name` and `acceptedAnswer.text` matching the visible text **word for word**. Do not summarise, do not paraphrase.
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "<exact question text>",
+      "acceptedAnswer": { "@type": "Answer", "text": "<exact answer text>" }
+    }
+  ]
+}
+```
+
+## Homepage — additionally
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "NeedAWebsite",
+  "url": "https://needawebsite.in",
+  "publisher": { "@type": "Organization", "name": "NeedAWebsite" }
+}
+```
+
+## Services — additionally
+
+Three separate `Service` blocks:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Web Design & Development",
+  "provider": { "@type": "Organization", "name": "NeedAWebsite", "url": "https://needawebsite.in" },
+  "areaServed": "India",
+  "description": "Landing pages, portfolios and online stores that load fast and convert."
+}
+```
+
+Repeat for `AI Search Optimization` (description: `Making a business easy for ChatGPT, Perplexity and Google's AI to understand, trust and recommend (SEO, AEO, GEO).`) and `Custom Web Apps & Dashboards` (description: `Booking systems, client portals and internal dashboards built around how the business works.`).
+
+Plus a `BreadcrumbList` (Home → Services) and the Services FAQPage.
+
+## About — additionally
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Tabish",
+  "jobTitle": "Founder & Web Specialist",
+  "worksFor": { "@type": "Organization", "name": "NeedAWebsite", "url": "https://needawebsite.in" },
+  "address": { "@type": "PostalAddress", "addressLocality": "Mumbai", "addressCountry": "IN" }
+}
+```
+
+Plus:
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "url": "https://needawebsite.in/about",
+  "mainEntity": { "@type": "Person", "name": "Tabish" }
+}
+```
+
+Plus `BreadcrumbList` (Home → About) and the About FAQPage.
+
+## Contact — additionally
+
+```json
+{
+  "@context": "https://schema.org",
+  "@type": "ContactPage",
+  "url": "https://needawebsite.in/contact",
+  "mainEntity": {
+    "@type": "Organization",
+    "name": "NeedAWebsite",
+    "telephone": ["+91 9987455707", "+91 9820795707"]
+  }
+}
+```
+
+Plus `BreadcrumbList` (Home → Contact) and the Contact FAQPage.
+
+---
+
+# FINAL INSTRUCTION TO THE AGENT
+
+Before reporting complete, open each of the following files in your project output and confirm they contain the expected visible page copy in raw HTML (not just a root div):
+
+- `out/index.html` — should contain `Your Customers Are Asking AI. Will It Name You?`
+- `out/services/index.html` — should contain `Websites Built to Win Customers on Google and AI Search`
+- `out/about/index.html` — should contain `Hi, I'm Tabish. I Build Websites That Get Found.`
+- `out/contact/index.html` — should contain `Let's Talk About Your Website`
+- `out/privacy/index.html` — should contain `Privacy Policy`
+
+If any of these files do not exist or do not contain the expected copy, the static export did not work. Report exactly what `npm run build` said and what is in the `out/` directory. **Do not claim success on item #1 of the Definition of Done until you have verified this.**
+
+When complete, report:
+1. A preview URL (or how to run `npx serve out/` locally).
+2. Confirmation that all five `out/*.html` files exist and contain the expected copy.
+3. A bullet list of any Definition-of-Done item you could not fully meet, with the specific reason.

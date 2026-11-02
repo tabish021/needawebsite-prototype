@@ -1,0 +1,18 @@
+# NeedAWebsite
+
+> NeedAWebsite is a Mumbai-based web design and development studio run by founder Tabish. It builds fast, mobile-friendly websites for small and medium businesses across India and prepares them to be found on Google and AI assistants such as ChatGPT and Perplexity (SEO, AEO and GEO).
+
+## Key pages
+- [Home](https://needawebsite.in/): Overview of services and proof of work
+- [Services](https://needawebsite.in/services): Web design and development, AI search optimization, custom web apps
+- [About](https://needawebsite.in/about): About the founder, Tabish
+- [Contact](https://needawebsite.in/contact): Free quote form, phone and WhatsApp
+
+## Tools
+- [AI Visibility Scanner](https://aiscan.needawebsite.in): Free tool that checks how readable a website is to search engines and AI assistants
+
+## Facts
+- Location: Mumbai, India. Serves clients across India remotely.
+- Phone: +91 9987455707, +91 9820795707
+- One-page websites: delivered in about 5 days. Multi-page and custom builds: 4 to 8 weeks.
+- Case study: Nourish by Neelam, a clinical and sports nutrition practice

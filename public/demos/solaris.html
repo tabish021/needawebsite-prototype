@@ -34,15 +34,12 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 #fog{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
 .ui{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;pointer-events:none}
 .ui a,.ui button{pointer-events:auto}
+
+/* Updated Bar (Removed Nav Links) */
 .bar{width:100%;display:flex;align-items:center;padding:calc(22*var(--u)) calc(38*var(--u)) 0;color:var(--nav)}
-.logo{display:flex;align-items:center;gap:calc(9*var(--u));font-size:calc(25*var(--u));font-weight:500;letter-spacing:-.025em;color:var(--ink);flex:1 1 0}
+.logo{display:flex;align-items:center;gap:calc(9*var(--u));font-size:calc(25*var(--u));font-weight:500;letter-spacing:-.025em;color:var(--ink);}
 .logo svg{width:calc(38*var(--u));height:calc(38*var(--u));flex:none}
-.links{display:flex;gap:calc(42*var(--u));list-style:none;font-size:calc(16.5*var(--u));font-weight:500;opacity:calc(1 - var(--dip)*.82)}
-.side{flex:1 1 0;display:flex;align-items:center;justify-content:flex-end;gap:calc(40*var(--u));font-size:calc(16.5*var(--u));font-weight:500}
-.side>a:first-child{opacity:calc(1 - var(--dip)*.82)}
-.cta{display:inline-flex;align-items:center;height:calc(46*var(--u));padding:0 calc(26*var(--u));border-radius:99px;
-  background:color-mix(in srgb,#0d1117 calc((1 - var(--k))*100%),#fff);color:color-mix(in srgb,#fff calc((1 - var(--k))*100%),#0d1117);opacity:calc(1 - var(--dip)*.62);transition:transform .25s}
-.cta:hover{transform:translateY(-1px)}
+
 h1{margin-top:calc(58*var(--u));text-align:center;font-size:calc(64*var(--u));line-height:1.09;font-weight:500;letter-spacing:-.022em;color:var(--ink)}
 h1 span{display:block}
 h1 .l1,h1 .y{opacity:calc(1 - var(--dip)*.8)}
@@ -63,8 +60,6 @@ h1 .y{display:inline}
   :root{--u:1px}
   .bar{padding:16px 16px 0}
   .logo{font-size:21px}.logo svg{width:32px;height:32px}
-  .links,.side>a:first-child{display:none}
-  .cta{height:40px;padding:0 16px;font-size:14px}
   h1{margin-top:34px;padding:0 16px;font-size:clamp(34px,10.4vw,56px)}
   .layer img,.home .cut{object-position:72% 62%!important}
   .dock{width:100%;padding:0 16px 24px}
@@ -99,10 +94,6 @@ h1 .y{display:inline}
         <svg viewBox="0 0 40 40" aria-hidden="true"><g fill="color-mix(in srgb,#6d8f2a calc((1 - var(--k))*100%),#d8ee8e)"><circle cx="20" cy="20" r="0"/><path id="ray" d="M18.3 3.5h3.4l.9 8.4h-5.2Z"/><use href="#ray" transform="rotate(30 20 20)"/><use href="#ray" transform="rotate(60 20 20)"/><use href="#ray" transform="rotate(90 20 20)"/><use href="#ray" transform="rotate(120 20 20)"/><use href="#ray" transform="rotate(150 20 20)"/><use href="#ray" transform="rotate(180 20 20)"/><use href="#ray" transform="rotate(210 20 20)"/><use href="#ray" transform="rotate(240 20 20)"/><use href="#ray" transform="rotate(270 20 20)"/><use href="#ray" transform="rotate(300 20 20)"/><use href="#ray" transform="rotate(330 20 20)"/></g></svg>
         Solaris
       </a>
-      <ul class="links">
-        <li><a href="#">How It Works</a></li><li><a href="#">Our Cases</a></li><li><a href="#">About Us</a></li><li><a href="#">Careers</a></li><li><a href="#">Resources</a></li>
-      </ul>
-      <div class="side"><a href="#">Customers</a><a class="cta" href="#">Get an Instant Quote</a></div>
     </header>
     <h1><span class="l1">$0 Electricity Bills</span><span><i>for the next</i> <span class="y">7 Years</span></span></h1>
     <div class="dock">
@@ -127,36 +118,69 @@ let U={};
 if(gl){
   const vs=`#version 300 es
   void main(){vec2 p=vec2((gl_VertexID<<1)&2,gl_VertexID&2);gl_Position=vec4(p*2.-1.,0,1);}`;
+  
+  // UPGRADED FOG SHADER (Volumetric & realistic)
   const fs=`#version 300 es
   precision highp float;
   uniform vec2 R;uniform float T,S,K;out vec4 O;
-  float h(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
-  float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
-    return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}
-  float fbm(vec2 p){float a=.5,s=0.;mat2 m=mat2(1.6,1.2,-1.2,1.6);p=mat2(.8,.6,-.6,.8)*p+5.3;for(int i=0;i<5;i++){s+=a*n(p);p=m*p;a*=.5;}return s;}
+  
+  float hash(vec2 p){p=fract(p*vec2(123.34,456.21));p+=dot(p,p+45.32);return fract(p.x*p.y);}
+  float noise(vec2 p){
+    vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);
+    return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+vec2(1,1)),f.x),f.y);
+  }
+  float fbm(vec2 p){
+    float a=.5,s=0.;
+    mat2 m=mat2(1.6,1.2,-1.2,1.6);
+    for(int i=0;i<6;i++){ s+=a*noise(p); p=m*p; a*=.5; }
+    return s;
+  }
+  
   void main(){
     vec2 uv=gl_FragCoord.xy/R;uv.y=1.-uv.y;
     float asp=R.x/R.y;vec2 p=vec2(uv.x*asp,uv.y);
-    float t=T*.05;
-    vec2 w=vec2(fbm(p*1.3+vec2(t,-t*.6)),fbm(p*1.3+vec2(-t*.8,t)+7.));
-    float d=fbm(p*1.9+w*1.7+vec2(t*1.6,-t*1.1+S*.5));
-    float e=fbm(p*.9-w+vec2(-t,t*.5)+3.);
-    float low=smooth2(.70,1.04,uv.y+(d-.5)*.34);
-    float side=smooth2(.2,.0,uv.x+(e-.5)*.28)+smooth2(.8,1.,uv.x+(e-.5)*.28);
-    side*=smooth2(.25,.6,uv.y)*.2;
-    float wisps=smooth2(.5,.78,d)*smooth2(.22,.5,uv.y)*smooth2(.86,.6,uv.y)*.18;
-    float rest=clamp(low+side+wisps,0.,1.);
-    float front=1.02-S*.68;
-    float rise=smooth2(front-.02,front+.26,uv.y+(d-.5)*.5);
-    float haze=S*(.3+.46*d);
-    float a=clamp(max(rest,max(rise*.97,haze)),0.,1.);
-    vec3 dayA=vec3(.97,.93,.84),dayB=vec3(.79,.78,.71);
-    vec3 nitA=vec3(.40,.45,.57),nitB=vec3(.15,.19,.29);
-    vec3 c=mix(mix(dayB,dayA,d*1.15),mix(nitB,nitA,d*1.1),K);
-    float porch=exp(-dot((uv-vec2(.72,.74))*vec2(1.7,2.6),(uv-vec2(.72,.74))*vec2(1.7,2.6))*3.2);
-    c=mix(c,vec3(.86,.55,.27),K*porch*.42*(1.-S));
-    O=vec4(c*a,a);
-  }`.replace(/smooth2/g,'smoothstep');
+    float t=T*.04;
+    
+    // Domain warping for volumetric billowing
+    vec2 w=vec2(fbm(p*1.5+vec2(t,-t*.6)),fbm(p*1.5+vec2(-t*.8,t)+7.));
+    float d=fbm(p*2.2+w*2.5+vec2(t*1.2,-t*0.8+S*.6));
+    float e=fbm(p*1.1-w+vec2(-t*.5,t*.8)+3.);
+    
+    // Smoother, exponential falloff for base fog layer
+    float low = exp(-uv.y * 7.5 + d * 3.0);
+    // Edge wisps
+    float side = (exp(-uv.x * 8.0) + exp(-(1.0 - uv.x) * 8.0)) * exp(-uv.y * 3.0) * .3;
+    // Mid air wisps
+    float wisps = smoothstep(.6,.9,d) * smoothstep(.2,.5,uv.y) * smoothstep(.9,.6,uv.y) * .25;
+    
+    float rest = clamp(low + side + wisps, 0., 1.);
+    
+    // Surge effect
+    float front = 1.05 - S * .7;
+    float rise = smoothstep(front - .1, front + .3, uv.y + (d - .5) * .6);
+    float haze = S * (.25 + .45 * d);
+    
+    // Combine layers, multiply for softer transitions
+    float a = max(rest, max(rise, haze));
+    a = smoothstep(0.0, 0.8, a); // Soften the hard edges
+    a *= smoothstep(1.0, 0.4, uv.y); // Ensure fog fades out as it goes up
+    
+    // Improved Colors (Slightly warmer days, cooler nights)
+    vec3 dayA = vec3(0.98, 0.96, 0.92); // Bright cream top
+    vec3 dayB = vec3(0.85, 0.87, 0.85); // Cooler green/grey bottom
+    vec3 nitA = vec3(0.40, 0.45, 0.55); // Moonlit top
+    vec3 nitB = vec3(0.18, 0.22, 0.30); // Dark indigo bottom
+    
+    vec3 c = mix(mix(dayB, dayA, d * 1.2), mix(nitB, nitA, d * 1.1), K);
+    
+    // Porch light glow at night
+    float porch = exp(-dot((uv-vec2(.72,.74))*vec2(1.7,2.6),(uv-vec2(.72,.74))*vec2(1.7,2.6))*3.2);
+    c = mix(c, vec3(0.86, 0.55, 0.27), K * porch * 0.45 * (1. - S));
+    
+    // Output with premultiplied alpha for better blending
+    O = vec4(c * a, a);
+  }`;
+  
   const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);
     if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))console.error(gl.getShaderInfoLog(o));return o};
   const pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));

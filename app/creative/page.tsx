@@ -42,20 +42,17 @@ export default function CreativePage() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Card 1: Melli 3D Artistry (UPDATED) */}
+          {/* Card 1: Melli 3D Artistry */}
           <Link
             href="/creative/melli"
             className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
             style={{ backgroundImage: "url('https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261016_130303_301c35dd-e2d1-4b40-a396-2b53f884d787.png')" }}
           >
-            {/* The text mockup (matches the hero of the demo) */}
             <div className="absolute inset-0 flex items-center justify-center p-4 z-10">
               <p className="text-black font-extrabold text-xl md:text-3xl tracking-tight leading-tight text-center">
                 Imagine your next site built just like this
               </p>
             </div>
-
-            {/* The dark hover overlay */}
             <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
               <h3 className="text-white font-bold text-2xl mb-1">Melli 3D Artistry</h3>
               <p className="text-zinc-300 text-sm mb-4">3D Scroll & WebGL</p>
@@ -63,8 +60,6 @@ export default function CreativePage() {
                 View Demo <ExternalLink className="w-4 h-4" />
               </span>
             </div>
-
-            {/* Tech Badges (always visible at the bottom) */}
             <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
               {['Three.js', 'React', 'Framer Motion'].map((tech) => (
                 <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
@@ -74,8 +69,35 @@ export default function CreativePage() {
             </div>
           </Link>
 
+          {/* Card 2: Solaris */}
+          <Link
+            href="/creative/solaris"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261102_040308_f31964ab-ed8e-4ea4-90eb-3226c0859936.png&w=1600&q=80')" }}
+          >
+            <div className="absolute inset-0 flex items-center justify-center p-4 z-10">
+              <p className="text-white font-medium text-xl md:text-3xl tracking-tight leading-tight text-center drop-shadow-md">
+                $0 Electricity Bills
+              </p>
+            </div>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">Solaris</h3>
+              <p className="text-zinc-300 text-sm mb-4">Morning / Night Fog Hero</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                View Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['WebGL2', 'Canvas', 'Vanilla JS'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </Link>
+
           {/* Placeholder Cards */}
-          {[1, 2, 3, 4, 5].map((item) => (
+          {[1, 2, 3, 4].map((item) => (
             <div
               key={item}
               className="relative aspect-video rounded-2xl border border-white/10 bg-zinc-900/50 flex items-center justify-center p-6 text-center"

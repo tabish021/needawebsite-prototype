@@ -108,9 +108,9 @@ h1 .y{display:inline}
 const root=document.documentElement.style,$=id=>document.getElementById(id);
 const calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
 
-// SLOWED DOWN TIMING
-const SINK=600; // Time to sink (was 240)
-const RISE=1600; // Time to rise (was 820)
+// SLOWED DOWN CINEMATIC TIMING
+const SINK=800; 
+const RISE=1800; 
 const DEPTH=.27;
 
 const clamp=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
@@ -140,38 +140,38 @@ if(gl){
   }
   
   void main(){
-    vec2 uv=gl_FragCoord.xy/R;uv.y=1.-uv.y; // uv.y is 1 at bottom, 0 at top
+    vec2 uv=gl_FragCoord.xy/R;uv.y=1.-uv.y;
     float asp=R.x/R.y;vec2 p=vec2(uv.x*asp,uv.y);
-    float t=T*.04;
+    float t=T*.03;
     
-    vec2 w=vec2(fbm(p*1.5+vec2(t,-t*.6)),fbm(p*1.5+vec2(-t*.8,t)+7.));
-    float d=fbm(p*2.2+w*2.5+vec2(t*1.2,-t*0.8+S*.6));
-    float e=fbm(p*1.1-w+vec2(-t*.5,t*.8)+3.);
+    vec2 w=vec2(fbm(p*1.2+vec2(t,-t*.6)),fbm(p*1.2+vec2(-t*.8,t)+7.));
+    float n = fbm(p*1.8 + w*1.5 + vec2(t*0.8, -t*0.4));
     
-    // UPGRADED FOG DENSITY AND POSITION
-    // Thick at the bottom, fading out as it goes up.
-    float low = exp(-(1.0 - uv.y) * 4.5 + d * 2.5);
-    float side = (exp(-uv.x * 6.0) + exp(-(1.0 - uv.x) * 6.0)) * exp(-(1.0 - uv.y) * 2.5) * 0.45;
-    float wisps = smoothstep(.55,.85,d) * smoothstep(.1,.4,1.0-uv.y) * smoothstep(.8,.5,1.0-uv.y) * .3;
+    // Vignette Effect (thick bottom-center, fading edges)
+    vec2 vCenter = vec2(0.5, 1.0);
+    float dist = length((uv - vCenter) * vec2(1.2, 1.0)); 
+    float vignette = smoothstep(0.9, 0.3, dist);
     
-    float rest = clamp(low + side + wisps, 0., 1.);
+    // Base Fog Density
+    float baseFog = smoothstep(0.3, 0.7, n) * vignette;
     
+    // Surge Logic
     float front = 1.05 - S * .7;
-    float rise = smoothstep(front - .1, front + .3, uv.y + (d - .5) * .6);
-    float haze = S * (.3 + .5 * d);
+    float rise = smoothstep(front - .1, front + .3, uv.y + (n - .5) * .6);
+    float haze = S * (.25 + .4 * n);
     
-    float a = max(rest, max(rise, haze));
+    float a = max(baseFog, max(rise, haze));
     
-    // Soften edges and fade out at the very top
-    a = smoothstep(0.05, 0.85, a);
-    a *= smoothstep(0.0, 0.35, uv.y); 
+    // Dither to remove banding lines
+    float dither = hash(gl_FragCoord.xy) * 0.015;
+    a = clamp(a + dither, 0.0, 1.0);
     
+    // Colors
     vec3 dayA = vec3(0.98, 0.96, 0.92); 
     vec3 dayB = vec3(0.82, 0.85, 0.82); 
     vec3 nitA = vec3(0.42, 0.47, 0.55); 
     vec3 nitB = vec3(0.15, 0.18, 0.25); 
-    
-    vec3 c = mix(mix(dayB, dayA, d * 1.2), mix(nitB, nitA, d * 1.1), K);
+    vec3 c = mix(mix(dayB, dayA, n * 1.2), mix(nitB, nitA, n * 1.1), K);
     
     float porch = exp(-dot((uv-vec2(.72,.74))*vec2(1.7,2.6),(uv-vec2(.72,.74))*vec2(1.7,2.6))*3.2);
     c = mix(c, vec3(0.86, 0.55, 0.27), K * porch * 0.45 * (1. - S));
@@ -216,15 +216,12 @@ function frame(now){
       const x=clamp((d-SINK)/RISE);y=Math.pow(1-x,3.4)*DEPTH;
     }
     
-    // SLOWED DOWN FOG SURGE
     s=smooth(0,SINK*.92,d)*(1-smooth(SINK+100,SINK+RISE*.92,d));
+    dip=smooth(100,450,d)*(1-smooth(800,1600,d));
     
-    // SLOWED DOWN TEXT FADE
-    dip=smooth(50,350,d)*(1-smooth(600,1300,d));
-    
-    // SLOWED DOWN COLOR MIX
-    k=from+(target-from)*smooth(150,800,d);
-    k2=from+(target-from)*smooth(400,1400,d);
+    // Slow, cinematic color mix
+    k=from+(target-from)*smooth(200,1200,d);
+    k2=from+(target-from)*smooth(500,1800,d);
     
     if(d>=SINK+RISE){
       animating=false;k=k2=target;y=s=dip=0;

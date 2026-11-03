@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Waves } from '@/components/ui/wave-background';
 import SmoothScroll from '@/components/SmoothScroll';
 
@@ -42,30 +42,35 @@ export default function CreativePage() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {/* Card 1: Melli 3D Artistry */}
+          {/* Card 1: Melli 3D Artistry (UPDATED) */}
           <Link
             href="/creative/melli"
-            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-zinc-900 hover:border-white/30 transition-all duration-300 block"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261016_130303_301c35dd-e2d1-4b40-a396-2b53f884d787.png')" }}
           >
-            {/* Subtle purple-to-black gradient background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-900/50 via-zinc-900/80 to-black transition-transform duration-500 group-hover:scale-105" />
+            {/* The text mockup (matches the hero of the demo) */}
+            <div className="absolute inset-0 flex items-center justify-center p-4 z-10">
+              <p className="text-black font-extrabold text-xl md:text-3xl tracking-tight leading-tight text-center">
+                Imagine your next site built just like this
+              </p>
+            </div>
 
-            {/* Glowing ambient light */}
-            <div className="absolute -top-10 -right-10 w-36 h-36 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/35 transition-colors" />
+            {/* The dark hover overlay */}
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">Melli 3D Artistry</h3>
+              <p className="text-zinc-300 text-sm mb-4">3D Scroll & WebGL</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                View Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
 
-            {/* Overlay with title and subtitle */}
-            <div className="relative z-10 h-full p-6 flex flex-col justify-between">
-              <div>
-                <h3 className="text-white font-bold text-xl">Melli 3D Artistry</h3>
-                <p className="text-zinc-400 text-sm mt-0.5">3D Scroll & WebGL</p>
-              </div>
-
-              <div>
-                <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-white text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">
-                  <span>View Demo</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+            {/* Tech Badges (always visible at the bottom) */}
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['Three.js', 'React', 'Framer Motion'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
                 </span>
-              </div>
+              ))}
             </div>
           </Link>
 

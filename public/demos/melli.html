@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Melli — Master 3D Artistry</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #0d0b1a; --muted: #4a4568; --lilac: #e7e3fb; --num: #cfc6f6;
+  --num-dark: rgba(214,203,255,.55); --violet: #5b3bd1; --pad: clamp(18px, 3.2vw, 46px);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: auto; }
+body { font-family: "Poppins", system-ui, sans-serif; color: var(--ink); background: var(--lilac); overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+a { color: inherit; text-decoration: none; }
+
+#bee { position:fixed; inset:0; z-index:20; width:100%; height:100%; pointer-events:none; opacity:0; transition: opacity 1.2s ease; }
+#bee.ready { opacity:1; }
+
+section { position:relative; min-height:100vh; height:auto; overflow:hidden; }
+.flower { position:absolute; pointer-events:none; user-select:none; will-change:transform; }
+
+.hero { background: #e4e0fa url('https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261016_130303_301c35dd-e2d1-4b40-a396-2b53f884d787.png') center/cover no-repeat; overflow: hidden; z-index: 3; }
+.hero h1 { position:absolute; left:0; right:0; top:15.5vh; text-align:center; font-weight:800; font-size: clamp(42px, 6.25vw, 112px); line-height:1.04; letter-spacing:-.035em; color:var(--ink); text-shadow: 0 0 40px rgba(255,255,255,.35); will-change:transform; z-index:10; }
+.hero h1 .line { display:block; overflow:hidden; padding-bottom:.06em; }
+.hero h1 .line span { display:inline-block; transform: translateY(110%); }
+.loaded .hero h1 .line span { animation: rise 1.1s cubic-bezier(.2,.8,.15,1) forwards; }
+.hero h1 .line:nth-child(2) span { animation-delay: .12s; }
+@keyframes rise { to { transform: translateY(0); } }
+
+.hero__side { position:absolute; right: clamp(24px,6.5vw,120px); top:59vh; width: min(260px,80vw); z-index:2; opacity:0; }
+.loaded .hero__side { animation: fade 1s .7s ease forwards; }
+.hero__side p { font-size: clamp(15px,1.45vw,20px); line-height:1.32; color:var(--muted); font-weight:400; }
+@keyframes fade { from { opacity:0; transform:translateY(16px) } to { opacity:1; transform:none } }
+
+.join { display:inline-flex; align-items:center; gap:14px; margin-top:40px; font-weight:600; font-size: clamp(15px,1.4vw,19px); }
+.join i { width:25px; height:32px; border:1.8px solid currentColor; border-radius:10px; display:grid; place-items:center; transition: transform .35s ease, background .35s; }
+.join i svg { width:9px; height:9px; }
+.join:hover i { transform: translateX(4px); }
+
+.hero .flower--cosmos { width: clamp(300px, 45vw, 800px); left:-14vw; bottom:-24vw; transform-origin:60% 40%; filter: drop-shadow(0 30px 40px rgba(80,50,160,.18)); z-index:1; }
+
+.num { font-weight:600; line-height:.8; letter-spacing:-.06em; font-size: clamp(110px,15vw,250px); color: var(--num); }
+.title { font-weight:700; font-size: clamp(30px,3.4vw,56px); line-height:1.12; letter-spacing:-.02em; }
+.copy { margin-top:22px; font-size: clamp(13.5px,1.05vw,16px); line-height:1.6; color:var(--muted); max-width:420px; }
+.reveal { opacity:0; transform:translateY(40px); transition: opacity 1s ease, transform 1.1s cubic-bezier(.2,.8,.15,1); }
+.in .reveal { opacity:1; transform:none; }
+.in .reveal.d1 { transition-delay:.1s; }
+.in .reveal.d2 { transition-delay:.22s; }
+.in .reveal.d3 { transition-delay:.34s; }
+
+.s1 { background: linear-gradient(180deg, #e4e0fa 0%, #ece9fc 100%); z-index:2; }
+.s1 .flower--hang { width: clamp(380px,46vw,820px); left:-9vw; top: 0; transform-origin:50% 0%; }
+.s1 .num { position:absolute; left:6vw; top:50vh; }
+.s1 .text { position:absolute; left:50vw; top:41vh; width: min(520px,44vw); }
+
+.s2 { background: #3a1f8c url('https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261017_132814_c3d2b090-c27d-49d1-8107-66d0cfa216c2.png') center/cover no-repeat; color:#fff; z-index:3; }
+.s2::before { content:""; position:absolute; inset:0; background: linear-gradient(90deg, rgba(25,10,70,.45) 0%, rgba(25,10,70,0) 55%); }
+.s2 .num { color: var(--num-dark); position:relative; }
+.s2 .text { position:absolute; left:6vw; top:22vh; width: min(500px,46vw); }
+.s2 .title { margin-top:22px; }
+.s2 .copy { color: rgba(240,234,255,.82); }
+.s2 .flower--iris { width: clamp(380px,46vw,820px); right:-8vw; bottom:-20vw; transform-origin:30% 30%; filter: drop-shadow(0 40px 60px rgba(20,0,60,.45)); z-index:2; }
+
+.s3 { background: linear-gradient(180deg, #ece9fc 0%, #e7e3fb 100%); z-index:1; }
+.s3 .flower--passion { width: clamp(360px,42vw,760px); left:-10vw; top:6vh; transform-origin:40% 50%; }
+.s3 .text { position:absolute; left:54vw; top:26vh; width: min(500px,40vw); }
+.s3 .title { margin-top:24px; }
+
+.foot { background:#e7e3fb; height:100vh; z-index:1; }
+.foot .brand { position:absolute; left:var(--pad); bottom:80px; }
+.foot .brand strong { display:block; font-size: clamp(30px,3vw,46px); font-weight:700; letter-spacing:-.02em; }
+.foot .brand span { font-size:14px; color:var(--muted); }
+.foot .cols { position:absolute; right: calc(var(--pad) + 120px); bottom:80px; display:flex; gap:64px; font-size:14.5px; font-weight:500; }
+.foot .cols a { display:block; line-height:1.9; }
+.foot .cols a:hover { color: var(--violet); }
+.foot .cta { position:absolute; left:50%; top:18vh; transform:translateX(-50%); text-align:center; }
+.foot .cta .title { font-size: clamp(30px,3.6vw,60px); }
+
+.loader { position:fixed; inset:0; z-index:50; background:var(--lilac); display:grid; place-items:center; transition: opacity .8s ease, visibility .8s; }
+.loader.done { opacity:0; visibility:hidden; }
+.loader svg { width: 46px; height: 46px; animation: spin 1.6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 760px) {
+  .nav__links { display:none; }
+  .hero h1 { top:14vh; }
+  .hero__side { top:auto; bottom:14vh; right:18px; width:62vw; }
+  .hero .flower--cosmos { width:110vw; left:-38vw; bottom:-55vw; }
+  .s1 .num { top:16vh; left:auto; right:6vw; }
+  .s1 .text, .s3 .text { left:18px; right:18px; width:auto; top:auto; bottom:10vh; }
+  .s2 .text { left:18px; right:18px; width:auto; top:14vh; }
+  .s3 .flower--passion { width:90vw; }
+  .foot .cols { right:18px; bottom:150px; gap:30px; }
+  .foot .brand { bottom:150px; }
+}
+</style>
+</head>
+<body>
+
+<div class="loader" id="loader">
+  <svg viewBox="0 0 40 40" fill="#0d0b1a"><path d="M20 0c1.2 11.5 8.5 18.8 20 20-11.5 1.2-18.8 8.5-20 20-1.2-11.5-8.5-18.8-20-20C11.5 18.8 18.8 11.5 20 0z"/></svg>
+</div>
+
+<canvas id="bee"></canvas>
+
+<main>
+ <section class="hero" id="top" data-theme="light">
+   <h1 data-speed="0.55"><span class="line"><span>Imagine your next site</span></span><span class="line"><span>built just like this</span></span></h1>
+   <img class="flower flower--cosmos" data-speed="-0.25" data-rot="8" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261017_132919_c994332b-7f9d-43b5-933d-1e94faa91dd4.png" alt="">
+   <div class="hero__side">
+     <p>Master 3D animation in just three days with our newest program</p>
+     <a class="join" href="#access"><i><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 1l4 4-4 4"/></svg></i>Buzz in!</a>
+   </div>
+ </section>
+
+ <section class="s1" id="about" data-theme="light">
+   <img class="flower flower--hang" data-speed="0.35" data-rot="-6" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261017_132924_764b726d-d37a-44cc-8eba-662d823d9a4c.png" alt="">
+   <div class="num reveal">01</div>
+   <div class="text">
+     <h2 class="title reveal d1">Explore this<br>Universe of<br>3D Motion</h2>
+     <p class="copy reveal d2">Every lesson is crafted by studio veterans to equip you with the newest methods and software in 3D animation. Whether you're just starting or already a pro, our program will sharpen your skills fast.</p>
+   </div>
+ </section>
+
+ <section class="s2" id="access" data-theme="dark">
+   <div class="text">
+     <div class="num reveal">02</div>
+     <h2 class="title reveal d1">Claim Early<br>Invite</h2>
+     <p class="copy reveal d2">Get early entry to our all-new 3D animation lessons! Add your name to the waitlist and you'll be first to enroll with VIP pricing.</p>
+   </div>
+   <img class="flower flower--iris" data-speed="-0.3" data-rot="10" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261017_132926_a7892ae5-8052-4e4b-96a8-ccbdcaaaa5ad.png" alt="">
+ </section>
+
+ <section class="s3" data-theme="light">
+   <img class="flower flower--passion" data-speed="-0.2" data-rot="-10" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261017_132921_d71538ea-5066-4372-963a-2f2d6468374f.png" alt="">
+   <div class="text">
+     <div class="num reveal">03</div>
+     <h2 class="title reveal d1">Study and<br>Build with Us!</h2>
+     <p class="copy reveal d2">Become part of a lively hive of artists. Ship real work, get notes from expert mentors and see your concepts come alive in vivid 3D depth.</p>
+   </div>
+ </section>
+
+ <section class="foot" id="contact" data-theme="light">
+   <div class="cta"><h2 class="title reveal">Prepared to fly high?</h2><a class="join reveal d1" href="#access"><i><svg viewBox="0 0 10 10" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 1l4 4-4 4"/></svg></i>Buzz in!</a></div>
+   <div class="brand reveal"><strong>Melli_Motion</strong><span>A 3D motion academy</span></div>
+ </section>
+</main>
+
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+  }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { RoomEnvironment } from 'three/addons/environments/RoomEnvironment.js';
+
+const loaderEl = document.getElementById('loader');
+setTimeout(() => { loaderEl.classList.add('done'); document.body.classList.add('loaded'); }, 2500);
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.3 });
+document.querySelectorAll('main > section').forEach(s => observer.observe(s));
+
+let scrollY = 0;
+const updateParallax = () => {
+  document.querySelectorAll('[data-speed]').forEach(el => {
+    const sec = el.closest('section');
+    const p = -sec.getBoundingClientRect().top / innerHeight;
+    const speed = parseFloat(el.dataset.speed) || 0;
+    const rot = parseFloat(el.dataset.rot) || 0;
+    el.style.transform = `translate3d(0, ${p * speed * innerHeight}px, 0) rotate(${p * rot}deg)`;
+  });
+
+  const sections = document.querySelectorAll('main > section');
+  let currentTheme = 'light';
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top <= innerHeight * 0.06 && rect.bottom >= innerHeight * 0.06) {
+      currentTheme = sec.dataset.theme;
+    }
+  });
+  document.body.classList.toggle('on-dark', currentTheme === 'dark');
+};
+window.addEventListener('scroll', updateParallax, { passive: true });
+updateParallax();
+
+const canvas = document.getElementById('bee');
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+renderer.outputColorSpace = THREE.SRGBColorSpace;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.15;
+
+const scene = new THREE.Scene();
+const pmrem = new THREE.PMREMGenerator(renderer);
+scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
+
+const camera = new THREE.PerspectiveCamera(30, innerWidth / innerHeight, 0.1, 100);
+camera.position.set(0, 0, 10);
+
+const resize = () => {
+  renderer.setSize(innerWidth, innerHeight, false);
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+};
+window.addEventListener('resize', resize);
+resize();
+
+const hemiLight = new THREE.HemisphereLight(0xf2eeff, 0x7a62c9, 1.3);
+scene.add(hemiLight);
+const dirLight1 = new THREE.DirectionalLight(0xfff1d6, 2.6);
+dirLight1.position.set(3, 5, 6);
+scene.add(dirLight1);
+const dirLight2 = new THREE.DirectionalLight(0xc8b8ff, 2.2);
+dirLight2.position.set(-5, 2, -4);
+scene.add(dirLight2);
+
+const flight = new THREE.Group();
+const beeRoot = new THREE.Group();
+flight.add(beeRoot);
+scene.add(flight);
+
+let isLoaded = false;
+const flaps = [];
+
+const loader = new GLTFLoader();
+loader.load('https://threejs.org/examples/models/gltf/Flamingo.glb', (gltf) => {
+  const model = gltf.scene;
+  // Hardcode the scale and position
+  model.scale.set(0.05, 0.05, 0.05);
+  model.position.set(0, 0, 0);
+  
+  // Add it directly to the scene, not the flight group
+  scene.add(model);
+  
+  // Spin it just so we know it's alive
+  model.rotation.x = -0.5;
+
+  isLoaded = true;
+  console.log("Flamingo Loaded Successfully!");
+  canvas.classList.add('ready');
+  loaderEl.classList.add('done');
+  document.body.classList.add('loaded');
+}, undefined, (err) => {
+  console.error("Model Load Error: ", err);
+});
+
+const clock = new THREE.Clock();
+
+const tick = () => {
+  const dt = Math.min(clock.getDelta(), 0.05);
+  
+  // Just render the scene
+  renderer.render(scene, camera);
+  
+  requestAnimationFrame(tick);
+};
+tick();
+
+window.addEventListener('scroll', () => {
+  scrollY = window.scrollY;
+}, { passive: true });
+</script>
+</body>
+</html>

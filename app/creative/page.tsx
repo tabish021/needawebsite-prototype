@@ -1,36 +1,87 @@
 import type { Metadata } from 'next';
-import Button from '@/components/Button';
-import Section from '@/components/Section';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import { Waves } from '@/components/ui/wave-background';
+import SmoothScroll from '@/components/SmoothScroll';
 
 export const metadata: Metadata = {
-  title: 'Creative Web Design & Interactive Experiences | NeedAWebsite',
-  description: 'Creative web design, 3D web experiences, and high-impact digital craft for forward-thinking brands in India.',
+  title: 'Creative Web Experiences | NeedAWebsite',
+  description: "Websites that don't just work. They wow. Interactive, custom-coded experiences.",
   alternates: {
     canonical: 'https://needawebsite.in/creative',
+  },
+  openGraph: {
+    title: 'Creative Web Experiences | NeedAWebsite',
+    description: "Websites that don't just work. They wow.",
+    url: 'https://needawebsite.in/creative',
+    type: 'website',
+    siteName: 'NeedAWebsite',
   },
 };
 
 export default function CreativePage() {
   return (
-    <div className="min-h-screen">
-      <Section eyebrow="PORTFOLIO & CRAFT" title="Creative Web Experiences" bg="white">
-        <p className="max-w-2xl text-lg text-[#52525B] dark:text-zinc-400 leading-relaxed mb-8">
-          Crafting memorable web interactions, fluid motion, and bespoke design that make businesses stand out in an AI-driven digital world.
-        </p>
+    <div className="dark bg-black min-h-screen text-white">
+      <SmoothScroll />
 
-        <div className="p-8 rounded-2xl border border-dashed border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900/40 text-center max-w-2xl mx-auto my-12">
-          <Sparkles className="w-8 h-8 text-brand mx-auto mb-3" />
-          <h2 className="text-xl font-bold text-zinc-900 dark:text-zinc-100 mb-2">Creative Showcase Coming Soon</h2>
-          <p className="text-sm text-zinc-600 dark:text-zinc-400 mb-6">
-            We are curating interactive design case studies, generative experiments, and creative motion samples.
-          </p>
-          <Button variant="primary" href="/contact">
-            <span>Discuss a Creative Project</span>
-            <ArrowRight className="w-4 h-4" />
-          </Button>
+      {/* Waves Hero Section */}
+      <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
+        <Waves backgroundColor="#000000" strokeColor="#FFFFFF" />
+
+        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center flex items-center justify-center pointer-events-none">
+          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white text-center tracking-tight leading-[1.08] select-none">
+            Websites That Don't Just Work. They Wow.
+          </h1>
         </div>
-      </Section>
+      </section>
+
+      {/* Interactive Playground Section */}
+      <section className="py-24 px-6 max-w-6xl mx-auto">
+        <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center">
+          Interactive Playground
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {/* Card 1: Melli 3D Artistry */}
+          <Link
+            href="/creative/melli"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-zinc-900 hover:border-white/30 transition-all duration-300 block"
+          >
+            {/* Subtle purple-to-black gradient background */}
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-900/50 via-zinc-900/80 to-black transition-transform duration-500 group-hover:scale-105" />
+
+            {/* Glowing ambient light */}
+            <div className="absolute -top-10 -right-10 w-36 h-36 bg-purple-500/20 rounded-full blur-2xl group-hover:bg-purple-500/35 transition-colors" />
+
+            {/* Overlay with title and subtitle */}
+            <div className="relative z-10 h-full p-6 flex flex-col justify-between">
+              <div>
+                <h3 className="text-white font-bold text-xl">Melli 3D Artistry</h3>
+                <p className="text-zinc-400 text-sm mt-0.5">3D Scroll & WebGL</p>
+              </div>
+
+              <div>
+                <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1.5 rounded-full bg-white text-black opacity-0 group-hover:opacity-100 transition-opacity duration-300 shadow-md">
+                  <span>View Demo</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </div>
+          </Link>
+
+          {/* Placeholder Cards */}
+          {[1, 2, 3, 4, 5].map((item) => (
+            <div
+              key={item}
+              className="relative aspect-video rounded-2xl border border-white/10 bg-zinc-900/50 flex items-center justify-center p-6 text-center"
+            >
+              <span className="text-zinc-600 font-medium text-sm tracking-wide">
+                Coming Soon
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
     </div>
   );
 }

@@ -59,7 +59,7 @@ const techStackLogos = [
   { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
   { name: 'Framer Motion', icon: SiFramer, color: '#0055FF' },
   { name: 'Three.js', icon: SiThreedotjs, color: '#000000' },
-  { name: 'Lenis', icon: LenisIcon, color: '#333333' },
+  { name: 'Lenis', icon: LenisIcon, color: '#FA7B85' },
 ];
 
 export const metadata: Metadata = {

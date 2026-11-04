@@ -12,13 +12,10 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   
-  // Check if we are on the main creative hub page (keep transparent nav)
   const isCreativeHub = pathname === '/creative';
-  
-  // Check if we are inside a specific demo (hide nav entirely)
   const isDemoPage = pathname?.startsWith('/creative/');
 
-  // If we are inside a demo (melli, solaris, maison), completely remove the global Nav
+  // Hide the nav entirely on the sub-demo pages (though these are mostly unused now)
   if (isDemoPage) {
     return null;
   }
@@ -26,7 +23,7 @@ export default function Nav() {
   return (
     <>
       <header
-        className={`fixed top-0 w-full z-50 transition-colors duration-200 ${
+        className={`fixed top-0 w-full z-[100] transition-colors duration-200 ${
           isCreativeHub
             ? 'bg-transparent border-none text-white'
             : 'bg-white border-b border-gray-200 dark:bg-black dark:border-gray-800'
@@ -52,7 +49,7 @@ export default function Nav() {
               <Button
                 variant="primary"
                 href="/contact"
-                className="!px-3.5 sm:!px-4 !py-2 !min-h-[40px] text-xs sm:text-sm shadow-none hover:shadow-sm"
+                className="!px-3.5 sm:!px-4 !py-2 !min-h-[40px] text-xs sm:text-sm shadow-none hover:shadow-sm hidden md:inline-flex"
               >
                 Get a Free Quote
               </Button>

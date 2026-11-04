@@ -1,382 +1,272 @@
 import type { Metadata } from 'next';
-import JsonLd from '@/components/JsonLd';
-import Button from '@/components/Button';
-import Section from '@/components/Section';
-import Card from '@/components/Card';
-import Faq from '@/components/Faq';
-import HeroMotion from '@/components/HeroMotion';
-import ProofBadges from '@/components/ProofBadges';
-import {
-  ArrowRight,
-  Check,
-  Layout,
-  Sparkles,
-  LayoutDashboard,
-  Quote,
-  Phone,
-  MessageCircle,
-} from 'lucide-react';
-import {
-  SiHtml5,
-  SiCss,
-  SiJavascript,
-  SiTypescript,
-  SiNodedotjs,
-  SiReact,
-  SiNextdotjs,
-  SiTailwindcss,
-  SiFramer,
-  SiThreedotjs,
-  SiVite,
-} from 'react-icons/si';
-
-function LenisIcon({ className }: { className?: string }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className || 'w-[1em] h-[1em]'}
-      aria-label="Lenis"
-    >
-      <path d="M4 6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v10a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6" />
-      <circle cx="18" cy="6" r="1.5" fill="currentColor" />
-    </svg>
-  );
-}
-
-const techStackLogos = [
-  { name: 'HTML5', icon: SiHtml5, color: '#E34F26' },
-  { name: 'CSS3', icon: SiCss, color: '#1572B6' },
-  { name: 'JavaScript', icon: SiJavascript, color: '#F7DF1E' },
-  { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
-  { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
-  { name: 'React', icon: SiReact, color: '#61DAFB' },
-  { name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
-  { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
-  { name: 'Framer Motion', icon: SiFramer, color: '#0055FF' },
-  { name: 'Three.js', icon: SiThreedotjs, color: '#000000' },
-  { name: 'Lenis', icon: LenisIcon, color: '#FA7B85' },
-];
+import { ExternalLink } from 'lucide-react';
+import { Waves } from '@/components/ui/wave-background';
+import SmoothScroll from '@/components/SmoothScroll';
+import TechText from '@/components/ui/TechText';
 
 export const metadata: Metadata = {
-  title: 'NeedAWebsite | Web Design Mumbai, Found on Google & AI',
-  description: 'Mumbai web designer building fast, mobile-friendly websites that get found on Google, ChatGPT and Perplexity. One-page sites in 5 days. Free quote.',
+  title: 'Creative Web Experiences | NeedAWebsite',
+  description: "Websites that don't just work. They wow. Interactive, custom-coded experiences.",
   alternates: {
-    canonical: 'https://needawebsite.in/',
+    canonical: 'https://needawebsite.in/creative',
   },
   openGraph: {
-    title: 'NeedAWebsite | Web Design Mumbai, Found on Google & AI',
-    description: 'Mumbai web designer building fast, mobile-friendly websites that get found on Google, ChatGPT and Perplexity. One-page sites in 5 days. Free quote.',
-    url: 'https://needawebsite.in/',
+    title: 'Creative Web Experiences | NeedAWebsite',
+    description: "Websites that don't just work. They wow.",
+    url: 'https://needawebsite.in/creative',
     type: 'website',
     siteName: 'NeedAWebsite',
-    images: [
-      {
-        url: 'https://needawebsite.in/og-image.png',
-      },
-    ],
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'NeedAWebsite | Web Design Mumbai, Found on Google & AI',
-    description: 'Mumbai web designer building fast, mobile-friendly websites that get found on Google, ChatGPT and Perplexity. One-page sites in 5 days. Free quote.',
-    images: ['https://needawebsite.in/og-image.png'],
   },
 };
 
-const homeFaqs = [
-  {
-    question: 'What does NeedAWebsite do?',
-    answer: 'NeedAWebsite is a Mumbai-based web design and development studio run by Tabish. I build fast, mobile-friendly websites for small businesses across India and set them up to be found on Google and AI assistants such as ChatGPT and Perplexity.',
-  },
-  {
-    question: 'How much does a website cost?',
-    answer: 'Pricing depends on the type of site. You get a clear written quote before any work starts, with no hidden fees. Request a quote to get started.',
-  },
-  {
-    question: 'How long does it take to build a website?',
-    answer: 'A one-page website is typically ready in 5 days. Multi-page websites, online stores and custom builds take 4 to 8 weeks, depending on size and complexity.',
-  },
-  {
-    question: 'What does it mean for a website to be "found by ChatGPT"?',
-    answer: 'When people ask AI tools for a recommendation, the tool pulls answers from websites it can read and understand. A website that is clearly structured and clearly describes your business is far more likely to be mentioned. I build that structure into every site.',
-  },
-  {
-    question: 'Do you work with businesses outside Mumbai?',
-    answer: 'Yes. I work remotely with small businesses across India, including dentists, boutiques, restaurants, clinics and local service providers. Everything happens over calls, WhatsApp and email.',
-  },
-  {
-    question: 'Can I update the website myself after launch?',
-    answer: 'Yes, where it makes sense. I also offer ongoing edits and support, so you can simply message me when you need a change. Terms are agreed with you before you start.',
-  },
-];
-
-const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'NeedAWebsite',
-  url: 'https://needawebsite.in',
-  publisher: {
-    '@type': 'Organization',
-    name: 'NeedAWebsite',
-  },
-};
-
-const faqPageSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: homeFaqs.map((faq) => ({
-    '@type': 'Question',
-    name: faq.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: faq.answer,
-    },
-  })),
-};
-
-export default function HomePage() {
-  const faqItems = homeFaqs.map((faq) => ({
-    q: faq.question,
-    a: faq.answer,
-  }));
-
+export default function CreativePage() {
   return (
-    <>
-      <JsonLd data={websiteSchema} />
-      <JsonLd data={faqPageSchema} />
+    <div className="dark bg-black min-h-screen text-white">
+      <SmoothScroll />
 
-      {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden py-24 md:py-32 bg-gradient-to-b from-white via-white to-brand-light dark:from-[#09090B] dark:via-[#09090B] dark:to-brand-deep/20 border-b border-[#E5E7EB] dark:border-zinc-800 transition-colors duration-200">
-        <div
-          className="absolute inset-0 opacity-40 dark:opacity-20 pointer-events-none"
-          style={{
-            backgroundImage: 'radial-gradient(#E5E7EB 1px, transparent 1px)',
-            backgroundSize: '24px 24px',
-            maskImage: 'linear-gradient(to bottom, black 40%, transparent 100%)',
-          }}
-        />
-        <div className="max-w-[1100px] mx-auto px-5 sm:px-6 relative">
-          <HeroMotion>
-            <div className="max-w-3xl">
-              <h1 className="text-[2.5rem] md:text-6xl font-bold tracking-[-0.03em] leading-[1.05] text-[#0A0A0A] dark:text-zinc-50 text-balance">
-                Your Customers Are Asking AI. <span className="text-brand dark:text-emerald-400">Will It Name You?</span>
-              </h1>
-              <p className="mt-6 text-lg md:text-xl text-[#3F3F46] dark:text-zinc-300 leading-relaxed max-w-2xl">
-                I build fast, beautiful websites for small businesses across India, and set them up to be found on Google, ChatGPT and Perplexity, so the right customers find you first.
+      {/* Hero Section - Top 70% Waves, Bottom 30% Interactive Text */}
+      <section className="relative h-screen w-full flex flex-col bg-black overflow-hidden border-b border-white/10">
+        
+        {/* Waves - Start from top, cover 70% of screen */}
+        <div className="absolute top-0 left-0 right-0 h-[60%] z-0">
+          <Waves backgroundColor="#000000" strokeColor="#FFFFFF" />
+        </div>
+
+        {/* Text Container - Pushed to bottom, solid black background */}
+        <div className="relative z-10 mt-auto w-full bg-black pt-8 pb-12 md:pb-20 px-4 md:px-16 lg:px-24 flex flex-col gap-2">
+          
+          {/* Line 1 */}
+          <div className="w-full h-[80px] md:h-[140px] lg:h-[180px] relative">
+            <TechText
+              text="Websites That Don't Just Work."
+              fontWeight={700}
+              fontSize={180}
+              reveal="letter"
+              dashLength={5}
+              dashGap={3}
+              specks={25}
+              intro="metrics"
+              introDuration={2}
+              clickKick
+              guides={false}
+              color="#ffffff"
+              accentColor="#16A34A"
+              align="left"
+            />
+          </div>
+
+          {/* Line 2 */}
+          <div className="w-full h-[80px] md:h-[140px] lg:h-[180px] relative">
+            <TechText
+              text="THEY WOW."
+              fontWeight={900}
+              fontSize={240}
+              reveal="letter"
+              dashLength={4}
+              dashGap={2}
+              specks={15}
+              intro="assemble"
+              introDuration={2.5}
+              clickKick
+              guides={true}
+              color="#ffffff"
+              accentColor="#16A34A"
+              align="left"
+            />
+          </div>
+
+        </div>
+
+      </section>
+
+      {/* Interactive Playground Section */}
+      <section className="py-24 px-6 max-w-6xl mx-auto">
+        <h2 className="text-3xl md:text-5xl font-bold text-white mb-12 text-center">
+          Interactive Playground
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          
+          {/* Card 1: Melli 3D Artistry */}
+          <a
+            href="/demos/melli.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261016_130303_301c35dd-e2d1-4b40-a396-2b53f884d787.png')" }}
+          >
+            <div className="absolute inset-0 flex items-center justify-center p-4 z-10">
+              <p className="text-black font-extrabold text-xl md:text-3xl tracking-tight leading-tight text-center">
+                Imagine your next site built just like this
               </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3 sm:items-center">
-                <Button variant="primary" href="/contact">
-                  <span>Get a Free Quote</span>
-                  <ArrowRight className="w-4 h-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  href="https://aiscan.needawebsite.in"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Check Your Website's AI Score
-                </Button>
-              </div>
-              <div className="mt-8 flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm bg-brand-light dark:bg-brand-deep/30 text-brand-deep dark:text-emerald-300 border border-brand-ring dark:border-brand-deep/60">
-                  <Check className="w-3.5 h-3.5" />
-                  Written quote before work starts
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm bg-brand-light dark:bg-brand-deep/30 text-brand-deep dark:text-emerald-300 border border-brand-ring dark:border-brand-deep/60">
-                  <Check className="w-3.5 h-3.5" />
-                  No hidden fees
-                </span>
-                <span className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-sm bg-brand-light dark:bg-brand-deep/30 text-brand-deep dark:text-emerald-300 border border-brand-ring dark:border-brand-deep/60">
-                  <Check className="w-3.5 h-3.5" />
-                  You deal directly with the founder
-                </span>
-              </div>
             </div>
-          </HeroMotion>
-        </div>
-      </section>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">Melli 3D Artistry</h3>
+              <p className="text-zinc-300 text-sm mb-4">3D Scroll & WebGL</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                Open Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['Three.js', 'React', 'Framer Motion'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
 
-      {/* TECH STACK MARQUEE */}
-      <section className="py-12 bg-white dark:bg-[#0A0A0A] border-b border-[#E5E7EB] dark:border-zinc-800 overflow-hidden">
-        <div className="max-w-[1100px] mx-auto px-5 sm:px-6">
-          <p className="text-center text-sm font-semibold tracking-widest text-[#71717A] uppercase mb-6">Technologies I build with</p>
-        </div>
-        <div className="relative w-full overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-36 bg-gradient-to-r from-white dark:from-[#0A0A0A] to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-36 bg-gradient-to-l from-white dark:from-[#0A0A0A] to-transparent z-10" />
-
-          <div className="animate-marquee flex items-center">
-            {[...techStackLogos, ...techStackLogos].map((tech, idx) => {
-              const Icon = tech.icon;
-              return (
-                <div
-                  key={`${tech.name}-${idx}`}
-                  className="flex items-center justify-center px-8 sm:px-12 shrink-0 text-3xl md:text-4xl cursor-default"
-                  title={tech.name}
-                  aria-label={tech.name}
-                >
-                  <Icon className="w-[1em] h-[1em]" style={{ color: tech.color }} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section>
-
-      {/* 2. SECTION 2 (The Problem) */}
-      <Section eyebrow="THE SHIFT" title="Customers have started asking AI instead of searching.">
-        <p className="max-w-3xl text-lg text-[#52525B] dark:text-zinc-400 leading-relaxed">
-          A few years ago, someone looking for a dentist typed a few words into Google and scrolled through a list. Today, a growing number of people simply ask ChatGPT, Perplexity or Google's AI: "Who is the best dentist near me?" They get one short answer with a few names. Not ten blue links. A handful of names. If your website isn't built in a way these tools can read and trust, they skip over you. Not because you're not good, but because they can't tell that you are. Meanwhile, a competitor with a better-prepared website gets the recommendation. The good news: this is fixable, and most businesses haven't started yet. That means acting now puts you ahead.
-        </p>
-      </Section>
-
-      {/* 3. SECTION 3 (What I Do) */}
-      <Section eyebrow="SERVICES" title="What I Do" bg="white">
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card icon={<Layout className="w-5 h-5" />}>
-            <h3 className="text-xl font-semibold text-[#0A0A0A] dark:text-zinc-100 mb-3">
-              Web Design & Development
-            </h3>
-            <p className="text-sm sm:text-base text-[#52525B] dark:text-zinc-400 leading-relaxed">
-              Landing pages, portfolios and online stores that look sharp, load fast on any phone, and make it easy for visitors to call, book or buy. Your website should work as your best salesperson, every hour of the day.
-            </p>
-          </Card>
-
-          <Card icon={<Sparkles className="w-5 h-5" />}>
-            <h3 className="text-xl font-semibold text-[#0A0A0A] dark:text-zinc-100 mb-3">
-              AI Search Optimization
-            </h3>
-            <p className="text-sm sm:text-base text-[#52525B] dark:text-zinc-400 leading-relaxed">
-              I prepare your website so ChatGPT, Perplexity and Google's AI can understand your business and confidently recommend it. Think of it as making sure the new search engines know exactly who you are and what you do.
-            </p>
-          </Card>
-
-          <Card icon={<LayoutDashboard className="w-5 h-5" />}>
-            <h3 className="text-xl font-semibold text-[#0A0A0A] dark:text-zinc-100 mb-3">
-              Custom Web Apps & Dashboards
-            </h3>
-            <p className="text-sm sm:text-base text-[#52525B] dark:text-zinc-400 leading-relaxed">
-              Need customers to book appointments, log in to a portal, or want a simple dashboard for your team? I build custom tools that take repetitive work off your plate.
-            </p>
-          </Card>
-        </div>
-      </Section>
-
-      {/* 4. SECTION 4 (How It Works) */}
-      <Section eyebrow="PROCESS" title="How It Works" bg="grey">
-        <div className="grid md:grid-cols-3 gap-6 relative">
-          <Card>
-            <span className="block text-5xl font-bold text-brand-ring dark:text-emerald-900/60 tabular-nums mb-4">
-              01
-            </span>
-            <p className="text-base text-[#52525B] dark:text-zinc-400 leading-relaxed">
-              Tell me about your business. A short call or WhatsApp chat. I ask the questions, you answer in plain language.
-            </p>
-          </Card>
-
-          <Card>
-            <span className="block text-5xl font-bold text-brand-ring dark:text-emerald-900/60 tabular-nums mb-4">
-              02
-            </span>
-            <p className="text-base text-[#52525B] dark:text-zinc-400 leading-relaxed">
-              I design and build. You see progress along the way. One-page sites are ready in 5 days. Larger projects take 4 to 8 weeks.
-            </p>
-          </Card>
-
-          <Card>
-            <span className="block text-5xl font-bold text-brand-ring dark:text-emerald-900/60 tabular-nums mb-4">
-              03
-            </span>
-            <p className="text-base text-[#52525B] dark:text-zinc-400 leading-relaxed">
-              You launch, then grow. Your site goes live ready for Google and AI search, with edits and ranking support available afterwards.
-            </p>
-          </Card>
-        </div>
-      </Section>
-
-      {/* 5. SECTION 5 (Proof) */}
-      <Section
-        eyebrow="PROOF"
-        title="I don't just talk about AI search. I built the tool that measures it."
-        bg="white"
-      >
-        <p className="text-lg text-[#52525B] dark:text-zinc-400 max-w-3xl leading-relaxed">
-          To show business owners exactly how AI reads a website, I built the AI Visibility Scanner from scratch. Paste in any website address and see how easily AI assistants can find, understand and recommend it. It's free to use.
-        </p>
-
-        <Card className="mt-10">
-          <Quote className="w-6 h-6 text-brand dark:text-emerald-400 mb-4" />
-          <h3 className="text-xl font-semibold text-[#0A0A0A] dark:text-zinc-100 mb-2">
-            Nourish by Neelam
-          </h3>
-          <p className="text-base text-[#52525B] dark:text-zinc-400 leading-relaxed">
-            A clinical and sports nutrition practice. I built its website with a full SEO, AEO and GEO foundation (in plain words: set up to be found on Google and recommended by AI assistants), and I continue to support its rankings as it grows.
-          </p>
-          <ProofBadges />
-        </Card>
-
-        <div className="mt-6 flex flex-col sm:flex-row gap-3">
-          <Button
-            variant="primary"
-            href="https://nourishbyneelam.com"
+          {/* Card 2: Solaris */}
+          <a
+            href="/demos/solaris.html"
             target="_blank"
             rel="noopener noreferrer"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261102_040308_f31964ab-ed8e-4ea4-90eb-3226c0859936.png&w=1600&q=80')" }}
           >
-            Read the Nourish by Neelam Case Study
-          </Button>
-          <Button
-            variant="ghost"
-            href="https://aiscan.needawebsite.in"
+            <div className="absolute inset-0 flex items-center justify-center p-4 z-10">
+              <p className="text-white font-medium text-xl md:text-3xl tracking-tight leading-tight text-center drop-shadow-md">
+                $0 Electricity Bills
+              </p>
+            </div>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">Solaris</h3>
+              <p className="text-zinc-300 text-sm mb-4">Morning / Night Fog Hero</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                Open Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['WebGL2', 'Canvas', 'Vanilla JS'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
+
+          {/* Card 3: Maison Vell */}
+          <a
+            href="/demos/maison.html"
             target="_blank"
             rel="noopener noreferrer"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261102_042056_1a704ff7-b0e5-4a9f-bbda-62392b819fb6.png&w=1600&q=80')", backgroundSize: '120%', backgroundPosition: 'left center' }}
           >
-            Try the Free AI Scanner
-          </Button>
-        </div>
-      </Section>
-
-      {/* 6. SECTION 6 (Final CTA) */}
-      <section className="py-20 md:py-28">
-        <div className="max-w-[1100px] mx-auto px-5 sm:px-6">
-          <div className="bg-[#0A0A0A] dark:bg-zinc-900 border border-transparent dark:border-zinc-800 text-white rounded-2xl px-8 md:px-16 py-16 md:py-20 text-center max-w-[1100px] mx-auto">
-            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">
-              Let's get your business found.
-            </h2>
-            <p className="text-[#D4D4D8] dark:text-zinc-300 max-w-2xl mx-auto mt-4 text-base sm:text-lg leading-relaxed">
-              Whether you need a brand new website or want to know why your current one isn't bringing in customers, let's talk. The first conversation and the quote are free, with no pressure and no jargon.
-            </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center">
-              <Button variant="primary" href="/contact">
-                Get a Free Quote
-              </Button>
-              <Button variant="dark" href="tel:+919987455707">
-                <Phone className="w-4 h-4" />
-                <span>Call +91 9987455707</span>
-              </Button>
-              <Button
-                variant="dark"
-                href="https://wa.me/919987455707?text=Hi%20Tabish%2C%20I%27d%20like%20a%20quote%20for%20a%20website"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <MessageCircle className="w-4 h-4" />
-                <span>WhatsApp me</span>
-              </Button>
+            <div className="absolute inset-0 flex flex-col items-end justify-end p-4 z-10 bg-gradient-to-l from-white/80 to-transparent">
+              <p className="text-black font-serif text-xl md:text-3xl italic tracking-tight text-right">
+                Maison Vell
+              </p>
+              <p className="text-black/60 text-xs font-sans tracking-widest uppercase mt-1">Runway</p>
             </div>
-          </div>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">Maison Vell</h3>
+              <p className="text-zinc-300 text-sm mb-4">Depth Lookbook</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                Open Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['CSS Transforms', 'Math', 'Vanilla JS'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
+
+          {/* Card 4: Dentiq */}
+          <a
+            href="/demos/dentiq.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260626_041422_4a459e05-abce-4150-9fb7-4ededc423cd1.png&w=1280&q=85')" }}
+          >
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 z-10 bg-white/40 backdrop-blur-sm">
+              <p className="text-black font-serif text-3xl italic tracking-tighter text-center">
+                Dentiq
+              </p>
+              <p className="text-black/60 text-xs font-sans tracking-widest uppercase mt-1">On Demand</p>
+            </div>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">Dentiq</h3>
+              <p className="text-zinc-300 text-sm mb-4">Editorial Typography</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                Open Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['CSS Animations', 'Typography', 'Vanilla JS'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
+
+          {/* Card 5: Clothing Rail */}
+          <a
+            href="/creative/clothing-rail"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=80&w=1600&auto=format&fit=crop')" }}
+          >
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 z-10 bg-black/30 backdrop-blur-[2px]">
+              <p className="text-white font-bold text-xl md:text-3xl tracking-tight text-center drop-shadow-lg">
+                Clothing Rail
+              </p>
+              <p className="text-white/80 text-xs font-sans tracking-widest uppercase mt-1">Interactive Lookbook</p>
+            </div>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">Clothing Rail</h3>
+              <p className="text-zinc-300 text-sm mb-4">Physics-based Product Gallery</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                Open Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['React', 'Framer Motion', 'SVG Masks'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
+
+          {/* Card 6: NORVA */}
+          <a
+            href="/demos/norva.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('/norva-poster.jpg')" }}
+          >
+            <div className="absolute inset-0 flex flex-col items-start justify-end p-6 z-10 bg-gradient-to-t from-[#0f1626] via-[#0f1626]/50 to-transparent">
+              <p className="text-white font-semibold text-2xl tracking-tight">
+                NORVA
+              </p>
+              <p className="text-white/60 text-xs font-sans tracking-widest uppercase mt-1">3D Isometric Scroll</p>
+            </div>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">NORVA</h3>
+              <p className="text-zinc-300 text-sm mb-4">Night City Staffing</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                Open Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute top-4 left-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['Video Scrubbing', '3D Transforms', 'Vanilla JS'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
+          
         </div>
       </section>
-
-      {/* 7. FAQ */}
-      <Section eyebrow="FAQ" title="Frequently Asked Questions" bg="white">
-        <Faq items={faqItems} />
-      </Section>
-    </>
+    </div>
   );
 }

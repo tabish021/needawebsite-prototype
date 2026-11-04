@@ -23,19 +23,23 @@ export default function CreativePage() {
     <div className="dark bg-black min-h-screen text-white">
       <SmoothScroll />
 
-      {/* Hero Section - Giant Waves, Bottom Left Text */}
-      <section className="relative h-screen w-full flex flex-col justify-end bg-black overflow-hidden border-b border-white/10">
+      {/* Hero Section - Top 70% Waves, Bottom Text on Black */}
+      <section className="relative h-screen w-full flex flex-col bg-black overflow-hidden border-b border-white/10">
         
-        {/* Waves - Start lower on the screen and bleed to the bottom */}
-        <div className="absolute top-[20%] left-0 right-0 bottom-0 z-0">
+        {/* Waves - Start from top, cover 70% of screen */}
+        <div className="absolute top-0 left-0 right-0 h-[70%] z-0">
           <Waves backgroundColor="#000000" strokeColor="#FFFFFF" />
         </div>
 
-        {/* Text - Bottom Left, 2 Lines */}
-        <div className="relative z-10 p-8 md:p-16 lg:p-24 pb-12 md:pb-24 max-w-5xl pointer-events-none">
-          <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold text-white tracking-tight leading-[1.05] text-left drop-shadow-2xl">
-            Websites That Don't Just Work.<br />
-            They Wow.
+        {/* Text Container - Pushed to bottom, solid black background */}
+        <div className="relative z-10 mt-auto w-full bg-black pt-8 pb-12 md:pb-20 px-8 md:px-16 lg:px-24">
+          <h1 className="text-white tracking-tight flex flex-col gap-1 md:gap-2">
+            <span className="text-4xl md:text-5xl lg:text-[4rem] font-bold leading-tight">
+              Websites That Don't Just Work.
+            </span>
+            <span className="text-5xl md:text-7xl lg:text-[6rem] font-black uppercase tracking-tight leading-none">
+              They Wow.
+            </span>
           </h1>
         </div>
 

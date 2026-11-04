@@ -15,7 +15,7 @@ export default function Nav() {
   const isCreativeHub = pathname === '/creative';
   const isDemoPage = pathname?.startsWith('/creative/');
 
-  // Hide the nav entirely on the sub-demo pages (though these are mostly unused now)
+  // Hide the global nav on the sub-demo pages
   if (isDemoPage) {
     return null;
   }
@@ -23,7 +23,7 @@ export default function Nav() {
   return (
     <>
       <header
-        className={`fixed top-0 w-full z-[100] transition-colors duration-200 ${
+        className={`fixed top-0 w-full z-[9999] transition-colors duration-200 ${
           isCreativeHub
             ? 'bg-transparent border-none text-white'
             : 'bg-white border-b border-gray-200 dark:bg-black dark:border-gray-800'

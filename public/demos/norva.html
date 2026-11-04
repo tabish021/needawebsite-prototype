@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NORVA</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --night: #0f1626;
+            --ink: #f4f6fa;
+            --ink-72: rgba(244, 246, 250, 0.72);
+            --ink-46: rgba(244, 246, 250, 0.46);
+            --pill-grey: #2a3245;
+            --lime: #c6ff2e;
+            --cyan: #3fd8ff;
+            --u: clamp(0.72px, min(100vw / 1440, 100vh / 960), 1.5px);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter Tight', sans-serif;
+            background: var(--night);
+            color: var(--ink);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: calc(var(--u) * 58);
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+            padding: 0 calc(var(--u) * 36);
+            z-index: 100;
+            mix-blend-mode: difference;
+        }
+
+        .nav-left { display: flex; gap: calc(var(--u) * 24); font-size: calc(var(--u) * 11); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; }
+        .nav-left span { cursor: pointer; }
+        
+        .nav-center { font-size: calc(var(--u) * 19); font-weight: 700; letter-spacing: 0.06em; }
+        
+        .nav-right { display: flex; gap: calc(var(--u) * 12); justify-content: flex-end; }
+        
+        .pill {
+            height: calc(var(--u) * 40);
+            padding: 0 calc(var(--u) * 24);
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: calc(var(--u) * 11.5);
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            text-decoration: none;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .pill:hover { transform: translateY(-1px); }
+        .pill-grey { background: var(--pill-grey); color: var(--ink); }
+        .pill-lime { background: var(--lime); color: var(--night); }
+
+        /* Track & Scene */
+        .track { position: relative; height: 420vh; }
+        .scene {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            background: var(--night);
+        }
+
+        video {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%; min-height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Readability shade over video */
+        .scene::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: 
+                linear-gradient(to bottom, var(--night) 0%, transparent 34%),
+                linear-gradient(to top, rgba(15, 22, 38, 0.5) 0%, transparent 30%);
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* Hero Copy */
+        .hero-copy {
+            position: absolute;
+            top: calc(var(--u) * 92);
+            left: 0; right: 0;
+            text-align: center;
+            z-index: 10;
+            perspective: calc(var(--u) * 900);
+            will-change: transform, opacity;
+        }
+        .hero-copy h1 {
+            font-size: calc(var(--u) * 84);
+            line-height: 0.96;
+            letter-spacing: -0.045em;
+            font-weight: 600;
+            margin-bottom: calc(var(--u) * 24);
+        }
+        .hero-copy p {
+            font-size: calc(var(--u) * 18);
+            line-height: 1.4;
+            color: var(--ink-72);
+            max-width: calc(var(--u) * 600);
+            margin: 0 auto;
+        }
+
+        /* Process List */
+        .process {
+            position: absolute;
+            bottom: calc(var(--u) * 36);
+            left: calc(var(--u) * 36);
+            width: calc(var(--u) * 430);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--u) * 8);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .process-row {
+            display: grid;
+            grid-template-columns: calc(var(--u) * 36) 1fr;
+            gap: calc(var(--u) * 16);
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .process-num {
+            height: calc(var(--u) * 36);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: calc(var(--u) * 12);
+            font-weight: 500;
+            color: var(--ink-72);
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .process-title {
+            font-size: calc(var(--u) * 12.5);
+            font-weight: 600;
+            color: var(--ink-72);
+            transition: font-size 0.3s, color 0.3s;
+        }
+
+        .process-desc-wrapper {
+            grid-column: 2;
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.45s ease;
+        }
+        .process-desc-inner {
+            overflow: hidden;
+        }
+        .process-desc {
+            padding-top: calc(var(--u) * 8);
+            font-size: calc(var(--u) * 13);
+            line-height: 1.5;
+            color: var(--ink-72);
+            border-left: 1px solid rgba(255,255,255,0.22);
+            padding-left: calc(var(--u) * 12);
+            margin-top: calc(var(--u) * 8);
+        }
+
+        /* Active State */
+        .process-row.active .process-num {
+            background: var(--ink);
+            color: var(--night);
+            font-weight: 600;
+        }
+        .process-row.active .process-title {
+            font-size: calc(var(--u) * 18);
+            color: var(--ink);
+        }
+        .process-row.active .process-desc-wrapper {
+            grid-template-rows: 1fr;
+        }
+
+        /* Scroll Cue */
+        .scroll-cue {
+            position: absolute;
+            bottom: calc(var(--u) * 36);
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: calc(var(--u) * 11);
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--ink);
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: calc(var(--u) * 8);
+            transition: opacity 0.3s;
+        }
+        .scroll-line {
+            width: calc(var(--u) * 40);
+            height: 1px;
+            background: rgba(255,255,255,0.22);
+            position: relative;
+        }
+        .scroll-line::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; bottom: 0;
+            width: 100%;
+            background: var(--ink);
+            transform-origin: left;
+            will-change: transform;
+        }
+
+        /* Loader */
+        .loader {
+            position: fixed;
+            inset: 0;
+            background: var(--night);
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease;
+        }
+        .loader.done { opacity: 0; pointer-events: none; }
+
+        .loader-ellipses {
+            position: absolute;
+            width: calc(var(--u) * 160);
+            height: calc(var(--u) * 160);
+        }
+        .ellipse {
+            position: absolute;
+            inset: 0;
+            border: 2px dotted rgba(255,255,255,0.2);
+            border-radius: 50%;
+            animation: spin 1.6s linear infinite;
+        }
+        .ellipse-inner {
+            position: absolute;
+            inset: calc(var(--u) * 20);
+            border: 2px dotted rgba(255,255,255,0.1);
+            border-radius: 50%;
+            animation: spin-reverse 2s linear infinite;
+        }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+        @keyframes spin-reverse { 100% { transform: rotate(-360deg); } }
+        
+        .loader-mark {
+            position: relative;
+            width: calc(var(--u) * 40);
+            height: calc(var(--u) * 40);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .loader-mark svg {
+            width: 100%; height: 100%;
+            animation: spin 1.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
+        /* Mobile */
+        @media (max-width: 760px) {
+            :root { --u: 1px; }
+            .nav { grid-template-columns: auto 1fr; padding: 0 18px; }
+            .nav-left { display: none; }
+            .nav-center { justify-self: start; }
+            .pill { height: 34px; padding: 0 16px; font-size: 10px; }
+            .hero-copy { top: 96px; }
+            .hero-copy h1 { font-size: clamp(38px, 11vw, 48px); }
+            .hero-copy p { font-size: 15px; max-width: 34ch; }
+            .process { width: calc(100% - 36px); bottom: 22px; left: 18px; }
+            .scroll-cue { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Loader -->
+    <div class="loader" id="loader">
+        <div class="loader-ellipses">
+            <div class="ellipse"></div>
+            <div class="ellipse-inner"></div>
+        </div>
+        <div class="loader-mark">
+            <svg viewBox="0 0 40 40" fill="none">
+                <rect x="2" y="16" width="6" height="6" fill="#3fd8ff"/>
+                <rect x="16" y="2" width="6" height="6" fill="#3fd8ff"/>
+                <rect x="30" y="16" width="6" height="6" fill="#3fd8ff"/>
+                <rect x="16" y="30" width="6" height="6" fill="#3fd8ff"/>
+                <path d="M20 16 L25 20 L20 24 Z" fill="#c6ff2e"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- Nav -->
+    <header class="nav">
+        <div class="nav-left">
+            <span>Our Industries</span>
+            <span>Our Mission</span>
+        </div>
+        <div class="nav-center">NORVA</div>
+        <div class="nav-right">
+            <div class="pill pill-grey">Apply</div>
+            <div class="pill pill-lime">Request Crews</div>
+        </div>
+    </header>
+
+    <div class="track" id="track">
+        <section class="scene">
+            <!-- Using local uploaded video -->
+            <video src="/norva.mp4" poster="/norva-poster.jpg" muted playsinline preload="auto"></video>
+            
+            <div class="hero-copy" id="hero-copy">
+                <h1>The New Standard<br>in Staffing</h1>
+                <p>AI driven speed. Expert curation.<br>We mobilize verified crews to protect your schedule and<br>your bottom line in high-consequence environments.</p>
+            </div>
+
+            <div class="process" id="process">
+                <div class="process-row active" data-step="0">
+                    <div class="process-num">01</div>
+                    <div class="process-title">Activation, simplified</div>
+                    <div class="process-desc-wrapper">
+                        <div class="process-desc-inner">
+                            <div class="process-desc">One call starts mobilization. Craft, headcount and start date go straight to our vetted crews. No hand-offs. No escalations. Just boots on site within minutes.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-row" data-step="1">
+                    <div class="process-num">02</div>
+                    <div class="process-title">Cleared to count</div>
+                    <div class="process-desc-wrapper">
+                        <div class="process-desc-inner">
+                            <div class="process-desc">Every worker is screened before dispatch: compliance, background, certifications and fitness for duty, so the whole crew clears the gate on day one.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-row" data-step="2">
+                    <div class="process-num">03</div>
+                    <div class="process-title">Proven field match</div>
+                    <div class="process-desc-wrapper">
+                        <div class="process-desc-inner">
+                            <div class="process-desc">We match the exact skill set to the task, ensuring every crew member is ready to perform at peak efficiency from the moment they arrive.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="process-row" data-step="3">
+                    <div class="process-num">04</div>
+                    <div class="process-title">Seamless arrival</div>
+                    <div class="process-desc-wrapper">
+                        <div class="process-desc-inner">
+                            <div class="process-desc">Logistics handled. Transport sorted. Your crew arrives on time, checked in, and ready to work. Zero friction on your site.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-cue" id="scroll-cue">
+                Scroll to discover our process
+                <div class="scroll-line"></div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        const track = document.getElementById('track');
+        const video = document.querySelector('video');
+        const heroCopy = document.getElementById('hero-copy');
+        const processList = document.getElementById('process');
+        const scrollCue = document.getElementById('scroll-cue');
+        const scrollLine = document.querySelector('.scroll-line::after'); // will handle via style
+        const loader = document.getElementById('loader');
+        const processRows = document.querySelectorAll('.process-row');
+        
+        // Setup loader
+        let loaderDone = false;
+        function hideLoader() {
+            if (loaderDone) return;
+            loaderDone = true;
+            loader.classList.add('done');
+        }
+        setTimeout(hideLoader, 3500);
+        video.addEventListener('loadeddata', () => setTimeout(hideLoader, 350));
+
+        // Scroll variables
+        let targetTime = 0;
+        let curTime = 0;
+        let isSeeking = false;
+        let vh = window.innerHeight;
+
+        window.addEventListener('resize', () => { vh = window.innerHeight; });
+
+        video.addEventListener('seeked', () => { isSeeking = false; });
+
+        // Easing function
+        function easeInOutQuad(x) {
+            return x < 0.5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+        }
+
+        function updateUI() {
+            const rect = track.getBoundingClientRect();
+            const trackHeight = track.offsetHeight;
+            
+            // p goes from 0 to 1 as we scroll through the track
+            let p = (window.scrollY - rect.top) / (trackHeight - vh);
+            p = Math.max(0, Math.min(1, p));
+
+            // 1. Video Scrub
+            if (video.readyState >= 2) {
+                targetTime = p * ((video.duration || 5.04) - 1/48);
+                curTime += (targetTime - curTime) * 0.2;
+                
+                if (Math.abs(video.currentTime - curTime) > 1/60 && !isSeeking) {
+                    isSeeking = true;
+                    video.currentTime = curTime;
+                }
+            }
+
+            // 2. Headline Tilt
+            let h = easeInOutQuad(Math.min(1, p / 0.38));
+            heroCopy.style.transform = `translateY(-${34 * h}vh) rotateX(${62 * h}deg) scale(${1 - 0.12 * h})`;
+            heroCopy.style.transformOrigin = 'bottom center';
+            
+            // Headline Opacity (1 to 0 between p .10 and .24)
+            let heroOpacity = 1;
+            if (p > 0.10) heroOpacity = 1 - ((p - 0.10) / 0.14);
+            heroCopy.style.opacity = Math.max(0, Math.min(1, heroOpacity));
+
+            // 3. Process List Fade In (between p .08 and .24)
+            let processOpacity = Math.max(0, Math.min(1, (p - 0.08) / 0.16));
+            processList.style.opacity = processOpacity;
+            processList.style.transform = `translateY(${(1 - processOpacity) * 40}px)`;
+
+            // 4. Process Steps Swapping
+            if (p < 0.62) {
+                processRows[0].classList.add('active');
+                processRows[1].classList.remove('active');
+            } else {
+                processRows[0].classList.remove('active');
+                processRows[1].classList.add('active');
+            }
+
+            // 5. Scroll Cue (drain line and fade out)
+            let lineDrain = Math.max(0, 1 - (p / 0.10));
+            // Using inline style for pseudo element width
+            const styleSheet = document.styleSheets[0];
+            // Quick hack for pseudo-element animation
+            document.documentElement.style.setProperty('--drain', lineDrain);
+            
+            let cueOpacity = 1;
+            if (p > 0.04) cueOpacity = 1 - ((p - 0.04) / 0.08);
+            scrollCue.style.opacity = Math.max(0, Math.min(1, cueOpacity));
+
+            requestAnimationFrame(updateUI);
+        }
+
+        // Add the drain animation to CSS
+        const style = document.createElement('style');
+        style.innerHTML = `.scroll-line::after { transform: scaleX(var(--drain, 1)); transform-origin: left; transition: transform 0.1s; }`;
+        document.head.appendChild(style);
+
+        requestAnimationFrame(updateUI);
+    </script>
+</body>
+</html>

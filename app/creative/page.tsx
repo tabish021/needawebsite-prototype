@@ -153,4 +153,52 @@ export default function CreativePage() {
             </div>
             <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
               {['CSS Animations', 'Typography', 'Vanilla JS'].map((tech) => (
-                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
+
+          {/* Card 5: Clothing Rail */}
+          <a
+            href="/creative/clothing-rail"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?q=80&w=1600&auto=format&fit=crop')" }}
+          >
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 z-10 bg-black/30 backdrop-blur-[2px]">
+              <p className="text-white font-bold text-xl md:text-3xl tracking-tight text-center drop-shadow-lg">
+                Clothing Rail
+              </p>
+              <p className="text-white/80 text-xs font-sans tracking-widest uppercase mt-1">Interactive Lookbook</p>
+            </div>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">Clothing Rail</h3>
+              <p className="text-zinc-300 text-sm mb-4">Physics-based Product Gallery</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                Open Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['React', 'Framer Motion', 'SVG Masks'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
+
+          {/* Placeholder Card */}
+          <div className="relative aspect-video rounded-2xl border border-white/10 bg-zinc-900/50 flex items-center justify-center p-6 text-center">
+            <span className="text-zinc-600 font-medium text-sm tracking-wide">
+              Coming Soon
+            </span>
+          </div>
+          
+        </div>
+      </section>
+    </div>
+  );
+}

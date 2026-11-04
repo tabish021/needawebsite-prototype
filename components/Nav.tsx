@@ -12,10 +12,11 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   
-  const isCreativeHub = pathname === '/creative';
-  const isDemoPage = pathname?.startsWith('/creative/');
+  // Bulletproof path checking
+  const isCreativeHub = pathname === '/creative' || pathname === '/creative/';
+  const isDemoPage = pathname?.startsWith('/creative/') && !isCreativeHub;
 
-  // Hide the global nav on the sub-demo pages
+  // Hide the global nav ONLY on the actual sub-demo pages
   if (isDemoPage) {
     return null;
   }
@@ -23,7 +24,7 @@ export default function Nav() {
   return (
     <>
       <header
-        className={`fixed top-0 w-full z-[9999] transition-colors duration-200 ${
+        className={`fixed top-0 w-full z-[10000] transition-colors duration-200 ${
           isCreativeHub
             ? 'bg-transparent border-none text-white'
             : 'bg-white border-b border-gray-200 dark:bg-black dark:border-gray-800'

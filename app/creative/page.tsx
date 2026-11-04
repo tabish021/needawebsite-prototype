@@ -190,12 +190,35 @@ export default function CreativePage() {
             </div>
           </a>
 
-          {/* Placeholder Card */}
-          <div className="relative aspect-video rounded-2xl border border-white/10 bg-zinc-900/50 flex items-center justify-center p-6 text-center">
-            <span className="text-zinc-600 font-medium text-sm tracking-wide">
-              Coming Soon
-            </span>
-          </div>
+                    {/* Card 6: NORVA */}
+          <a
+            href="/demos/norva.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('/norva-poster.jpg')" }}
+          >
+            <div className="absolute inset-0 flex flex-col items-start justify-end p-6 z-10 bg-gradient-to-t from-[#0f1626] via-[#0f1626]/50 to-transparent">
+              <p className="text-white font-[family-name:var(--font-inter-tight)] font-semibold text-2xl tracking-tight">
+                NORVA
+              </p>
+              <p className="text-white/60 text-xs font-sans tracking-widest uppercase mt-1">3D Isometric Scroll</p>
+            </div>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">NORVA</h3>
+              <p className="text-zinc-300 text-sm mb-4">Night City Staffing</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                Open Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute top-4 left-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['Video Scrubbing', '3D Transforms', 'Vanilla JS'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
           
         </div>
       </section>

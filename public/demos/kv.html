@@ -14,7 +14,7 @@
             --cobalt: #2f63ff;
             --giant: #e9e9e9;
             --u: min(100vw / 1440, 100vh / 960);
-            --edge-px: 100vh; 
+            --edge-px: 80vh; /* Fallback position if video fails */
             --ph: 0;
         }
 
@@ -63,7 +63,8 @@
             height: 100vh;
             width: 100%;
             overflow: hidden;
-            background: var(--white);
+            /* Added poster image as a background fallback */
+            background: var(--white) url('https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/2307e4bf-be39-42b4-b579-e168aeccabf0.jpg') center/cover no-repeat;
         }
 
         /* Video */
@@ -255,11 +256,11 @@
 
     <div class="track">
         <section class="scene">
-            <!-- ADDED POSTER SO IT'S NOT A BLACK BOX -->
+            <!-- REMOVED crossorigin to prevent security block -->
             <video 
                 src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/409763c0-95f4-49d3-a601-dc564d55072b.mp4" 
                 poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/2307e4bf-be39-42b4-b579-e168aeccabf0.jpg"
-                muted playsinline preload="auto" crossorigin="anonymous">
+                muted playsinline preload="auto">
             </video>
             
             <div class="speed">00 KM/H</div>
@@ -355,9 +356,9 @@
         function updateEdge() {
             const rect = video.getBoundingClientRect();
             
-            // SAFETY CHECK: If video fails to load, don't cover the screen with black!
-            if (!rect.height || rect.height === 0) {
-                document.documentElement.style.setProperty('--edge-px', `${vh}px`);
+            // SAFETY CHECK: If video fails to load (height is 0), keep the band at 80vh
+            if (!rect.height || rect.height < 100) {
+                document.documentElement.style.setProperty('--edge-px', `${vh * 0.8}px`);
                 return;
             }
             
@@ -382,10 +383,9 @@
         // Ensure resize happens when metadata finally arrives
         video.addEventListener('loadedmetadata', () => { resize(); });
         
-        // If the video is blocked entirely by the server, keep the black band hidden
+        // If the video is blocked entirely, log it
         video.addEventListener('error', () => { 
             console.warn("Video failed to load due to CORS or network block.");
-            document.documentElement.style.setProperty('--edge-px', `${vh}px`);
         });
 
         function raf() {

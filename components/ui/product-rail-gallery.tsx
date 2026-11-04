@@ -1154,7 +1154,8 @@ function Detail({ uid, item, index, total, hanger, labels, reduced, source, onLi
     if (event.key === "Escape") { event.preventDefault(); dismiss(); return; }
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") { turnTo(side === "front" ? "back" : "front"); return; }
     if (event.key !== "Tab") return;
-    const controls = [...(dialogRef.current?.querySelectorAll("button") ?? [])].filter((node) => !node.disabled);
+    const buttons = dialogRef.current?.querySelectorAll("button");
+    const controls = buttons ? Array.from(buttons).filter((node) => !node.disabled) : [];
     const first = controls[0];
     const last = controls[controls.length - 1];
     if (!first || !last) return;

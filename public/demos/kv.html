@@ -361,7 +361,12 @@
         }
 
         window.addEventListener('resize', resize);
-        resize();
+
+        // Wait for the video to load before calculating the layout!
+        video.addEventListener('loadedmetadata', () => {
+            resize();
+            requestAnimationFrame(raf);
+        });
 
         // Animation Loop
         let targetTime = 0;

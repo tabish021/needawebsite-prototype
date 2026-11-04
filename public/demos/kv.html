@@ -90,7 +90,6 @@
             mix-blend-mode: darken;
             transform-origin: left bottom;
             will-change: transform;
-            /* Anchor to the final band edge */
             bottom: calc(100vh - var(--edge-px));
             height: max-content;
         }
@@ -119,6 +118,7 @@
             color: var(--white);
             z-index: 3;
             overflow: hidden;
+            will-change: top;
         }
 
         /* Horizontal Strip */
@@ -182,7 +182,6 @@
             font-family: 'Anton', sans-serif;
             font-size: calc(var(--u) * 26);
             line-height: 1.1;
-            /* Gradient reveal logic */
             background: linear-gradient(90deg, 
                 var(--white) 0%, 
                 var(--white) calc(var(--s, 0%) - 34%), 
@@ -256,7 +255,12 @@
 
     <div class="track">
         <section class="scene">
-            <video src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/409763c0-95f4-49d3-a601-dc564d55072b.mp4" muted playsinline preload="auto" crossorigin="anonymous"></video>
+            <!-- ADDED POSTER SO IT'S NOT A BLACK BOX -->
+            <video 
+                src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/409763c0-95f4-49d3-a601-dc564d55072b.mp4" 
+                poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/2307e4bf-be39-42b4-b579-e168aeccabf0.jpg"
+                muted playsinline preload="auto" crossorigin="anonymous">
+            </video>
             
             <div class="speed">00 KM/H</div>
             
@@ -317,36 +321,31 @@
 
         let vh = window.innerHeight;
         let vw = window.innerWidth;
-        const A = 2.4; // Clip scroll length
-        let B = 1; // Strip scroll length
+        const A = 2.4; 
+        let B = 1; 
 
         function resize() {
             vh = window.innerHeight;
             vw = window.innerWidth;
             
-            // Calculate total track height
             const stripWidth = strip.scrollWidth;
             B = ((stripWidth + 0.45 * vw) / vw) * 1.1;
             track.style.height = `${(1 + A + B) * vh}px`;
             
-            // Video sizing logic
             if (vw > 768 && vw > vh) {
-                // Desktop cover
                 const scale = Math.max(vw / 1920, vh / 1080);
                 video.style.width = `${1920 * scale}px`;
                 video.style.height = `${1080 * scale}px`;
                 video.style.left = `${(vw - 1920 * scale) / 2}px`;
                 video.style.top = `${(vh - 1080 * scale) / 2}px`;
             } else {
-                // Mobile custom framing
                 const scale = (vw * 1.55) / 1920;
                 video.style.width = `${vw * 1.55}px`;
                 video.style.height = `${1080 * scale}px`;
-                // Try to align the band edge to 36% of viewport
                 const targetEdgeY = vh * 0.36;
-                const frameEdgeRatio = 0.448; // from prompt
+                const frameEdgeRatio = 0.448;
                 const videoTop = targetEdgeY - (1080 * scale * frameEdgeRatio);
-                video.style.left = `-${(vw * 1.55 * 0.4) - (vw / 2)}px`; // roughly center left
+                video.style.left = `-${(vw * 1.55 * 0.4) - (vw / 2)}px`; 
                 video.style.top = `${videoTop}px`;
             }
             
@@ -354,19 +353,22 @@
         }
 
         function updateEdge() {
-            // Use the final frame ratio to lock the band edge
             const rect = video.getBoundingClientRect();
+            
+            // SAFETY CHECK: If video fails to load, don't cover the screen with black!
+            if (!rect.height || rect.height === 0) {
+                document.documentElement.style.setProperty('--edge-px', `${vh}px`);
+                return;
+            }
+            
             const edge = rect.top + (rect.height * 0.448);
             document.documentElement.style.setProperty('--edge-px', `${edge}px`);
         }
 
         window.addEventListener('resize', resize);
 
-        // Wait for the video to load before calculating the layout!
-        video.addEventListener('loadedmetadata', () => {
-            resize();
-            requestAnimationFrame(raf);
-        });
+        // Force the video to load
+        video.load();
 
         // Animation Loop
         let targetTime = 0;
@@ -376,29 +378,39 @@
         let lastT = performance.now();
 
         video.addEventListener('seeked', () => { isSeeking = false; });
+        
+        // Ensure resize happens when metadata finally arrives
+        video.addEventListener('loadedmetadata', () => { resize(); });
+        
+        // If the video is blocked entirely by the server, keep the black band hidden
+        video.addEventListener('error', () => { 
+            console.warn("Video failed to load due to CORS or network block.");
+            document.documentElement.style.setProperty('--edge-px', `${vh}px`);
+        });
 
         function raf() {
             const y = window.scrollY;
             const t = performance.now();
             
             // 1. Video Scrub
-            let q = Math.max(0, Math.min(1, y / (A * vh)));
-            targetTime = q * (video.duration - 0.02 || 4.04); // fallback if metadata not loaded
-            curTime += (targetTime - curTime) * 0.2;
-            
-            if (Math.abs(video.currentTime - curTime) > (1/60) && !isSeeking) {
-                isSeeking = true;
-                video.currentTime = curTime;
+            if (video.readyState >= 2) {
+                let q = Math.max(0, Math.min(1, y / (A * vh)));
+                targetTime = q * ((video.duration || 4.04) - 0.02); 
+                curTime += (targetTime - curTime) * 0.2;
+                
+                if (Math.abs(video.currentTime - curTime) > (1/60) && !isSeeking) {
+                    isSeeking = true;
+                    video.currentTime = curTime;
+                }
+
+                if (q >= 0.94) {
+                    document.documentElement.style.setProperty('--ph', '1');
+                } else {
+                    document.documentElement.style.setProperty('--ph', '0');
+                }
             }
 
-            // 2. Phase change (Readout)
-            if (q >= 0.94) {
-                document.documentElement.style.setProperty('--ph', '1');
-            } else {
-                document.documentElement.style.setProperty('--ph', '0');
-            }
-
-            // 3. Strip & Giant Text Scroll
+            // 2. Strip & Giant Text Scroll
             let r = Math.max(0, Math.min(1, (y - A * vh) / (B * vh)));
             
             const stripWidth = strip.scrollWidth;
@@ -410,7 +422,7 @@
             strip.style.transform = `translateX(${stripX}px)`;
             giant.style.transform = `translateX(${giantX}px)`;
             
-            // 4. Speed Readout
+            // 3. Speed Readout
             const dy = Math.abs(y - lastY);
             const dt = t - lastT;
             let speed = Math.round((dy / dt) * 16); 
@@ -420,7 +432,7 @@
             lastY = y;
             lastT = t;
             
-            // 5. Card Gradient Reveal
+            // 4. Card Gradient Reveal
             cards.forEach(card => {
                 const cardLeft = card.getBoundingClientRect().left;
                 let s = Math.max(-0.4, Math.min(1.6, (0.98 - cardLeft / vw) / 0.3)) * 100;
@@ -429,6 +441,10 @@
 
             requestAnimationFrame(raf);
         }
+        
+        // Start the animation loop immediately
+        resize();
+        requestAnimationFrame(raf);
     </script>
 </body>
 </html>

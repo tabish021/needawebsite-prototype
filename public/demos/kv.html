@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KV Freight</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --white: #fff;
+            --ink: #111;
+            --cobalt: #2f63ff;
+            --giant: #e9e9e9;
+            --u: min(100vw / 1440, 100vh / 960);
+            --edge-px: 100vh; 
+            --ph: 0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Archivo', sans-serif;
+            background: var(--white);
+            color: var(--ink);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Navigation */
+        .nav {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            padding: 40px calc(var(--u) * 50);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            mix-blend-mode: difference;
+            color: var(--white);
+        }
+        
+        .nav-left { font-weight: 600; font-size: calc(var(--u) * 30); letter-spacing: -0.06em; }
+        .nav-right { display: flex; gap: calc(var(--u) * 30); align-items: center; font-size: calc(var(--u) * 12); font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; }
+        
+        .pill {
+            border: 1px solid currentColor;
+            padding: calc(var(--u) * 12) calc(var(--u) * 24);
+            border-radius: 50px;
+            text-decoration: none;
+            color: inherit;
+            transition: background 0.2s, color 0.2s;
+        }
+        .pill:hover { background: var(--white); color: var(--ink); mix-blend-mode: normal; }
+
+        /* Track & Scene */
+        .track { position: relative; width: 100%; }
+        
+        .scene {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            width: 100%;
+            overflow: hidden;
+            background: var(--white);
+        }
+
+        /* Video */
+        video {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            min-width: 100%; min-height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Giant Text */
+        .giant-letters {
+            position: absolute;
+            top: 0;
+            left: 0;
+            font-family: 'Anton', sans-serif;
+            font-size: calc(var(--u) * 330);
+            line-height: 0.8;
+            color: var(--giant);
+            white-space: nowrap;
+            z-index: 2;
+            mix-blend-mode: darken;
+            transform-origin: left bottom;
+            will-change: transform;
+            /* Anchor to the final band edge */
+            bottom: calc(100vh - var(--edge-px));
+            height: max-content;
+        }
+
+        /* Speed Readout */
+        .speed {
+            position: absolute;
+            top: calc(var(--u) * 52);
+            left: calc(var(--u) * 26);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: calc(var(--u) * 10.5);
+            color: var(--ink);
+            z-index: 5;
+            opacity: var(--ph);
+            transition: opacity 0.3s ease;
+        }
+
+        /* Dark Band */
+        .band {
+            position: absolute;
+            top: var(--edge-px);
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: var(--ink);
+            color: var(--white);
+            z-index: 3;
+            overflow: hidden;
+        }
+
+        /* Horizontal Strip */
+        .strip {
+            position: absolute;
+            top: calc(var(--u) * 76);
+            left: 0;
+            display: flex;
+            gap: calc(var(--u) * 120);
+            will-change: transform;
+        }
+
+        .lead-block {
+            display: flex;
+            gap: calc(var(--u) * 64);
+            width: calc(var(--u) * 750);
+        }
+
+        .headline {
+            font-family: 'Anton', sans-serif;
+            font-size: calc(var(--u) * 64);
+            line-height: 0.98;
+        }
+        .headline span { color: var(--cobalt); }
+
+        .lead-paras {
+            width: calc(var(--u) * 250);
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--u) * 20);
+            font-size: calc(var(--u) * 12);
+            color: rgba(255,255,255,0.62);
+            line-height: 1.5;
+        }
+
+        /* Cards */
+        .cards-container { display: flex; }
+
+        .card {
+            width: calc(var(--u) * 270);
+            padding: 0 calc(var(--u) * 30);
+            border-left: 1px solid rgba(255,255,255,0.12);
+            display: flex;
+            flex-direction: column;
+            gap: calc(var(--u) * 20);
+        }
+        .card:first-child { border-left: none; }
+
+        .card-icon {
+            width: calc(var(--u) * 38);
+            height: calc(var(--u) * 38);
+            border: 1.5px solid var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: calc(var(--u) * 16);
+        }
+
+        .card-title {
+            font-family: 'Anton', sans-serif;
+            font-size: calc(var(--u) * 26);
+            line-height: 1.1;
+            /* Gradient reveal logic */
+            background: linear-gradient(90deg, 
+                var(--white) 0%, 
+                var(--white) calc(var(--s, 0%) - 34%), 
+                var(--cobalt) calc(var(--s, 0%) - 6%), 
+                transparent calc(var(--s, 0%) + 26%)
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .card-body {
+            font-size: calc(var(--u) * 12.4);
+            color: rgba(255,255,255,0.62);
+            line-height: 1.5;
+            background: linear-gradient(90deg, 
+                var(--white) 0%, 
+                var(--white) calc(var(--s, 0%) - 34%), 
+                var(--cobalt) calc(var(--s, 0%) - 6%), 
+                transparent calc(var(--s, 0%) + 26%)
+            );
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Bottom Pill */
+        .bottom-pill {
+            position: absolute;
+            bottom: calc(var(--u) * 36);
+            left: 50%;
+            transform: translate(-50%, calc((1 - var(--ph)) * 24px));
+            border: 1px solid var(--white);
+            padding: calc(var(--u) * 14) calc(var(--u) * 32);
+            border-radius: 50px;
+            font-size: calc(var(--u) * 12);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            opacity: var(--ph);
+            transition: opacity 0.4s, transform 0.4s;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            :root { --u: min(100vw / 430, 1.4px); }
+            .nav { padding: 20px; mix-blend-mode: normal; color: var(--ink); }
+            .nav-right { display: none; }
+            .giant-letters { font-size: 180u; }
+            .speed { font-size: 11px; top: 22px; left: 20px; }
+            .strip { top: 44u; gap: 56u; padding-left: 22px; }
+            .lead-block { flex-direction: column; gap: 20u; width: 300u; }
+            .headline { font-size: 46u; }
+            .lead-paras { font-size: 13u; width: 100%; }
+            .card { width: 250u; }
+            .card-title { font-size: 26u; }
+            .card-body { font-size: 13u; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="nav">
+        <div class="nav-left">KV</div>
+        <div class="nav-right">
+            <span>→ Menu</span>
+            <span>Follow</span>
+            <a href="#" class="pill">Work with us</a>
+        </div>
+    </header>
+
+    <div class="track">
+        <section class="scene">
+            <video src="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/409763c0-95f4-49d3-a601-dc564d55072b.mp4" muted playsinline preload="auto"></video>
+            
+            <div class="speed">00 KM/H</div>
+            
+            <div class="giant-letters">OUR SERVICES</div>
+            
+            <div class="band">
+                <div class="strip">
+                    <div class="lead-block">
+                        <h2 class="headline">EVERYTHING YOUR<br>FREIGHT NEEDS.<br><span>UNDER ONE GROUP.</span></h2>
+                        <div class="lead-paras">
+                            <p>From air to sea, from customs clearance to the last mile, we bring decades of practice to every freight discipline.</p>
+                            <p>One integrated network means one partner, one point of contact and full visibility from origin to destination.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="cards-container">
+                        <div class="card">
+                            <div class="card-icon">✈</div>
+                            <h3 class="card-title">Air<br>freight</h3>
+                            <p class="card-body">Express, priority and deferred options across global lanes, booked and tracked end to end.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">🚢</div>
+                            <h3 class="card-title">Ocean<br>freight</h3>
+                            <p class="card-body">FCL and LCL sailings on every major trade lane, with carrier choice based on cost and transit time.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">📄</div>
+                            <h3 class="card-title">Customs<br>brokerage</h3>
+                            <p class="card-body">Licensed in-house brokers for classification, duties and inspections, so goods clear first time.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">🏢</div>
+                            <h3 class="card-title">Warehousing<br>and 3PL</h3>
+                            <p class="card-body">Bonded and general storage, pick and pack, and distribution that plugs straight into transport.</p>
+                        </div>
+                        <div class="card">
+                            <div class="card-icon">🏗</div>
+                            <h3 class="card-title">Project<br>cargo</h3>
+                            <p class="card-body">Oversized and heavy-lift moves, engineered, permitted and escorted from factory to foundation.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-pill">Explore Services</div>
+        </section>
+    </div>
+
+    <script>
+        const track = document.querySelector('.track');
+        const scene = document.querySelector('.scene');
+        const video = document.querySelector('video');
+        const speedEl = document.querySelector('.speed');
+        const strip = document.querySelector('.strip');
+        const giant = document.querySelector('.giant-letters');
+        const cards = document.querySelectorAll('.card');
+
+        let vh = window.innerHeight;
+        let vw = window.innerWidth;
+        const A = 2.4; // Clip scroll length
+        let B = 1; // Strip scroll length
+
+        function resize() {
+            vh = window.innerHeight;
+            vw = window.innerWidth;
+            
+            // Calculate total track height
+            const stripWidth = strip.scrollWidth;
+            B = ((stripWidth + 0.45 * vw) / vw) * 1.1;
+            track.style.height = `${(1 + A + B) * vh}px`;
+            
+            // Video sizing logic
+            if (vw > 768 && vw > vh) {
+                // Desktop cover
+                const scale = Math.max(vw / 1920, vh / 1080);
+                video.style.width = `${1920 * scale}px`;
+                video.style.height = `${1080 * scale}px`;
+                video.style.left = `${(vw - 1920 * scale) / 2}px`;
+                video.style.top = `${(vh - 1080 * scale) / 2}px`;
+            } else {
+                // Mobile custom framing
+                const scale = (vw * 1.55) / 1920;
+                video.style.width = `${vw * 1.55}px`;
+                video.style.height = `${1080 * scale}px`;
+                // Try to align the band edge to 36% of viewport
+                const targetEdgeY = vh * 0.36;
+                const frameEdgeRatio = 0.448; // from prompt
+                const videoTop = targetEdgeY - (1080 * scale * frameEdgeRatio);
+                video.style.left = `-${(vw * 1.55 * 0.4) - (vw / 2)}px`; // roughly center left
+                video.style.top = `${videoTop}px`;
+            }
+            
+            updateEdge();
+        }
+
+        function updateEdge() {
+            // Use the final frame ratio to lock the band edge
+            const rect = video.getBoundingClientRect();
+            const edge = rect.top + (rect.height * 0.448);
+            document.documentElement.style.setProperty('--edge-px', `${edge}px`);
+        }
+
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Animation Loop
+        let targetTime = 0;
+        let curTime = 0;
+        let isSeeking = false;
+        let lastY = window.scrollY;
+        let lastT = performance.now();
+
+        video.addEventListener('seeked', () => { isSeeking = false; });
+
+        function raf() {
+            const y = window.scrollY;
+            const t = performance.now();
+            
+            // 1. Video Scrub
+            let q = Math.max(0, Math.min(1, y / (A * vh)));
+            targetTime = q * (video.duration - 0.02 || 4.04); // fallback if metadata not loaded
+            curTime += (targetTime - curTime) * 0.2;
+            
+            if (Math.abs(video.currentTime - curTime) > (1/60) && !isSeeking) {
+                isSeeking = true;
+                video.currentTime = curTime;
+            }
+
+            // 2. Phase change (Readout)
+            if (q >= 0.94) {
+                document.documentElement.style.setProperty('--ph', '1');
+            } else {
+                document.documentElement.style.setProperty('--ph', '0');
+            }
+
+            // 3. Strip & Giant Text Scroll
+            let r = Math.max(0, Math.min(1, (y - A * vh) / (B * vh)));
+            
+            const stripWidth = strip.scrollWidth;
+            const giantWidth = giant.scrollWidth;
+            
+            const stripX = vw - r * (stripWidth + 0.45 * vw);
+            const giantX = vw - r * (giantWidth + vw);
+            
+            strip.style.transform = `translateX(${stripX}px)`;
+            giant.style.transform = `translateX(${giantX}px)`;
+            
+            // 4. Speed Readout
+            const dy = Math.abs(y - lastY);
+            const dt = t - lastT;
+            let speed = Math.round((dy / dt) * 16); 
+            speed = Math.min(99, speed);
+            speedEl.textContent = `${speed.toString().padStart(2, '0')} KM/H`;
+            
+            lastY = y;
+            lastT = t;
+            
+            // 5. Card Gradient Reveal
+            cards.forEach(card => {
+                const cardLeft = card.getBoundingClientRect().left;
+                let s = Math.max(-0.4, Math.min(1.6, (0.98 - cardLeft / vw) / 0.3)) * 100;
+                card.style.setProperty('--s', `${s}%`);
+            });
+
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+    </script>
+</body>
+</html>

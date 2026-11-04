@@ -27,24 +27,24 @@ export default function CreativePage() {
       {/* Hero Section - Top 70% Waves, Bottom 30% Interactive Text */}
       <section className="relative h-screen w-full flex flex-col bg-black overflow-hidden border-b border-white/10">
         
-        {/* Waves - Start from top, cover 70% of screen */}
-        <div className="absolute top-0 left-0 right-0 h-[60%] z-0">
+        {/* Waves - Takes exactly 70% of the screen from the top */}
+        <div className="absolute top-0 left-0 right-0 h-[70%] z-0">
           <Waves backgroundColor="#000000" strokeColor="#FFFFFF" />
         </div>
 
-        {/* Text Container - Pushed to bottom, solid black background */}
-        <div className="relative z-10 mt-auto w-full bg-black pt-8 pb-12 md:pb-20 px-4 md:px-16 lg:px-24 flex flex-col gap-2">
+        {/* Text Container - Anchored to the bottom 30% */}
+        <div className="relative z-10 mt-auto w-full h-[30%] bg-black flex flex-col justify-center px-4 md:px-16 lg:px-24">
           
           {/* Line 1 */}
-          <div className="w-full h-[80px] md:h-[140px] lg:h-[180px] relative">
+          <div className="w-full relative">
             <TechText
               text="Websites That Don't Just Work."
               fontWeight={700}
-              fontSize={180}
+              fontSize={140}
               reveal="letter"
               dashLength={5}
               dashGap={3}
-              specks={25}
+              specks={20}
               intro="metrics"
               introDuration={2}
               clickKick
@@ -52,15 +52,16 @@ export default function CreativePage() {
               color="#ffffff"
               accentColor="#16A34A"
               align="left"
+              sweep={false} 
             />
           </div>
 
           {/* Line 2 */}
-          <div className="w-full h-[80px] md:h-[140px] lg:h-[180px] relative">
+          <div className="w-full relative mt-[-10px]">
             <TechText
               text="THEY WOW."
               fontWeight={900}
-              fontSize={240}
+              fontSize={200}
               reveal="letter"
               dashLength={4}
               dashGap={2}
@@ -72,6 +73,7 @@ export default function CreativePage() {
               color="#ffffff"
               accentColor="#16A34A"
               align="left"
+              sweep={false}
             />
           </div>
 

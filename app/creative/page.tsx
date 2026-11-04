@@ -190,12 +190,35 @@ export default function CreativePage() {
             </div>
           </a>
 
-          {/* Placeholder Card */}
-          <div className="relative aspect-video rounded-2xl border border-white/10 bg-zinc-900/50 flex items-center justify-center p-6 text-center">
-            <span className="text-zinc-600 font-medium text-sm tracking-wide">
-              Coming Soon
-            </span>
-          </div>
+                    {/* Card 6: KV Freight */}
+          <a
+            href="/demos/kv.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/2307e4bf-be39-42b4-b579-e168aeccabf0.jpg')" }}
+          >
+            <div className="absolute inset-0 flex flex-col items-start justify-end p-6 z-10 bg-gradient-to-t from-black/80 to-transparent">
+              <p className="text-white font-[family-name:var(--font-anton)] text-3xl tracking-wide uppercase">
+                KV Freight
+              </p>
+              <p className="text-white/70 text-xs font-sans tracking-widest uppercase mt-1">Scroll Scrubbing</p>
+            </div>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">KV Freight</h3>
+              <p className="text-zinc-300 text-sm mb-4">Video Scroll Sync</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                Open Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute top-4 left-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['Video Scrubbing', 'Vanilla JS', 'Scroll Math'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
           
         </div>
       </section>

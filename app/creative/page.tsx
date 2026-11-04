@@ -23,15 +23,21 @@ export default function CreativePage() {
     <div className="dark bg-black min-h-screen text-white">
       <SmoothScroll />
 
-      {/* Waves Hero Section */}
-      <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
-        <Waves backgroundColor="#000000" strokeColor="#FFFFFF" />
-
-        <div className="relative z-10 max-w-5xl mx-auto px-6 text-center flex items-center justify-center pointer-events-none">
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold text-white text-center tracking-tight leading-[1.08] select-none">
-            Websites That Don't Just Work. They Wow.
+      {/* Waves Hero Section - Split Layout */}
+      <section className="relative h-screen w-full flex flex-col md:flex-row overflow-hidden border-b border-white/10">
+        
+        {/* Left Side: Text */}
+        <div className="relative w-full md:w-1/2 h-1/2 md:h-full flex items-center justify-center md:justify-start p-8 md:p-16 lg:p-24 z-10 bg-black">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-bold text-white tracking-tight leading-[1.05] select-none text-center md:text-left">
+            Websites That<br className="hidden md:block"/> Don't Just Work.<br/> They Wow.
           </h1>
         </div>
+
+        {/* Right Side: Waves */}
+        <div className="relative w-full md:w-1/2 h-1/2 md:h-full bg-black">
+          <Waves backgroundColor="#000000" strokeColor="#FFFFFF" />
+        </div>
+
       </section>
 
       {/* Interactive Playground Section */}
@@ -190,7 +196,7 @@ export default function CreativePage() {
             </div>
           </a>
 
-                    {/* Card 6: NORVA */}
+          {/* Card 6: NORVA */}
           <a
             href="/demos/norva.html"
             target="_blank"
@@ -199,7 +205,7 @@ export default function CreativePage() {
             style={{ backgroundImage: "url('/norva-poster.jpg')" }}
           >
             <div className="absolute inset-0 flex flex-col items-start justify-end p-6 z-10 bg-gradient-to-t from-[#0f1626] via-[#0f1626]/50 to-transparent">
-              <p className="text-white font-[family-name:var(--font-inter-tight)] font-semibold text-2xl tracking-tight">
+              <p className="text-white font-semibold text-2xl tracking-tight">
                 NORVA
               </p>
               <p className="text-white/60 text-xs font-sans tracking-widest uppercase mt-1">3D Isometric Scroll</p>

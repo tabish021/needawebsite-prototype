@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { ArrowRight, ExternalLink } from 'lucide-react';
 import { Waves } from '@/components/ui/wave-background';
 import SmoothScroll from '@/components/SmoothScroll';
@@ -44,8 +43,10 @@ export default function CreativePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           
           {/* Card 1: Melli 3D Artistry */}
-          <Link
-            href="/creative/melli"
+          <a
+            href="/demos/melli.html"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
             style={{ backgroundImage: "url('https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20261016_130303_301c35dd-e2d1-4b40-a396-2b53f884d787.png')" }}
           >
@@ -58,7 +59,7 @@ export default function CreativePage() {
               <h3 className="text-white font-bold text-2xl mb-1">Melli 3D Artistry</h3>
               <p className="text-zinc-300 text-sm mb-4">3D Scroll & WebGL</p>
               <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
-                View Demo <ExternalLink className="w-4 h-4" />
+                Open Demo <ExternalLink className="w-4 h-4" />
               </span>
             </div>
             <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
@@ -68,11 +69,13 @@ export default function CreativePage() {
                 </span>
               ))}
             </div>
-          </Link>
+          </a>
 
           {/* Card 2: Solaris */}
-          <Link
-            href="/creative/solaris"
+          <a
+            href="/demos/solaris.html"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
             style={{ backgroundImage: "url('https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261102_040308_f31964ab-ed8e-4ea4-90eb-3226c0859936.png&w=1600&q=80')" }}
           >
@@ -85,7 +88,7 @@ export default function CreativePage() {
               <h3 className="text-white font-bold text-2xl mb-1">Solaris</h3>
               <p className="text-zinc-300 text-sm mb-4">Morning / Night Fog Hero</p>
               <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
-                View Demo <ExternalLink className="w-4 h-4" />
+                Open Demo <ExternalLink className="w-4 h-4" />
               </span>
             </div>
             <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
@@ -95,11 +98,13 @@ export default function CreativePage() {
                 </span>
               ))}
             </div>
-          </Link>
+          </a>
 
           {/* Card 3: Maison Vell */}
-          <Link
-            href="/creative/maison"
+          <a
+            href="/demos/maison.html"
+            target="_blank"
+            rel="noopener noreferrer"
             className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
             style={{ backgroundImage: "url('https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20261102_042056_1a704ff7-b0e5-4a9f-bbda-62392b819fb6.png&w=1600&q=80')", backgroundSize: '120%', backgroundPosition: 'left center' }}
           >
@@ -113,7 +118,7 @@ export default function CreativePage() {
               <h3 className="text-white font-bold text-2xl mb-1">Maison Vell</h3>
               <p className="text-zinc-300 text-sm mb-4">Depth Lookbook</p>
               <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
-                View Demo <ExternalLink className="w-4 h-4" />
+                Open Demo <ExternalLink className="w-4 h-4" />
               </span>
             </div>
             <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
@@ -123,7 +128,7 @@ export default function CreativePage() {
                 </span>
               ))}
             </div>
-          </Link>
+          </a>
 
           {/* Placeholder Cards */}
           {[1, 2, 3].map((item) => (

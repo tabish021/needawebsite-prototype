@@ -1,7 +1,5 @@
 "use client";
 
-import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
 import ClothingRailHero from "@/components/ui/product-rail-gallery";
 import type { RailGarment } from "@/components/ui/product-rail-gallery";
 
@@ -130,19 +128,9 @@ const RAIL_DEMO_ITEMS: RailGarment[] = [
 
 export default function ClothingRailDemo() {
   return (
-    <div className="fixed inset-0 w-full h-full bg-white overflow-y-auto">
-      {/* Back Button */}
-      <div className="absolute top-4 left-4 z-50">
-        <Link
-          href="/creative"
-          className="bg-black/50 text-white backdrop-blur-md px-4 py-2 rounded-full hover:bg-black/80 transition-colors flex items-center gap-2 text-sm font-medium border border-white/10"
-        >
-          <ArrowLeft className="w-4 h-4" /> Back to Playground
-        </Link>
-      </div>
-
-      {/* Demo Content */}
-      <div className="flex min-h-screen w-full items-center justify-center bg-background text-foreground pt-16 pb-12">
+    // Force light mode and black text for this specific page
+    <div className="light fixed inset-0 w-full h-full bg-white text-black overflow-y-auto">
+      <div className="flex min-h-screen w-full items-center justify-center pt-12 pb-12">
         <ClothingRailHero
           items={RAIL_DEMO_ITEMS}
           hanger="none"
@@ -151,7 +139,7 @@ export default function ClothingRailDemo() {
           caption="Brush along the rail, slide a hanger, lift a piece to see the back."
           autoplay={true}
           action={
-            <button type="button" className="rounded-full bg-foreground px-5 py-2.5 text-sm font-medium text-background shadow-sm outline-none transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background motion-reduce:transition-none">
+            <button type="button" className="rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white shadow-sm outline-none transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-md focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-2 focus-visible:ring-offset-white motion-reduce:transition-none">
               Shop the edit
             </button>
           }

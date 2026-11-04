@@ -27,13 +27,13 @@ export default function CreativePage() {
       {/* Hero Section */}
       <section className="relative h-screen w-full flex flex-col bg-black overflow-hidden border-b border-white/10">
         
-        {/* Waves - Changed to 65% to sit slightly above the text */}
-        <div className="absolute top-0 left-0 right-0 h-[65%] z-0">
+        {/* Waves - Reduced to 60% to give text more room */}
+        <div className="absolute top-0 left-0 right-0 h-[60%] z-0">
           <Waves backgroundColor="#000000" strokeColor="#FFFFFF" />
         </div>
 
-        {/* Text Container */}
-        <div className="relative z-10 mt-auto w-full h-[30%] bg-black flex flex-col justify-end pb-8 md:pb-16 px-4 md:px-16 lg:px-24">
+        {/* Text Container - Increased to 40%, centered with equal gaps */}
+        <div className="relative z-10 mt-auto w-full h-[40%] bg-black flex flex-col justify-center gap-6 md:gap-10 px-8 md:px-16 lg:px-24 pb-8 md:pb-12">
           
           {/* Line 1 */}
           <div className="w-full h-[60px] md:h-[100px] lg:h-[130px] relative">
@@ -57,7 +57,7 @@ export default function CreativePage() {
           </div>
 
           {/* Line 2 */}
-          <div className="w-full h-[80px] md:h-[130px] lg:h-[170px] relative mt-2">
+          <div className="w-full h-[80px] md:h-[130px] lg:h-[170px] relative">
             <TechText
               text="THEY WOW."
               fontWeight={900}

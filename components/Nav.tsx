@@ -12,11 +12,11 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   
-  // Bulletproof path checking for the creative hub
-  const isCreativeHub = pathname === '/creative' || pathname === '/creative/';
-  const isDemoPage = pathname?.startsWith('/creative/') && !isCreativeHub;
+  // Bulletproof: if it's the creative page or any demo, strip the nav down
+  const isCreative = pathname?.includes('/creative');
 
-  if (isDemoPage) {
+  if (pathname?.startsWith('/creative/') && !pathname.endsWith('/creative') && !pathname.endsWith('/creative/')) {
+    // Hide nav completely on demo pages
     return null;
   }
 
@@ -24,7 +24,7 @@ export default function Nav() {
     <>
       <header
         className={`fixed top-0 w-full z-[10000] transition-colors duration-200 ${
-          isCreativeHub
+          isCreative
             ? 'bg-transparent border-none'
             : 'bg-white border-b border-gray-200 dark:bg-black dark:border-gray-800'
         }`}
@@ -41,17 +41,19 @@ export default function Nav() {
 
           {/* Right Controls */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* Hide everything except Menu on the creative hub */}
-            {!isCreativeHub && <ThemeToggle />}
-
-            {!isCreativeHub && (
-              <Button
-                variant="primary"
-                href="/contact"
-                className="!px-3.5 sm:!px-4 !py-2 !min-h-[40px] text-xs sm:text-sm shadow-none hover:shadow-sm hidden md:inline-flex"
-              >
-                Get a Free Quote
-              </Button>
+            
+            {/* ONLY show these if we are NOT on the creative page */}
+            {!isCreative && (
+              <>
+                <ThemeToggle />
+                <Button
+                  variant="primary"
+                  href="/contact"
+                  className="!px-3.5 sm:!px-4 !py-2 !min-h-[40px] text-xs sm:text-sm shadow-none hover:shadow-sm hidden md:inline-flex"
+                >
+                  Get a Free Quote
+                </Button>
+              </>
             )}
 
             <button
@@ -60,15 +62,15 @@ export default function Nav() {
               aria-label="Open full screen navigation menu"
               aria-expanded={menuOpen}
               className={`min-h-[44px] min-w-[44px] px-3 sm:px-3.5 py-2 inline-flex items-center justify-center gap-1.5 sm:gap-2 rounded-md border transition-colors cursor-pointer ${
-                isCreativeHub
+                isCreative
                   ? 'border-white/20 bg-black/40 text-white hover:border-white/40'
                   : 'border-[#E5E7EB] dark:border-zinc-700 bg-white dark:bg-zinc-800 text-black dark:text-white hover:text-brand dark:hover:text-emerald-400'
               }`}
             >
-              <Menu className={`w-5 h-5 ${isCreativeHub ? 'text-white' : 'text-black dark:text-white'}`} />
+              <Menu className={`w-5 h-5 ${isCreative ? 'text-white' : 'text-black dark:text-white'}`} />
               <span
                 className={`text-xs sm:text-sm font-semibold tracking-wide ${
-                  isCreativeHub ? 'text-white' : 'text-black dark:text-white'
+                  isCreative ? 'text-white' : 'text-black dark:text-white'
                 }`}
               >
                 Menu

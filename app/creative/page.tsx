@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ArrowRight, ExternalLink } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { Waves } from '@/components/ui/wave-background';
 import SmoothScroll from '@/components/SmoothScroll';
 
@@ -130,8 +130,38 @@ export default function CreativePage() {
             </div>
           </a>
 
+          {/* Card 4: Dentiq */}
+          <a
+            href="/demos/dentiq.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260626_041422_4a459e05-abce-4150-9fb7-4ededc423cd1.png&w=1280&q=85')" }}
+          >
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 z-10 bg-white/40 backdrop-blur-sm">
+              <p className="text-black font-serif text-3xl italic tracking-tighter text-center">
+                Dentiq
+              </p>
+              <p className="text-black/60 text-xs font-sans tracking-widest uppercase mt-1">On Demand</p>
+            </div>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">Dentiq</h3>
+              <p className="text-zinc-300 text-sm mb-4">Editorial Typography</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                Open Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['CSS Animations', 'Typography', 'Vanilla JS'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
+
           {/* Placeholder Cards */}
-          {[1, 2, 3].map((item) => (
+          {[1, 2].map((item) => (
             <div
               key={item}
               className="relative aspect-video rounded-2xl border border-white/10 bg-zinc-900/50 flex items-center justify-center p-6 text-center"

@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 import ClothingRailHero from "@/components/ui/product-rail-gallery";
 import type { RailGarment } from "@/components/ui/product-rail-gallery";
 
-export const RAIL_DEMO_ITEMS: RailGarment[] = [
+const RAIL_DEMO_ITEMS: RailGarment[] = [
   {
     id: "bone-tee",
     name: "Heavyweight tee · Bone",

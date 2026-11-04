@@ -153,26 +153,4 @@ export default function CreativePage() {
             </div>
             <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
               {['CSS Animations', 'Typography', 'Vanilla JS'].map((tech) => (
-                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
-                  {tech}
-                </span>
-              ))}
-            </div>
-          </a>
-
-          {/* Placeholder Cards */}
-          {[1, 2].map((item) => (
-            <div
-              key={item}
-              className="relative aspect-video rounded-2xl border border-white/10 bg-zinc-900/50 flex items-center justify-center p-6 text-center"
-            >
-              <span className="text-zinc-600 font-medium text-sm tracking-wide">
-                Coming Soon
-              </span>
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
-  );
-}
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font

@@ -12,11 +12,9 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   
-  // Bulletproof path checking
   const isCreativeHub = pathname === '/creative' || pathname === '/creative/';
   const isDemoPage = pathname?.startsWith('/creative/') && !isCreativeHub;
 
-  // Hide the global nav ONLY on the actual sub-demo pages
   if (isDemoPage) {
     return null;
   }
@@ -26,19 +24,17 @@ export default function Nav() {
       <header
         className={`fixed top-0 w-full z-[10000] transition-colors duration-200 ${
           isCreativeHub
-            ? 'bg-transparent border-none text-white'
+            ? 'bg-transparent border-none'
             : 'bg-white border-b border-gray-200 dark:bg-black dark:border-gray-800'
         }`}
       >
         <div className="max-w-[1100px] mx-auto px-5 sm:px-6 h-16 flex items-center justify-between">
-          {/* Left: Brand with green dot */}
+          {/* Left: Brand - Permanently Green */}
           <Link
             href="/"
-            className={`text-xl font-bold tracking-tight flex items-center py-2 ${
-              isCreativeHub ? 'text-white' : 'text-black dark:text-white'
-            }`}
+            className="text-xl font-bold tracking-tight flex items-center py-2 text-[#16A34A] hover:text-[#15803D] transition-colors"
           >
-            <span className="inline-block w-2 h-2 rounded-full bg-brand mr-2" />
+            <span className="inline-block w-2 h-2 rounded-full bg-[#16A34A] mr-2" />
             NeedAWebsite
           </Link>
 
@@ -80,7 +76,6 @@ export default function Nav() {
         </div>
       </header>
 
-      {/* Full screen curtain navigation */}
       <FullScreenNav isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
     </>
   );

@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dentiq</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #ffffff;
+            --text: #0a0a0a;
+            --muted: #6b6b6b;
+            --button-bg: #0a0a0a;
+            --button-text: #ffffff;
+            --border-soft: rgba(0, 0, 0, 0.08);
+            --green: #17c964;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVBAR --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            padding: 19px 36px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Source Serif 4', serif;
+            font-size: 30px;
+            font-weight: 600;
+            font-style: italic;
+            letter-spacing: -0.08em;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .reg-mark {
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            font-style: normal;
+            letter-spacing: normal;
+            vertical-align: super;
+            margin-left: 2px;
+            margin-top: 4px;
+        }
+
+        .menu-btn {
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 99px;
+            padding: 10px 18px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .menu-btn:hover {
+            transform: scale(0.98);
+        }
+
+        /* --- FULL SCREEN DRAWER --- */
+        .drawer {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            z-index: 200;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .drawer.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .drawer-close {
+            position: absolute;
+            top: 19px;
+            right: 36px;
+            background: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            border-radius: 99px;
+            padding: 10px 18px;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .drawer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            text-align: center;
+        }
+
+        .drawer-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-size: 48px;
+            font-weight: 500;
+            letter-spacing: -0.04em;
+            transition: color 0.2s;
+        }
+
+        .drawer-links a:hover {
+            color: var(--muted);
+        }
+
+        .drawer-footer {
+            position: absolute;
+            bottom: 36px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            min-height: 850px;
+            padding: 160px 36px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url('https://images.higgs.ai/?default=1&output=webp&url=https%3A%2F%2Fd8j0ntlcm91z4.cloudfront.net%2Fuser_38xzZboKViGWJOttwIXH07lWA1P%2Fhf_20260626_041422_4a459e05-abce-4150-9fb7-4ededc423cd1.png&w=1280&q=85');
+            background-size: cover;
+            background-position: center;
+            z-index: 0;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* --- DECORATIVE CURVED LINES --- */
+        .line {
+            position: absolute;
+            height: 100vh;
+            width: 100px;
+            border: 2.5px solid #FCFAF8;
+            top: 0;
+            opacity: 0;
+            z-index: 1;
+            animation: line-pulse 5s ease-in-out infinite;
+        }
+
+        .line.left {
+            left: 0;
+            border-left: none;
+            border-radius: 0 80% 80% 0;
+        }
+
+        .line.right {
+            right: 0;
+            border-right: none;
+            border-radius: 80% 0 0 80%;
+        }
+
+        /* --- TICKER MARQUEE --- */
+        .ticker-wrapper {
+            width: 100%;
+            max-width: 500px;
+            height: 36px;
+            overflow: hidden;
+            margin-bottom: 32px;
+            mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%);
+        }
+
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: marquee-left 30s linear infinite;
+        }
+
+        .ticker-item {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--muted);
+            padding: 6px 14px;
+            border-radius: 99px;
+            background: rgb(251, 251, 251);
+            margin-right: 8px;
+            white-space: nowrap;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 {
+            max-width: 550px;
+            font-size: 82px;
+            line-height: 1.03;
+            letter-spacing: -0.07em;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        h1 .serif {
+            font-family: 'Source Serif 4', serif;
+            font-style: italic;
+            font-weight: 600;
+            letter-spacing: -0.08em;
+        }
+
+        h1 sup {
+            font-family: 'Inter', sans-serif;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: normal;
+            vertical-align: super;
+            margin-left: 2px;
+        }
+
+        .subtitle {
+            max-width: 476px;
+            font-size: 17px;
+            line-height: 1.45;
+            font-weight: 400;
+            color: var(--muted);
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        /* --- CTA BUTTONS --- */
+        .cta-row {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            height: 56px;
+            padding: 18px 30px;
+            border-radius: 99px;
+            background: var(--button-bg);
+            color: var(--button-text);
+            font-size: 15px;
+            font-weight: 600;
+            font-family: 'Inter', sans-serif;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+
+        .btn-book {
+            height: 56px;
+            padding: 8px 24px 8px 8px;
+            border-radius: 99px;
+            background: var(--bg);
+            border: 4px solid rgb(248, 248, 248);
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: border-color 0.2s;
+        }
+
+        .btn-book:hover {
+            border-color: rgb(235, 235, 235);
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .book-text {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .book-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .book-sub {
+            font-size: 12px;
+            font-weight: 500;
+            color: rgb(152, 152, 152);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .green-dot {
+            width: 8px;
+            height: 8px;
+            background: rgb(29, 204, 93);
+            border-radius: 50%;
+        }
+
+        /* --- PROGRESSIVE BLUR --- */
+        .blur-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 178px;
+            background: linear-gradient(to bottom, transparent 0%, rgba(255,255,255,0.4) 40%, #ffffff 100%);
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        /* --- TRUSTED BY SECTION --- */
+        .trusted {
+            padding: 36px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 36px;
+            position: relative;
+            z-index: 10;
+            background: var(--bg);
+        }
+
+        .trusted-label {
+            max-width: 163px;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--muted);
+            line-height: 1.4;
+        }
+
+        .trusted-marquee {
+            flex: 1;
+            overflow: hidden;
+            mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%);
+            -webkit-mask-image: linear-gradient(90deg, transparent 0%, black 12%, black 88%, transparent 100%);
+        }
+
+        .trusted-track {
+            display: flex;
+            width: max-content;
+            animation: marquee-left 30s linear infinite;
+        }
+
+        .logo-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text);
+            margin-right: 48px;
+            white-space: nowrap;
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes marquee-left {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        @keyframes line-pulse {
+            0% { opacity: 0; transform: scale(1); }
+            15% { opacity: 0.9; }
+            70% { opacity: 0.4; }
+            100% { opacity: 0; transform: scale(0.85); }
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1200px) {
+            .hero { padding: 140px 32px; }
+            h1 { font-size: clamp(60px, 8vw, 72px); }
+            .navbar { padding: 19px 32px; }
+            .drawer-links a { font-size: 40px; }
+        }
+
+        @media (max-width: 810px) {
+            .hero { 
+                min-height: 760px; 
+                padding: 120px 24px 96px; 
+            }
+            .hero::before {
+                transform: rotate(90deg);
+                width: 100vh;
+                height: 100vw;
+                top: 50%;
+                left: 50%;
+                margin-left: -50vh;
+                margin-top: -50vw;
+            }
+            .line.left, .line.right { display: none; }
+            .line.mobile-top {
+                display: block;
+                position: absolute;
+                height: 60px;
+                width: 100vw;
+                left: 0;
+                border: 2.5px solid #FCFAF8;
+                border-top: none;
+                border-radius: 0 0 80% 80%;
+                z-index: 1;
+                animation: line-pulse 5s ease-in-out infinite;
+            }
+            h1 { font-size: clamp(44px, 13vw, 52px); }
+            .cta-row { 
+                flex-direction: column; 
+                width: 100%; 
+                max-width: 320px;
+            }
+            .btn-primary, .btn-book { 
+                width: 100%; 
+                justify-content: center;
+            }
+            .btn-book { padding: 8px; }
+            .trusted { 
+                flex-direction: column; 
+                text-align: center;
+            }
+            .drawer-links a { font-size: 32px; }
+            .navbar { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Dentiq<span class="reg-mark">®</span></div>
+            <button class="menu-btn" id="menuBtn">
+                Menu
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- DRAWER -->
+    <div class="drawer" id="drawer">
+        <button class="drawer-close" id="closeBtn">
+            Close
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+        <div class="drawer-links">
+            <a href="#">Projects</a>
+            <a href="#">Plans</a>
+            <a href="#">Team</a>
+            <a href="#">FAQs</a>
+            <a href="#">Get in Touch</a>
+        </div>
+        <div class="drawer-footer">© 2026 Dentiq. All rights reserved.</div>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="hero">
+        <div class="hero-content">
+            
+            <!-- TICKER -->
+            <div class="ticker-wrapper">
+                <div class="ticker-track">
+                    <!-- Duplicated 4x for seamless loop -->
+                    <div class="ticker-item">Brand Identity</div>
+                    <div class="ticker-item">App Development</div>
+                    <div class="ticker-item">Visual Design</div>
+                    <div class="ticker-item">Creative Video</div>
+                    <div class="ticker-item">Iconography</div>
+                    <div class="ticker-item">Brand Identity</div>
+                    <div class="ticker-item">App Development</div>
+                    <div class="ticker-item">Visual Design</div>
+                    <div class="ticker-item">Creative Video</div>
+                    <div class="ticker-item">Iconography</div>
+                    <div class="ticker-item">Brand Identity</div>
+                    <div class="ticker-item">App Development</div>
+                    <div class="ticker-item">Visual Design</div>
+                    <div class="ticker-item">Creative Video</div>
+                    <div class="ticker-item">Iconography</div>
+                    <div class="ticker-item">Brand Identity</div>
+                    <div class="ticker-item">App Development</div>
+                    <div class="ticker-item">Visual Design</div>
+                    <div class="ticker-item">Creative Video</div>
+                    <div class="ticker-item">Iconography</div>
+                </div>
+            </div>
+
+            <h1>Premium creative <span class="serif">dentiq</span><sup>®</sup> on demand.</h1>
+            <p class="subtitle">A flexible design partnership for founders, brands, and agencies who want top craft delivered on their timeline.</p>
+
+            <div class="cta-row">
+                <a href="#" class="btn-primary">View Plans</a>
+                <a href="#" class="btn-book">
+                    <img src="https://framerusercontent.com/images/hfneFL6CHBi5BnNvCeOaqU9HqE4.png" alt="Avatar" class="avatar">
+                    <div class="book-text">
+                        <span class="book-title">Chat for 15 minutes</span>
+                        <span class="book-sub"><span class="green-dot"></span> Pick a slot</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+        
+        <div class="blur-bottom"></div>
+    </section>
+
+    <!-- TRUSTED BY -->
+    <section class="trusted">
+        <div class="trusted-label">Partnered with top-tier companies globally</div>
+        <div class="trusted-marquee">
+            <div class="trusted-track">
+                <!-- Duplicated for seamless loop -->
+                <span class="logo-text" style="font-family: 'Cedarville Cursive', cursive; font-weight:700;">Airbnb</span>
+                <span class="logo-text" style="font-family: system-ui, sans-serif; font-weight:800;">Shopify</span>
+                <span class="logo-text" style="font-family: Georgia, serif; font-weight:500;">Notion</span>
+                <span class="logo-text" style="font-family: 'Inter', sans-serif; font-weight:600;">Linear</span>
+                <span class="logo-text" style="font-family: 'Inter', sans-serif; font-weight:700;">Webflow</span>
+                <span class="logo-text" style="font-family: system-ui, sans-serif; font-weight:600;">Figma</span>
+                <span class="logo-text" style="font-family: Georgia, serif; font-weight:700;">Slack</span>
+                <span class="logo-text" style="font-family: system-ui, sans-serif; font-weight:800;">Stripe</span>
+                <span class="logo-text" style="font-family: 'Inter', sans-serif; font-weight:600;">Vercel</span>
+                <span class="logo-text" style="font-family: 'Source Serif 4', serif; font-weight:600;">Framer</span>
+
+                <span class="logo-text" style="font-family: 'Cedarville Cursive', cursive; font-weight:700;">Airbnb</span>
+                <span class="logo-text" style="font-family: system-ui, sans-serif; font-weight:800;">Shopify</span>
+                <span class="logo-text" style="font-family: Georgia, serif; font-weight:500;">Notion</span>
+                <span class="logo-text" style="font-family: 'Inter', sans-serif; font-weight:600;">Linear</span>
+                <span class="logo-text" style="font-family: 'Inter', sans-serif; font-weight:700;">Webflow</span>
+                <span class="logo-text" style="font-family: system-ui, sans-serif; font-weight:600;">Figma</span>
+                <span class="logo-text" style="font-family: Georgia, serif; font-weight:700;">Slack</span>
+                <span class="logo-text" style="font-family: system-ui, sans-serif; font-weight:800;">Stripe</span>
+                <span class="logo-text" style="font-family: 'Inter', sans-serif; font-weight:600;">Vercel</span>
+                <span class="logo-text" style="font-family: 'Source Serif 4', serif; font-weight:600;">Framer</span>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Generate the decorative curved lines
+        const hero = document.getElementById('hero');
+        
+        // Desktop lines
+        for (let i = 0; i < 20; i++) {
+            const leftLine = document.createElement('div');
+            leftLine.className = 'line left';
+            leftLine.style.width = (60 + i * 10) + 'px';
+            leftLine.style.animationDelay = (i * 0.25) + 's';
+            hero.appendChild(leftLine);
+
+            const rightLine = document.createElement('div');
+            rightLine.className = 'line right';
+            rightLine.style.width = (60 + i * 10) + 'px';
+            rightLine.style.animationDelay = (i * 0.25) + 's';
+            hero.appendChild(rightLine);
+        }
+
+        // Mobile top lines
+        for (let i = 0; i < 10; i++) {
+            const topLine = document.createElement('div');
+            topLine.className = 'line mobile-top';
+            topLine.style.height = (30 + i * 8) + 'px';
+            topLine.style.animationDelay = (i * 0.25) + 's';
+            hero.appendChild(topLine);
+        }
+
+        // Menu Drawer Logic
+        const menuBtn = document.getElementById('menuBtn');
+        const closeBtn = document.getElementById('closeBtn');
+        const drawer = document.getElementById('drawer');
+
+        menuBtn.addEventListener('click', () => {
+            drawer.classList.add('open');
+        });
+
+        closeBtn.addEventListener('click', () => {
+            drawer.classList.remove('open');
+        });
+    </script>
+</body>
+</html>

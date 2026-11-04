@@ -24,15 +24,15 @@ export default function CreativePage() {
     <div className="dark bg-black min-h-screen text-white">
       <SmoothScroll />
 
-      {/* Hero Section - Top 70% Waves, Bottom 30% Interactive Text */}
+      {/* Hero Section */}
       <section className="relative h-screen w-full flex flex-col bg-black overflow-hidden border-b border-white/10">
         
-        {/* Waves - Takes exactly 70% of the screen from the top */}
-        <div className="absolute top-0 left-0 right-0 h-[70%] z-0">
+        {/* Waves - Changed to 65% to sit slightly above the text */}
+        <div className="absolute top-0 left-0 right-0 h-[65%] z-0">
           <Waves backgroundColor="#000000" strokeColor="#FFFFFF" />
         </div>
 
-        {/* Text Container - Anchored to the bottom 30% */}
+        {/* Text Container */}
         <div className="relative z-10 mt-auto w-full h-[30%] bg-black flex flex-col justify-end pb-8 md:pb-16 px-4 md:px-16 lg:px-24">
           
           {/* Line 1 */}

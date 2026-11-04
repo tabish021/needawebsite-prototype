@@ -12,6 +12,7 @@ export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
   
+  // Bulletproof path checking for the creative hub
   const isCreativeHub = pathname === '/creative' || pathname === '/creative/';
   const isDemoPage = pathname?.startsWith('/creative/') && !isCreativeHub;
 
@@ -29,7 +30,7 @@ export default function Nav() {
         }`}
       >
         <div className="max-w-[1100px] mx-auto px-5 sm:px-6 h-16 flex items-center justify-between">
-          {/* Left: Brand - Permanently Green */}
+          {/* Left: Brand */}
           <Link
             href="/"
             className="text-xl font-bold tracking-tight flex items-center py-2 text-[#16A34A] hover:text-[#15803D] transition-colors"
@@ -40,6 +41,7 @@ export default function Nav() {
 
           {/* Right Controls */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Hide everything except Menu on the creative hub */}
             {!isCreativeHub && <ThemeToggle />}
 
             {!isCreativeHub && (

@@ -23,18 +23,19 @@ export default function CreativePage() {
     <div className="dark bg-black min-h-screen text-white">
       <SmoothScroll />
 
-      {/* Waves Hero Section - Top/Bottom Split Layout */}
-      <section className="relative h-screen w-full flex flex-col overflow-hidden border-b border-white/10">
+      {/* Hero Section - Giant Waves, Bottom Left Text */}
+      <section className="relative h-screen w-full flex flex-col justify-end bg-black overflow-hidden border-b border-white/10">
         
-        {/* Top Half: Waves */}
-        <div className="relative w-full h-1/2 bg-black">
+        {/* Waves - Start lower on the screen and bleed to the bottom */}
+        <div className="absolute top-[20%] left-0 right-0 bottom-0 z-0">
           <Waves backgroundColor="#000000" strokeColor="#FFFFFF" />
         </div>
 
-        {/* Bottom Half: Text */}
-        <div className="relative w-full h-1/2 flex items-center justify-center p-8 md:p-16 lg:p-24 z-10 bg-black">
-          <h1 className="text-5xl md:text-6xl lg:text-7xl xl:text-[5.5rem] font-bold text-white tracking-tight leading-[1.05] select-none text-center">
-            Websites That<br className="hidden md:block"/> Don't Just Work.<br/> They Wow.
+        {/* Text - Bottom Left, 2 Lines */}
+        <div className="relative z-10 p-8 md:p-16 lg:p-24 pb-12 md:pb-24 max-w-5xl pointer-events-none">
+          <h1 className="text-5xl md:text-7xl lg:text-[6.5rem] font-bold text-white tracking-tight leading-[1.05] text-left drop-shadow-2xl">
+            Websites That Don't Just Work.<br />
+            They Wow.
           </h1>
         </div>
 

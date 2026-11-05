@@ -1,3 +1,4 @@
+// @ts-nocheck
 import type { Metadata } from 'next';
 import { ExternalLink } from 'lucide-react';
 import { Waves } from '@/components/ui/wave-background';

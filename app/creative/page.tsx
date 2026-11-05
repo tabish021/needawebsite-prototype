@@ -3,6 +3,7 @@ import { ExternalLink } from 'lucide-react';
 import { Waves } from '@/components/ui/wave-background';
 import SmoothScroll from '@/components/SmoothScroll';
 import TechText from '@/components/ui/TechText';
+import CircularGallery from '@/components/ui/CircularGallery';
 
 export const metadata: Metadata = {
   title: 'Creative Web Experiences | NeedAWebsite',
@@ -18,6 +19,39 @@ export const metadata: Metadata = {
     siteName: 'NeedAWebsite',
   },
 };
+
+const portfolioImages = [
+  { image: "/products/airin-morning-star.webp", text: "Airin Morning Star" },
+  { image: "/products/airin-perfume-black.webp", text: "Airin Perfume Black" },
+  { image: "/products/airin-perfume-red.webp", text: "Airin Perfume Red" },
+  { image: "/products/bella-luxury-jewellery.webp", text: "Bella Luxury Jewellery" },
+  { image: "/products/coffee-ad.webp", text: "Coffee Ad" },
+  { image: "/products/dr-kratos-original.webp", text: "Dr. Kratos Original" },
+  { image: "/products/elane-bag-ad.webp", text: "Elane Bag Ad" },
+  { image: "/products/elsa-lipstick.webp", text: "Elsa Lipstick" },
+  { image: "/products/encore-keyboard.webp", text: "Encore Keyboard" },
+  { image: "/products/eyewear-men.webp", text: "Eyewear Men" },
+  { image: "/products/eyewear-women.webp", text: "Eyewear Women" },
+  { image: "/products/nexa-blue-shoes.webp", text: "Nexa Blue Shoes" },
+  { image: "/products/nexa-purple-shoes.webp", text: "Nexa Purple Shoes" },
+  { image: "/products/nocco-sports.webp", text: "Nocco Sports" },
+  { image: "/products/north-fly-high-shoes.webp", text: "North Fly High Shoes" },
+  { image: "/products/north-light-shoes.webp", text: "North Light Shoes" },
+  { image: "/products/north-multiple-shoes.webp", text: "North Multiple Shoes" },
+  { image: "/products/north-smoke-shoes.webp", text: "North Smoke Shoes" },
+  { image: "/products/nouri-serum.webp", text: "Nouri Serum" },
+  { image: "/products/nouri-night-cream.webp", text: "Nouri Night Cream" },
+  { image: "/products/reus-headphones.webp", text: "Reus Headphones" },
+  { image: "/products/rivendell-wallet.webp", text: "Rivendell Wallet" },
+  { image: "/products/sr-buns-burger.webp", text: "Sr. Buns Burger" },
+  { image: "/products/varel-luxury-pen.webp", text: "Varel Luxury Pen" },
+  { image: "/products/veran-watch-ad.webp", text: "Veran Watch Ad" },
+  { image: "/products/v-luggages-bag.webp", text: "V Luggages Bag" },
+  { image: "/products/vybe-berry-kiss.webp", text: "Vybe Berry Kiss" },
+  { image: "/products/vybe-sky-cherry.webp", text: "Vybe Sky Cherry" },
+  { image: "/products/vybe-sparkling-water.webp", text: "Vybe Sparkling Water" },
+  { image: "/products/vybe-watermelon.webp", text: "Vybe Watermelon" },
+];
 
 export default function CreativePage() {
   return (
@@ -79,6 +113,29 @@ export default function CreativePage() {
 
         </div>
 
+      </section>
+
+      {/* 3D Product Gallery Section */}
+      <section className="relative w-full bg-black border-b border-white/10 overflow-hidden py-12">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
+            Visual Explorations
+          </h2>
+          <p className="text-zinc-400 mt-4">Drag to explore my latest product designs</p>
+        </div>
+        
+        <div className="relative h-[600px] md:h-[800px] w-full">
+          <CircularGallery
+            items={portfolioImages}
+            bend={3}
+            textColor="#ffffff"
+            borderRadius={0.05}
+            scrollEase={0.05}
+            font="bold 30px Inter, sans-serif"
+            itemAspect={0.6}
+            onItemClick={(item, index) => console.log(item.text, index)}
+          />
+        </div>
       </section>
 
       {/* Interactive Playground Section */}

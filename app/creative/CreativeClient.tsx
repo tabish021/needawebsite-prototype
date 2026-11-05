@@ -11,9 +11,9 @@ const TechText = dynamic(() => import('@/components/ui/TechText'), { ssr: false 
 const CircularGallery = dynamic(() => import('@/components/ui/CircularGallery'), { ssr: false });
 
 const portfolioImages = [
-  { image: "/products/airin-morning-star.webp", text: "Arin Morning Star" },
-  { image: "/products/airin-perfume-black.webp", text: "Arin Perfume Black" },
-  { image: "/products/airin-perfume-red.webp", text: "Arin Perfume Red" },
+  { image: "/products/arin-morning-star.webp", text: "Arin Morning Star" },
+  { image: "/products/arin-perfume-black.webp", text: "Arin Perfume Black" },
+  { image: "/products/arin-perfume-red.webp", text: "Arin Perfume Red" },
   { image: "/products/bella-luxury-jewellery.webp", text: "Bella Luxury Jewellery" },
   { image: "/products/coffee-ad.webp", text: "Coffee Ad" },
   { image: "/products/dr-kratos-original.webp", text: "Dr. Kratos Original" },

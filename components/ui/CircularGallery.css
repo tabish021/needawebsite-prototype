@@ -57,31 +57,33 @@
 }
 
 .circular-gallery-close {
-  position: absolute;
-  top: 12px;
-  right: 12px;
+  position: fixed; /* Changed from absolute to fixed */
+  top: 15%;        /* Brought it down from the top edge */
+  right: 15%;      /* Brought it in from the right edge */
+  z-index: 100;
   display: grid;
   place-items: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   padding: 0;
   border: 0;
   border-radius: 50%;
-  background: transparent;
+  background: rgba(255, 255, 255, 0.1); /* Added a subtle background so it's visible */
+  backdrop-filter: blur(4px);
   color: inherit;
   cursor: pointer;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, background 0.2s ease;
 }
 
 .circular-gallery-close[data-visible] {
-  opacity: 0.8;
+  opacity: 1;
   pointer-events: auto;
 }
 
 .circular-gallery-close:hover {
-  opacity: 1;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .circular-gallery-close:focus-visible {

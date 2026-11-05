@@ -405,7 +405,6 @@ const CircularGallery = ({
       const entry = { texture: null, aspect: 1, ready: 0, loaded: false };
       textures.set(url, entry);
       const image = new Image();
-      image.crossOrigin = 'anonymous';
       image.decoding = 'async';
       image.onload = () => {
         if (!textures.has(url)) return;
@@ -988,7 +987,7 @@ const CircularGallery = ({
     container.addEventListener('pointercancel', onPointerCancel);
     container.addEventListener('pointerleave', onPointerLeave);
     container.addEventListener('wheel', onWheel, { passive: false });
-    container.addEventListener('keydown', onKeyDown);
+    window.addEventListener('keydown', onKeyDown);
     container.addEventListener('focusin', onFocusIn);
     container.addEventListener('focusout', onFocusOut);
     document.addEventListener('visibilitychange', onVisibility);
@@ -1026,7 +1025,7 @@ const CircularGallery = ({
       container.removeEventListener('pointercancel', onPointerCancel);
       container.removeEventListener('pointerleave', onPointerLeave);
       container.removeEventListener('wheel', onWheel);
-      container.removeEventListener('keydown', onKeyDown);
+      window.removeEventListener('keydown', onKeyDown);
       container.removeEventListener('focusin', onFocusIn);
       container.removeEventListener('focusout', onFocusOut);
       document.removeEventListener('visibilitychange', onVisibility);

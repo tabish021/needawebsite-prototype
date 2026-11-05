@@ -123,7 +123,7 @@ export default function CreativeClient() {
             scrollEase={0.05}
             font="bold 30px Inter, sans-serif"
             itemAspect={0.6}
-            showTitles={false}  {/* <--- ADD THIS LINE */}
+            showTitles={false}
             onItemClick={(item, index) => console.log(item.text, index)}
           />
         </div>

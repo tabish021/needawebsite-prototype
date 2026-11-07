@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import { ExternalLink } from 'lucide-react';
 import { Waves } from '@/components/ui/wave-background';
 import SmoothScroll from '@/components/SmoothScroll';
+import ProcessBook from '@/components/ui/ProcessBook';
 
 // Dynamically import heavy components with SSR disabled to prevent build timeouts
 const TechText = dynamic(() => import('@/components/ui/TechText'), { ssr: false });

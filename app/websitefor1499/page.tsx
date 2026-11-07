@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Check, X, ArrowRight, Zap, ShieldCheck, MapPin, MessageCircle, BarChart, Globe } from 'lucide-react';
+import { Check, X, Zap, ShieldCheck, MapPin, MessageCircle, Globe } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
@@ -73,47 +73,13 @@ export default function Website1499() {
           </a>
         </div>
 
-        {/* 3D CSS Mockup - FIXED */}
-        <div className="w-full md:w-1/2 relative h-[400px] md:h-[500px] flex items-center justify-center perspective-[1500px]">
-          <div className="relative w-full max-w-lg transform-style-preserve-3d hover:rotate-y-0 rotate-y-[-15deg] rotate-x-[10deg] transition-transform duration-700 ease-out">
-            
-            {/* Laptop Frame */}
-            <div className="w-full aspect-[16/10] bg-zinc-900 dark:bg-zinc-800 rounded-t-xl p-2 shadow-2xl border border-zinc-700/50 relative z-10">
-              <div className="w-full h-full bg-white dark:bg-zinc-900 rounded overflow-hidden flex flex-col">
-                {/* Fake Website Navbar */}
-                <div className="h-6 w-full border-b border-zinc-100 dark:border-zinc-800 flex items-center px-2 gap-1.5 bg-zinc-50 dark:bg-zinc-900">
-                  <div className="w-2 h-2 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-                  <div className="w-2 h-2 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-                  <div className="w-2 h-2 rounded-full bg-zinc-300 dark:bg-zinc-700" />
-                </div>
-                {/* Fake Website Hero */}
-                <div className="flex-1 p-4 flex flex-col items-center justify-center text-center bg-white dark:bg-zinc-900">
-                  <div className="w-24 h-3 bg-green-200 dark:bg-green-900/50 rounded mb-3" />
-                  <div className="w-48 h-5 bg-zinc-800 dark:bg-zinc-200 rounded mb-3" />
-                  <div className="w-32 h-2 bg-zinc-200 dark:bg-zinc-700 rounded mb-5" />
-                  <div className="px-4 py-2 bg-green-600 text-white text-[10px] font-bold rounded shadow-sm">Contact Us</div>
-                </div>
-              </div>
-            </div>
-            {/* Laptop Base */}
-            <div className="w-[110%] h-4 bg-zinc-800 dark:bg-zinc-700 rounded-b-xl absolute -bottom-4 -left-[5%] shadow-xl border-t border-zinc-600 z-0" />
-
-            {/* Phone Frame */}
-            <div className="absolute -right-8 -bottom-12 w-28 md:w-32 aspect-[9/19] bg-zinc-900 dark:bg-zinc-800 rounded-[1.5rem] p-1.5 shadow-2xl border-[3px] border-zinc-700 dark:border-zinc-600 z-20 rotate-y-[10deg] hover:rotate-y-0 transition-transform duration-500">
-              <div className="w-full h-full bg-white dark:bg-zinc-900 rounded-[1rem] overflow-hidden flex flex-col relative">
-                {/* Notch */}
-                <div className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-3 bg-zinc-900 dark:bg-zinc-800 rounded-full z-10" />
-                {/* Fake Mobile Hero */}
-                <div className="flex-1 flex flex-col items-center justify-center p-2 text-center bg-white dark:bg-zinc-900 mt-4">
-                  <div className="w-12 h-2 bg-green-200 dark:bg-green-900/50 rounded mb-2" />
-                  <div className="w-20 h-3 bg-zinc-800 dark:bg-zinc-200 rounded mb-2" />
-                  <div className="w-16 h-1.5 bg-zinc-200 dark:bg-zinc-700 rounded mb-4" />
-                  <div className="w-full py-1.5 bg-green-600 text-white text-[8px] font-bold rounded">Contact Us</div>
-                </div>
-              </div>
-            </div>
-
-          </div>
+        {/* Image Mockup */}
+        <div className="w-full md:w-1/2 relative flex items-center justify-center mt-12 md:mt-0">
+          <img
+            src="/nourish-mockup.webp"
+            alt="Premium website design mockup on laptop and mobile"
+            className="w-full max-w-2xl h-auto drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+          />
         </div>
       </section>
 
@@ -181,7 +147,6 @@ export default function Website1499() {
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">What You Get for ₹1,499</h2>
           
-          {/* Added max-w-2xl mx-auto to center the list, and increased gap-x for balance */}
           <div className="grid sm:grid-cols-2 gap-x-12 gap-y-6 max-w-2xl mx-auto text-left">
             {[
               "A beautiful one page website, custom designed",

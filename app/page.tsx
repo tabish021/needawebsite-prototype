@@ -29,7 +29,6 @@ import {
   SiTailwindcss,
   SiFramer,
   SiThreedotjs,
-  SiVite,
 } from 'react-icons/si';
 
 function LenisIcon({ className }: { className?: string }) {
@@ -50,6 +49,7 @@ function LenisIcon({ className }: { className?: string }) {
   );
 }
 
+// Updated Lenis color to Orange (#F97316) and added dark mode classes for black icons
 const techStackLogos = [
   { name: 'HTML5', icon: SiHtml5, color: '#E34F26' },
   { name: 'CSS3', icon: SiCss, color: '#1572B6' },
@@ -57,11 +57,11 @@ const techStackLogos = [
   { name: 'TypeScript', icon: SiTypescript, color: '#3178C6' },
   { name: 'Node.js', icon: SiNodedotjs, color: '#339933' },
   { name: 'React', icon: SiReact, color: '#61DAFB' },
-  { name: 'Next.js', icon: SiNextdotjs, color: '#000000' },
+  { name: 'Next.js', icon: SiNextdotjs, color: 'text-black dark:text-white' },
   { name: 'Tailwind CSS', icon: SiTailwindcss, color: '#06B6D4' },
   { name: 'Framer Motion', icon: SiFramer, color: '#0055FF' },
-  { name: 'Three.js', icon: SiThreedotjs, color: '#000000' },
-  { name: 'Lenis', icon: LenisIcon, color: '#FA7B85' },
+  { name: 'Three.js', icon: SiThreedotjs, color: 'text-black dark:text-white' },
+  { name: 'Lenis', icon: LenisIcon, color: '#F97316' }, 
 ];
 
 export const metadata: Metadata = {
@@ -225,21 +225,33 @@ export default function HomePage() {
         <div className="max-w-[1100px] mx-auto px-5 sm:px-6">
           <p className="text-center text-sm font-semibold tracking-widest text-[#71717A] uppercase mb-6">Technologies I build with</p>
         </div>
+        
         <div className="relative w-full overflow-hidden">
           <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-36 bg-gradient-to-r from-white dark:from-[#0A0A0A] to-transparent z-10" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-36 bg-gradient-to-l from-white dark:from-[#0A0A0A] to-transparent z-10" />
 
-          <div className="animate-marquee flex items-center">
+          {/* Added pt-12 pb-4 to make room for the tooltips */}
+          <div className="animate-marquee flex items-center pt-12 pb-4">
             {[...techStackLogos, ...techStackLogos].map((tech, idx) => {
               const Icon = tech.icon;
+              const isClass = tech.color.startsWith('text-');
               return (
                 <div
                   key={`${tech.name}-${idx}`}
-                  className="flex items-center justify-center px-8 sm:px-12 shrink-0 text-3xl md:text-4xl cursor-default"
-                  title={tech.name}
-                  aria-label={tech.name}
+                  className="relative group flex items-center justify-center px-8 sm:px-12 shrink-0 text-3xl md:text-4xl cursor-pointer"
                 >
-                  <Icon className="w-[1em] h-[1em]" style={{ color: tech.color }} />
+                  <Icon
+                    className={`w-[1em] h-[1em] transition-transform duration-300 group-hover:scale-110 ${isClass ? tech.color : ''}`}
+                    style={!isClass ? { color: tech.color } : undefined}
+                  />
+                  
+                  {/* CUSTOM TOOLTIP */}
+                  <div className="absolute top-[-36px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none flex flex-col items-center z-50">
+                    <span className="bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-xs font-bold py-1.5 px-3 rounded-md whitespace-nowrap shadow-xl">
+                      {tech.name}
+                    </span>
+                    <div className="w-2 h-2 bg-zinc-900 dark:bg-white rotate-45 -mt-1" />
+                  </div>
                 </div>
               );
             })}

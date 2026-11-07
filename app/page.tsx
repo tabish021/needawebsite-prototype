@@ -220,7 +220,7 @@ export default function HomePage() {
       </section>
 
       {/* TECH STACK MARQUEE */}
-      <section className="py-12 bg-white dark:bg-[#0A0A0A] border-b border-[#E5E7EB] dark:border-zinc-800 overflow-hidden">
+      <section className="py-12 border-b border-[#E5E7EB] dark:border-zinc-800 overflow-hidden">
         <div className="max-w-[1100px] mx-auto px-5 sm:px-6">
           <p className="text-center text-sm font-semibold tracking-widest text-[#71717A] uppercase mb-6">Technologies I build with</p>
         </div>

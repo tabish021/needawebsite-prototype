@@ -4,7 +4,7 @@ import { Instagram, MapPin } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="border-t border-[#E5E7EB] dark:border-zinc-800 pt-16 pb-12 mt-auto transition-colors duration-200">
+    <footer className="border-t border-[#E5E7EB] dark:border-zinc-800 pt-16 pb-12 mt-auto bg-transparent transition-colors duration-200">
       <div className="max-w-[1100px] mx-auto px-5 sm:px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Column 1 (Brand) */}

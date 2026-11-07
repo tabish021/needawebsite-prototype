@@ -16,7 +16,7 @@ const navLinks = [
   { heading: 'Creative', href: '/creative' },
   { heading: 'About', href: '/about' },
   { heading: 'Contact', href: '/contact' },
-  { heading: 'Website for ₹1,499', href: '/websitefor1499' }, // <-- ADD THIS
+  { heading: 'Website for ₹1,499', href: '/websitefor1499' },
 ];
 
 function NavLink({
@@ -38,7 +38,7 @@ function NavLink({
         <motion.span
           variants={{ initial: { x: 0 }, whileHover: { x: -16 } }}
           transition={{ type: 'spring', staggerChildren: 0.05, delayChildren: 0.1 }}
-          className="relative z-10 block text-4xl font-bold text-[#16A34A] transition-colors duration-500 group-hover:text-[#15803D] dark:group-hover:text-[#4ADE80] md:text-7xl"
+          className="relative z-10 block text-4xl font-bold text-[#16A34A] transition-colors duration-500 group-hover:text-[#15803D] dark:group-hover:text-[#4ADE80] md:text-6xl lg:text-7xl"
         >
           {heading.split('').map((l, i) => (
             <motion.span
@@ -83,23 +83,23 @@ export default function FullScreenNav({ isOpen, onClose }: FullScreenNavProps) {
           animate={{ y: 0 }}
           exit={{ y: '100%' }}
           transition={{ duration: 0.5, ease: [0.32, 0.72, 0, 1] }}
-          // Added overflow-hidden to stop the letters from pushing the close button off-screen
-          className="fixed inset-0 z-[100] bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-white flex flex-col justify-center px-6 md:px-24 overflow-hidden"
+          // Increased z-index to 10050 so it sits above the main Navbar (z-10000)
+          className="fixed inset-0 z-[10050] bg-white dark:bg-[#0A0A0A] text-[#0A0A0A] dark:text-white flex flex-col justify-center px-6 md:px-24 overflow-hidden"
         >
-          {/* Top Bar inside Overlay - Logo is now permanently Green */}
-          <div className="absolute top-6 left-6 md:top-10 md:left-24 flex items-center">
+          {/* Top Bar inside Overlay */}
+          <div className="absolute top-6 left-6 md:top-10 md:left-24 flex items-center z-20">
             <span className="inline-block w-2.5 h-2.5 rounded-full bg-brand mr-2.5" />
             <span className="text-xl font-bold tracking-tight text-brand hover:text-[#15803D] transition-colors">
               NeedAWebsite
             </span>
           </div>
 
-          {/* Close button at top right - Tightened positioning so it doesn't get cut off */}
+          {/* Close button at top right */}
           <button
             type="button"
             onClick={onClose}
             aria-label="Close navigation"
-            className="absolute top-6 right-6 md:top-8 md:right-10 z-20 flex items-center gap-2 p-2.5 text-[#0A0A0A] dark:text-white hover:text-brand dark:hover:text-brand transition-colors cursor-pointer group"
+            className="absolute top-6 right-6 md:top-8 md:right-10 z-[10060] flex items-center gap-2 p-2.5 text-[#0A0A0A] dark:text-white hover:text-brand dark:hover:text-brand transition-colors cursor-pointer group"
           >
             <span className="text-xs uppercase tracking-widest font-semibold transition-colors hidden sm:inline-block">
               Close
@@ -120,7 +120,7 @@ export default function FullScreenNav({ isOpen, onClose }: FullScreenNavProps) {
           </nav>
 
           {/* Bottom info inside Overlay */}
-          <div className="absolute bottom-6 left-6 md:bottom-10 md:left-24 text-xs md:text-sm text-[#52525B] dark:text-[#A1A1AA] flex flex-wrap items-center gap-4 md:gap-8">
+          <div className="absolute bottom-6 left-6 md:bottom-10 md:left-24 text-xs md:text-sm text-[#52525B] dark:text-[#A1A1AA] flex flex-wrap items-center gap-4 md:gap-8 z-20">
             <a href="tel:+919987455707" className="hover:text-brand dark:hover:text-brand transition-colors">
               +91 99874 55707
             </a>

@@ -61,11 +61,11 @@ export default function ProcessBook() {
             <img 
               src="/process-book.webp" 
               alt="The Process Book" 
-              className="w-[300px] md:w-[450px] h-auto drop-shadow-[0_30px_40px_rgba(0,0,0,0.8)] transition-transform duration-500 group-hover:scale-105"
+              className="w-[350px] md:w-[650px] lg:w-[750px] h-auto drop-shadow-[0_35px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-105"
             />
             
-            <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-2 text-[#4a2c1a] font-bold tracking-widest uppercase text-sm transition-transform duration-300 group-hover:-translate-y-2">
-              <BookOpen className="w-4 h-4" /> Open The Book
+            <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 flex items-center gap-2 text-[#4a2c1a] font-bold tracking-widest uppercase text-sm md:text-base transition-transform duration-300 group-hover:-translate-y-2">
+              <BookOpen className="w-5 h-5" /> Open The Book
             </div>
           </motion.div>
         </div>

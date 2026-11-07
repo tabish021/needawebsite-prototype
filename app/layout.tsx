@@ -80,7 +80,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="bg-[#FAFAFA] dark:bg-[#09090B] text-[#3F3F46] dark:text-zinc-300 min-h-screen flex flex-col antialiased font-sans transition-colors duration-200">
+      <body className="bg-transparent text-[#3F3F46] dark:text-zinc-300 min-h-screen flex flex-col antialiased font-sans transition-colors duration-200">
         
         {/* SITEWIDE ANIMATED GREEN BACKGROUND (Hidden in Dark Mode) */}
         <SiteBackground />

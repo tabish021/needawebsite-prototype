@@ -90,11 +90,11 @@ export default function ProcessBook() {
             </button>
 
             <motion.div
-              initial={{ scale: 0.9, y: 30, rotateX: 15 }}
-              animate={{ scale: 1, y: 0, rotateX: 0 }}
-              exit={{ scale: 0.9, y: 30, rotateX: 15 }}
-              transition={{ duration: 0.5, type: "spring", bounce: 0.2 }}
-              className="w-full max-w-5xl perspective-[2000px]"
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 30 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="w-full max-w-5xl"
             >
               {/* THE LEATHER COVER WRAPPER (Simulates the thick book cover) */}
               <div className="relative p-3 md:p-6 bg-[#1a0f0f] rounded-lg shadow-[0_40px_100px_rgba(0,0,0,0.9)] border border-[#3a251a]">

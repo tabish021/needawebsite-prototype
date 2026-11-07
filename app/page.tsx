@@ -152,7 +152,7 @@ export default function HomePage() {
       <JsonLd data={faqPageSchema} />
 
       {/* 1. HERO SECTION */}
-      <section className="relative overflow-hidden py-24 md:py-32 bg-gradient-to-b from-white via-white to-brand-light dark:from-[#09090B] dark:via-[#09090B] dark:to-brand-deep/20 border-b border-[#E5E7EB] dark:border-zinc-800 transition-colors duration-200">
+      <section className="relative overflow-hidden py-24 md:py-32 border-b border-[#E5E7EB] dark:border-zinc-800 transition-colors duration-200">
         <div
           className="absolute inset-0 opacity-40 dark:opacity-20 pointer-events-none"
           style={{

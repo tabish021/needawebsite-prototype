@@ -8,10 +8,16 @@ import { X, BookOpen, ArrowRight } from 'lucide-react';
 
 const HTMLFlipBook = dynamic(() => import('react-pageflip'), { ssr: false });
 
+// Updated Page component to include the engraved hint
 const Page = React.forwardRef(({ children, number }: { children: React.ReactNode, number: number }, ref: any) => {
   return (
-    <div className="bg-[#f4ebd9] shadow-inner overflow-hidden" ref={ref} data-density="hard">
+    <div className="bg-[#f4ebd9] shadow-inner overflow-hidden relative" ref={ref} data-density="hard">
       {children}
+      
+      {/* Engraved hint on every page */}
+      <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 flex items-center gap-1.5 text-[#a89887] italic text-[10px] md:text-xs pointer-events-none select-none tracking-wide [text-shadow:0_1px_0_rgba(255,255,255,0.8)]">
+        Click the page to turn <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
+      </div>
     </div>
   );
 });
@@ -57,7 +63,6 @@ export default function ProcessBook() {
             className="relative cursor-pointer group"
             onClick={() => setIsOpen(true)}
           >
-            {/* Image now expects a transparent .webp with a heavy drop shadow */}
             <img 
               src="/process-book.webp" 
               alt="The Process Book" 
@@ -88,11 +93,6 @@ export default function ProcessBook() {
             >
               <X className="w-6 h-6" />
             </button>
-
-            {/* Page Turn Hint */}
-            <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 flex items-center gap-2 text-white/50 italic text-sm pointer-events-none select-none z-[10010]">
-              Click the page to turn <ArrowRight className="w-4 h-4" />
-            </div>
 
             <motion.div
               initial={{ opacity: 0, y: 30 }}

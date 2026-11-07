@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import JsonLd from '@/components/JsonLd';
 import Button from '@/components/Button';
 import Section from '@/components/Section';
@@ -15,6 +16,7 @@ import {
   Quote,
   Phone,
   MessageCircle,
+  Zap,
 } from 'lucide-react';
 import {
   SiHtml5,
@@ -199,6 +201,22 @@ export default function HomePage() {
               </div>
             </div>
           </HeroMotion>
+        </div>
+      </section>
+
+      {/* NEW: 1499 PROMO BANNER */}
+      <section className="bg-brand text-white py-4 px-6 relative overflow-hidden">
+        <div className="max-w-[1100px] mx-auto flex flex-col sm:flex-row items-center justify-center gap-4 text-center sm:text-left">
+          <div className="flex items-center gap-2 font-medium text-sm sm:text-base">
+            <Zap className="w-5 h-5 text-yellow-300 shrink-0" />
+            <span>Need a simple presence fast? Get a one-page website for just ₹1,499.</span>
+          </div>
+          <Link
+            href="/websitefor1499"
+            className="bg-white text-brand-dark px-5 py-2 rounded-full font-bold text-sm hover:bg-zinc-100 transition-colors whitespace-nowrap shadow-sm"
+          >
+            View Offer
+          </Link>
         </div>
       </section>
 

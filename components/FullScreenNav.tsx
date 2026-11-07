@@ -16,6 +16,7 @@ const navLinks = [
   { heading: 'Creative', href: '/creative' },
   { heading: 'About', href: '/about' },
   { heading: 'Contact', href: '/contact' },
+  { heading: 'Website for ₹1,499', href: '/websitefor1499' }, // <-- ADD THIS
 ];
 
 function NavLink({

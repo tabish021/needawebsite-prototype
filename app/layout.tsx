@@ -81,10 +81,15 @@ export default function RootLayout({
         />
       </head>
       <body className="bg-[#FAFAFA] dark:bg-[#09090B] text-[#3F3F46] dark:text-zinc-300 min-h-screen flex flex-col antialiased font-sans transition-colors duration-200">
+        
+        {/* SITEWIDE ANIMATED GREEN BACKGROUND (Hidden in Dark Mode) */}
+        <SiteBackground />
+
         <ThemeProvider>
           <ScrollProgressBar />
           <Nav />
-          <main id="main-content" className="flex-1 relative">
+          {/* Added relative z-0 to ensure main content sits above the background */}
+          <main id="main-content" className="flex-1 relative z-0">
             {children}
           </main>
           <Footer />

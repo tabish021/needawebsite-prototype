@@ -48,19 +48,19 @@ const faqSchema = {
 
 export default function Website1499() {
   return (
-    <div className="bg-[#FAFAFA] text-[#0A0A0A] font-sans overflow-hidden">
+    <div className="bg-[#FAFAFA] dark:bg-[#09090B] text-[#0A0A0A] dark:text-zinc-50 font-sans overflow-hidden transition-colors duration-200">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-12">
         <div className="w-full md:w-1/2 z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#16A34A]/10 text-[#15803D] text-sm font-semibold mb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#16A34A]/10 dark:bg-[#16A34A]/20 text-[#15803D] dark:text-[#4ADE80] text-sm font-semibold mb-6">
             <Zap className="w-4 h-4" /> Delivered in 48 Hours
           </div>
           <h1 className="text-4xl md:text-6xl font-bold tracking-tight leading-[1.1] mb-6">
             A Beautiful One Page Website for Your Business, for <span className="text-[#16A34A]">₹1,499</span>
           </h1>
-          <p className="text-lg text-zinc-600 mb-8 max-w-lg leading-relaxed">
+          <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-8 max-w-lg leading-relaxed">
             For ₹1,499, you get a professionally designed one page website with basic SEO setup, hosting for the first year, SSL security, a WhatsApp chat button, a contact form, Google Maps, social media integration, analytics and Google Business Profile setup. It's delivered within 48 hours. Your domain name is the only extra, and it's bought by you, in your name.
           </p>
           <a 
@@ -73,42 +73,42 @@ export default function Website1499() {
           </a>
         </div>
 
-        {/* 3D CSS Mockup */}
+        {/* 3D CSS Mockup - FIXED */}
         <div className="w-full md:w-1/2 relative h-[400px] md:h-[500px] flex items-center justify-center perspective-[1500px]">
           <div className="relative w-full max-w-lg transform-style-preserve-3d hover:rotate-y-0 rotate-y-[-15deg] rotate-x-[10deg] transition-transform duration-700 ease-out">
             
             {/* Laptop Frame */}
-            <div className="w-full aspect-[16/10] bg-zinc-900 rounded-t-xl p-2 shadow-2xl border border-zinc-700/50 relative z-10">
-              <div className="w-full h-full bg-white rounded overflow-hidden flex flex-col">
+            <div className="w-full aspect-[16/10] bg-zinc-900 dark:bg-zinc-800 rounded-t-xl p-2 shadow-2xl border border-zinc-700/50 relative z-10">
+              <div className="w-full h-full bg-white dark:bg-zinc-900 rounded overflow-hidden flex flex-col">
                 {/* Fake Website Navbar */}
-                <div className="h-6 w-full border-b border-zinc-100 flex items-center px-2 gap-1.5">
-                  <div className="w-2 h-2 rounded-full bg-zinc-200" />
-                  <div className="w-2 h-2 rounded-full bg-zinc-200" />
-                  <div className="w-2 h-2 rounded-full bg-zinc-200" />
+                <div className="h-6 w-full border-b border-zinc-100 dark:border-zinc-800 flex items-center px-2 gap-1.5 bg-zinc-50 dark:bg-zinc-900">
+                  <div className="w-2 h-2 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+                  <div className="w-2 h-2 rounded-full bg-zinc-300 dark:bg-zinc-700" />
+                  <div className="w-2 h-2 rounded-full bg-zinc-300 dark:bg-zinc-700" />
                 </div>
                 {/* Fake Website Hero */}
-                <div className="flex-1 p-4 flex flex-col items-center justify-center text-center bg-[#FAFAFA]">
-                  <div className="w-24 h-3 bg-[#16A34A]/20 rounded mb-2" />
-                  <div className="w-48 h-5 bg-zinc-800 rounded mb-2" />
-                  <div className="w-32 h-2 bg-zinc-300 rounded mb-4" />
-                  <div className="px-3 py-1.5 bg-[#16A34A] text-white text-[8px] rounded">Contact Us</div>
+                <div className="flex-1 p-4 flex flex-col items-center justify-center text-center bg-white dark:bg-zinc-900">
+                  <div className="w-24 h-3 bg-green-200 dark:bg-green-900/50 rounded mb-3" />
+                  <div className="w-48 h-5 bg-zinc-800 dark:bg-zinc-200 rounded mb-3" />
+                  <div className="w-32 h-2 bg-zinc-200 dark:bg-zinc-700 rounded mb-5" />
+                  <div className="px-4 py-2 bg-green-600 text-white text-[10px] font-bold rounded shadow-sm">Contact Us</div>
                 </div>
               </div>
             </div>
             {/* Laptop Base */}
-            <div className="w-[110%] h-4 bg-zinc-800 rounded-b-xl absolute -bottom-4 -left-[5%] shadow-xl border-t border-zinc-600 z-0" />
+            <div className="w-[110%] h-4 bg-zinc-800 dark:bg-zinc-700 rounded-b-xl absolute -bottom-4 -left-[5%] shadow-xl border-t border-zinc-600 z-0" />
 
             {/* Phone Frame */}
-            <div className="absolute -right-8 -bottom-12 w-28 md:w-32 aspect-[9/19] bg-zinc-900 rounded-[1.5rem] p-1.5 shadow-2xl border-[3px] border-zinc-700 z-20 rotate-y-[10deg] hover:rotate-y-0 transition-transform duration-500">
-              <div className="w-full h-full bg-white rounded-[1rem] overflow-hidden flex flex-col relative">
+            <div className="absolute -right-8 -bottom-12 w-28 md:w-32 aspect-[9/19] bg-zinc-900 dark:bg-zinc-800 rounded-[1.5rem] p-1.5 shadow-2xl border-[3px] border-zinc-700 dark:border-zinc-600 z-20 rotate-y-[10deg] hover:rotate-y-0 transition-transform duration-500">
+              <div className="w-full h-full bg-white dark:bg-zinc-900 rounded-[1rem] overflow-hidden flex flex-col relative">
                 {/* Notch */}
-                <div className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-3 bg-zinc-900 rounded-full z-10" />
+                <div className="absolute top-1 left-1/2 -translate-x-1/2 w-8 h-3 bg-zinc-900 dark:bg-zinc-800 rounded-full z-10" />
                 {/* Fake Mobile Hero */}
-                <div className="flex-1 flex flex-col items-center justify-center p-2 text-center bg-[#FAFAFA]">
-                  <div className="w-12 h-2 bg-[#16A34A]/20 rounded mb-1.5" />
-                  <div className="w-20 h-3 bg-zinc-800 rounded mb-1.5" />
-                  <div className="w-16 h-1.5 bg-zinc-300 rounded mb-3" />
-                  <div className="w-full py-1 bg-[#16A34A] text-white text-[6px] rounded">Contact Us</div>
+                <div className="flex-1 flex flex-col items-center justify-center p-2 text-center bg-white dark:bg-zinc-900 mt-4">
+                  <div className="w-12 h-2 bg-green-200 dark:bg-green-900/50 rounded mb-2" />
+                  <div className="w-20 h-3 bg-zinc-800 dark:bg-zinc-200 rounded mb-2" />
+                  <div className="w-16 h-1.5 bg-zinc-200 dark:bg-zinc-700 rounded mb-4" />
+                  <div className="w-full py-1.5 bg-green-600 text-white text-[8px] font-bold rounded">Contact Us</div>
                 </div>
               </div>
             </div>
@@ -118,66 +118,66 @@ export default function Website1499() {
       </section>
 
       {/* Why You Need a Website */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-[#0A0A0A] transition-colors duration-200">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-8">Why Every Business Needs a Website Today</h2>
-          <p className="text-lg text-zinc-600 mb-6 leading-relaxed">
+          <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-6 leading-relaxed">
             Here's a simple question: when you want to try a new cafe, find a good salon or check out a gym, what's the first thing you do? You search on your phone.
           </p>
-          <p className="text-lg text-zinc-600 mb-6 leading-relaxed">
+          <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-6 leading-relaxed">
             Your customers do exactly the same. If your business doesn't show up with a proper website, they usually don't wonder why. They simply pick the next option.
           </p>
-          <p className="text-lg text-zinc-600 mb-12 leading-relaxed">
+          <p className="text-lg text-zinc-600 dark:text-zinc-400 mb-12 leading-relaxed">
             A website is not a luxury for big companies anymore. It's your digital shopfront, and it's open 24 hours a day, 7 days a week, even when you're asleep or on holiday.
           </p>
 
           <div className="grid sm:grid-cols-2 gap-6">
-            <div className="p-6 bg-[#FAFAFA] rounded-xl border border-zinc-100">
+            <div className="p-6 bg-[#FAFAFA] dark:bg-zinc-900 rounded-xl border border-zinc-100 dark:border-zinc-800">
               <ShieldCheck className="w-8 h-8 text-[#16A34A] mb-4" />
               <h3 className="font-bold text-xl mb-2">Builds trust in seconds.</h3>
-              <p className="text-zinc-600 text-sm">People trust businesses that look professional and are easy to find.</p>
+              <p className="text-zinc-600 dark:text-zinc-400 text-sm">People trust businesses that look professional and are easy to find.</p>
             </div>
-            <div className="p-6 bg-[#FAFAFA] rounded-xl border border-zinc-100">
+            <div className="p-6 bg-[#FAFAFA] dark:bg-zinc-900 rounded-xl border border-zinc-100 dark:border-zinc-800">
               <Globe className="w-8 h-8 text-[#16A34A] mb-4" />
               <h3 className="font-bold text-xl mb-2">Gets you found.</h3>
-              <p className="text-zinc-600 text-sm">Customers search on Google and ask AI tools like ChatGPT. A website gives them something to find.</p>
+              <p className="text-zinc-600 dark:text-zinc-400 text-sm">Customers search on Google and ask AI tools like ChatGPT. A website gives them something to find.</p>
             </div>
-            <div className="p-6 bg-[#FAFAFA] rounded-xl border border-zinc-100">
+            <div className="p-6 bg-[#FAFAFA] dark:bg-zinc-900 rounded-xl border border-zinc-100 dark:border-zinc-800">
               <MapPin className="w-8 h-8 text-[#16A34A] mb-4" />
               <h3 className="font-bold text-xl mb-2">Gives you a place that's yours.</h3>
-              <p className="text-zinc-600 text-sm">Social media platforms can change their rules overnight. Your website belongs to you.</p>
+              <p className="text-zinc-600 dark:text-zinc-400 text-sm">Social media platforms can change their rules overnight. Your website belongs to you.</p>
             </div>
-            <div className="p-6 bg-[#FAFAFA] rounded-xl border border-zinc-100">
+            <div className="p-6 bg-[#FAFAFA] dark:bg-zinc-900 rounded-xl border border-zinc-100 dark:border-zinc-800">
               <MessageCircle className="w-8 h-8 text-[#16A34A] mb-4" />
               <h3 className="font-bold text-xl mb-2">Makes it easy to contact you.</h3>
-              <p className="text-zinc-600 text-sm">One tap to call, WhatsApp or find your location.</p>
+              <p className="text-zinc-600 dark:text-zinc-400 text-sm">One tap to call, WhatsApp or find your location.</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Who is this for */}
-      <section className="py-20 bg-[#FAFAFA]">
+      <section className="py-20 bg-[#FAFAFA] dark:bg-[#09090B] transition-colors duration-200">
         <div className="max-w-5xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-6 text-center">Who Is This For?</h2>
-          <p className="text-center text-zinc-600 mb-12 max-w-2xl mx-auto">
+          <p className="text-center text-zinc-600 dark:text-zinc-400 mb-12 max-w-2xl mx-auto">
             This is for any small business that wants to be found and trusted online, including:
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 text-center">
             {["Gyms & Fitness", "Salons & Spas", "Cafes & Restaurants", "Clinics & Dentists", "Coaches & Tutors", "Freelancers", "Boutiques", "Professionals"].map((item, i) => (
-              <div key={i} className="bg-white p-4 rounded-lg border border-zinc-200 shadow-sm font-medium text-zinc-700">
+              <div key={i} className="bg-white dark:bg-zinc-900 p-4 rounded-lg border border-zinc-200 dark:border-zinc-800 shadow-sm font-medium text-zinc-700 dark:text-zinc-300">
                 {item}
               </div>
             ))}
           </div>
-          <p className="text-center mt-8 text-zinc-500 italic">
+          <p className="text-center mt-8 text-zinc-500 dark:text-zinc-500 italic">
             If you run a small business and you're not sure whether this is for you, it probably is.
           </p>
         </div>
       </section>
 
       {/* What You Get */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-[#0A0A0A] transition-colors duration-200">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">What You Get for ₹1,499</h2>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -197,7 +197,7 @@ export default function Website1499() {
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-3">
                 <Check className="w-5 h-5 text-[#16A34A] shrink-0 mt-0.5" />
-                <span className="text-zinc-700">{item}</span>
+                <span className="text-zinc-700 dark:text-zinc-300">{item}</span>
               </div>
             ))}
           </div>
@@ -205,13 +205,13 @@ export default function Website1499() {
       </section>
 
       {/* What's Not Included */}
-      <section className="py-12 bg-zinc-900 text-white">
+      <section className="py-12 bg-zinc-900 dark:bg-zinc-950 text-white transition-colors duration-200">
         <div className="max-w-4xl mx-auto px-6">
           <div className="flex items-start gap-4">
             <X className="w-6 h-6 text-red-400 shrink-0 mt-1" />
             <div>
               <h3 className="text-xl font-bold mb-2">What's Not Included</h3>
-              <p className="text-zinc-400 leading-relaxed">
+              <p className="text-zinc-400 dark:text-zinc-500 leading-relaxed">
                 I'd rather be clear than surprise you later. Anything not listed above is not included, and that includes your domain name, extra pages and online selling (e-commerce). If you need any of these, we can talk about a custom quote.
               </p>
             </div>
@@ -220,7 +220,7 @@ export default function Website1499() {
       </section>
 
       {/* How It Works */}
-      <section className="py-20 bg-[#FAFAFA]">
+      <section className="py-20 bg-[#FAFAFA] dark:bg-[#09090B] transition-colors duration-200">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">How It Works</h2>
           <div className="space-y-8">
@@ -231,10 +231,10 @@ export default function Website1499() {
               { step: "04", title: "Go live.", desc: "Your website is published within 48 hours, and it's ready for customers." }
             ].map((item, i) => (
               <div key={i} className="flex gap-6 items-start">
-                <div className="text-4xl font-black text-[#16A34A]/30">{item.step}</div>
+                <div className="text-4xl font-black text-[#16A34A]/30 dark:text-[#16A34A]/20">{item.step}</div>
                 <div>
                   <h4 className="text-xl font-bold mb-1">{item.title}</h4>
-                  <p className="text-zinc-600">{item.desc}</p>
+                  <p className="text-zinc-600 dark:text-zinc-400">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -243,26 +243,26 @@ export default function Website1499() {
       </section>
 
       {/* Pricing */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white dark:bg-[#0A0A0A] transition-colors duration-200">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Simple, Honest Pricing</h2>
-          <div className="bg-[#FAFAFA] border border-zinc-200 rounded-2xl p-8">
+          <div className="bg-[#FAFAFA] dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-2xl p-8">
             <ul className="space-y-6">
-              <li className="flex justify-between items-center border-b border-zinc-200 pb-4">
-                <span className="font-semibold text-zinc-800">Website + 1st Year Hosting</span>
+              <li className="flex justify-between items-center border-b border-zinc-200 dark:border-zinc-800 pb-4">
+                <span className="font-semibold text-zinc-800 dark:text-zinc-200">Website + 1st Year Hosting</span>
                 <span className="text-2xl font-bold text-[#16A34A]">₹1,499</span>
               </li>
-              <li className="flex justify-between items-center border-b border-zinc-200 pb-4">
-                <span className="font-semibold text-zinc-800">Hosting Renewal (Year 2+)</span>
-                <span className="text-xl font-bold text-zinc-600">₹1,999 / year</span>
+              <li className="flex justify-between items-center border-b border-zinc-200 dark:border-zinc-800 pb-4">
+                <span className="font-semibold text-zinc-800 dark:text-zinc-200">Hosting Renewal (Year 2+)</span>
+                <span className="text-xl font-bold text-zinc-600 dark:text-zinc-400">₹1,999 / year</span>
               </li>
-              <li className="flex justify-between items-center border-b border-zinc-200 pb-4">
-                <span className="font-semibold text-zinc-800">Domain Name</span>
-                <span className="text-sm text-zinc-500">Bought by you, in your name</span>
+              <li className="flex justify-between items-center border-b border-zinc-200 dark:border-zinc-800 pb-4">
+                <span className="font-semibold text-zinc-800 dark:text-zinc-200">Domain Name</span>
+                <span className="text-sm text-zinc-500 dark:text-zinc-400">Bought by you, in your name</span>
               </li>
               <li className="flex justify-between items-center">
-                <span className="font-semibold text-zinc-800">Design Updates Later</span>
-                <span className="text-sm text-zinc-500">Quoted separately</span>
+                <span className="font-semibold text-zinc-800 dark:text-zinc-200">Design Updates Later</span>
+                <span className="text-sm text-zinc-500 dark:text-zinc-400">Quoted separately</span>
               </li>
             </ul>
           </div>
@@ -270,17 +270,17 @@ export default function Website1499() {
       </section>
 
       {/* FAQ */}
-      <section className="py-20 bg-[#FAFAFA]">
+      <section className="py-20 bg-[#FAFAFA] dark:bg-[#09090B] transition-colors duration-200">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">Common Questions</h2>
           <div className="space-y-4">
             {faqs.map((faq, i) => (
-              <details key={i} className="group bg-white border border-zinc-200 rounded-lg overflow-hidden">
-                <summary className="flex items-center justify-between p-6 cursor-pointer font-bold text-lg text-zinc-800 hover:text-[#16A34A] transition-colors list-none">
+              <details key={i} className="group bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-lg overflow-hidden">
+                <summary className="flex items-center justify-between p-6 cursor-pointer font-bold text-lg text-zinc-800 dark:text-zinc-200 hover:text-[#16A34A] dark:hover:text-[#16A34A] transition-colors list-none">
                   {faq.q}
-                  <span className="text-2xl text-zinc-400 group-open:rotate-45 transition-transform duration-300">+</span>
+                  <span className="text-2xl text-zinc-400 dark:text-zinc-500 group-open:rotate-45 transition-transform duration-300">+</span>
                 </summary>
-                <div className="px-6 pb-6 text-zinc-600 leading-relaxed">
+                <div className="px-6 pb-6 text-zinc-600 dark:text-zinc-400 leading-relaxed">
                   {faq.a}
                 </div>
               </details>
@@ -290,10 +290,10 @@ export default function Website1499() {
       </section>
 
       {/* Final CTA */}
-      <section className="py-24 bg-zinc-900 text-white text-center">
+      <section className="py-24 bg-zinc-900 dark:bg-zinc-950 text-white text-center transition-colors duration-200">
         <div className="max-w-3xl mx-auto px-6">
           <h2 className="text-4xl md:text-5xl font-bold mb-6">Ready to Get Online?</h2>
-          <p className="text-xl text-zinc-400 mb-10">Your customers are already searching. Let's make sure they find you.</p>
+          <p className="text-xl text-zinc-400 dark:text-zinc-500 mb-10">Your customers are already searching. Let's make sure they find you.</p>
           <a 
             href={WHATSAPP_LINK}
             target="_blank"
@@ -302,7 +302,7 @@ export default function Website1499() {
           >
             <MessageCircle className="w-6 h-6" /> Get My Website
           </a>
-          <p className="mt-6 text-sm text-zinc-500">A beautiful, professional website for ₹1,499, delivered in 48 hours.</p>
+          <p className="mt-6 text-sm text-zinc-500 dark:text-zinc-400">A beautiful, professional website for ₹1,499, delivered in 48 hours.</p>
         </div>
       </section>
 

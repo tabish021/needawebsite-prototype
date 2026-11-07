@@ -4,7 +4,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
-import { X, BookOpen } from 'lucide-react';
+import { X, BookOpen, ArrowRight } from 'lucide-react';
 
 const HTMLFlipBook = dynamic(() => import('react-pageflip'), { ssr: false });
 
@@ -88,6 +88,11 @@ export default function ProcessBook() {
             >
               <X className="w-6 h-6" />
             </button>
+
+            {/* Page Turn Hint */}
+            <div className="absolute bottom-6 right-6 md:bottom-10 md:right-10 flex items-center gap-2 text-white/50 italic text-sm pointer-events-none select-none z-[10010]">
+              Click the page to turn <ArrowRight className="w-4 h-4" />
+            </div>
 
             <motion.div
               initial={{ opacity: 0, y: 30 }}

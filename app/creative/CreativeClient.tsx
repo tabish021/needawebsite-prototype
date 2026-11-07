@@ -318,6 +318,10 @@ export default function CreativeClient() {
           
         </div>
       </section>
+
+      {/* The Process Book Section */}
+      <ProcessBook />
+
     </div>
   );
 }

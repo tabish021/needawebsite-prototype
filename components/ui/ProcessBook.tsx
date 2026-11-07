@@ -35,7 +35,7 @@ export default function ProcessBook() {
   };
 
   return (
-    <div className="relative w-full min-h-[800px] md:min-h-[100vh] flex items-center overflow-hidden">
+    <div className="relative w-full min-h-[800px] md:min-h-[100vh] flex items-center justify-start overflow-hidden">
       
       {/* The Canva Table Background */}
       <div 
@@ -44,12 +44,12 @@ export default function ProcessBook() {
       />
       
       {/* A very subtle dark gradient on the left to make the book pop slightly */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent z-0" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent z-0" />
 
-      {/* Content Container - Aligned to the Left */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-24 flex items-center justify-start h-full pt-20">
+      {/* Content Container - Pushed to the left */}
+      <div className="relative z-10 w-full max-w-[1400px] mx-auto px-8 md:px-24 flex items-center justify-start h-full pt-20">
         
-        <div className="flex flex-col items-center md:items-start">
+        <div className="flex flex-col items-center md:items-start w-full md:w-1/2">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -57,15 +57,11 @@ export default function ProcessBook() {
             className="relative cursor-pointer group"
             onClick={() => setIsOpen(true)}
           >
-            {/* 
-              mix-blend-multiply drops the white background, 
-              mix-blend-screen drops the black background. 
-              Since your book image has a black background, we use screen. 
-            */}
+            {/* mix-blend-screen drops the black background perfectly */}
             <img 
               src="/process-book.jpg" 
               alt="The Process Book" 
-              className="w-[300px] md:w-[450px] h-auto rounded-sm shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-105 mix-blend-multiply"
+              className="w-[300px] md:w-[450px] h-auto drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 mix-blend-screen"
             />
             
             <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-2 text-[#4a2c1a] font-bold tracking-widest uppercase text-sm transition-transform duration-300 group-hover:-translate-y-2">

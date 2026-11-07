@@ -49,7 +49,6 @@ function LenisIcon({ className }: { className?: string }) {
   );
 }
 
-// Updated Lenis color to Orange (#F97316) and added dark mode classes for black icons
 const techStackLogos = [
   { name: 'HTML5', icon: SiHtml5, color: '#E34F26' },
   { name: 'CSS3', icon: SiCss, color: '#1572B6' },
@@ -230,15 +229,15 @@ export default function HomePage() {
           <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-36 bg-gradient-to-r from-white dark:from-[#0A0A0A] to-transparent z-10" />
           <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-36 bg-gradient-to-l from-white dark:from-[#0A0A0A] to-transparent z-10" />
 
-          {/* Added pt-12 pb-4 to make room for the tooltips */}
-          <div className="animate-marquee flex items-center pt-12 pb-4">
+          {/* Increased padding and icon size to fix duplicate appearance and make them pop */}
+          <div className="animate-marquee flex items-center pt-12 pb-4 w-max">
             {[...techStackLogos, ...techStackLogos].map((tech, idx) => {
               const Icon = tech.icon;
               const isClass = tech.color.startsWith('text-');
               return (
                 <div
                   key={`${tech.name}-${idx}`}
-                  className="relative group flex items-center justify-center px-8 sm:px-12 shrink-0 text-3xl md:text-4xl cursor-pointer"
+                  className="relative group flex items-center justify-center px-12 sm:px-20 shrink-0 text-5xl md:text-6xl cursor-pointer"
                 >
                   <Icon
                     className={`w-[1em] h-[1em] transition-transform duration-300 group-hover:scale-110 ${isClass ? tech.color : ''}`}
@@ -246,11 +245,11 @@ export default function HomePage() {
                   />
                   
                   {/* CUSTOM TOOLTIP */}
-                  <div className="absolute top-[-36px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none flex flex-col items-center z-50">
-                    <span className="bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-xs font-bold py-1.5 px-3 rounded-md whitespace-nowrap shadow-xl">
+                  <div className="absolute top-[-48px] opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none flex flex-col items-center z-50">
+                    <span className="bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 text-sm font-bold py-2 px-4 rounded-lg whitespace-nowrap shadow-xl">
                       {tech.name}
                     </span>
-                    <div className="w-2 h-2 bg-zinc-900 dark:bg-white rotate-45 -mt-1" />
+                    <div className="w-2.5 h-2.5 bg-zinc-900 dark:bg-white rotate-45 -mt-1.5" />
                   </div>
                 </div>
               );

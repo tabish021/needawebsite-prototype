@@ -40,7 +40,7 @@ export default function ProcessBook() {
       {/* The Canva Table Background */}
       <div 
         className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
-        style={{ backgroundImage: "url('/table-bg.jpg')" }}
+        style={{ backgroundImage: "url('/table-bg.webp')" }}
       />
       
       {/* A very subtle dark gradient on the left to make the book pop slightly */}

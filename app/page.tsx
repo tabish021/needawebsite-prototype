@@ -226,8 +226,8 @@ export default function HomePage() {
         </div>
         
         <div className="relative w-full overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-36 bg-gradient-to-r from-[#FAFAFA] dark:from-[#09090B] to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-36 bg-gradient-to-l from-[#FAFAFA] dark:from-[#09090B] to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-36 bg-gradient-to-r from-[#F7FDF9] dark:from-[#09090B] to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-36 bg-gradient-to-l from-[#F7FDF9] dark:from-[#09090B] to-transparent z-10" />
 
           <div className="animate-marquee flex items-center pt-12 pb-4 w-max">
             {[...techStackLogos, ...techStackLogos].map((tech, idx) => {
@@ -371,7 +371,7 @@ export default function HomePage() {
       {/* 6. SECTION 6 (Final CTA) */}
       <section className="py-20 md:py-28">
         <div className="max-w-[1100px] mx-auto px-5 sm:px-6">
-          <div className="bg-[#0A0A0A] dark:bg-zinc-900 border border-transparent dark:border-zinc-800 text-white rounded-2xl px-8 md:px-16 py-16 md:py-20 text-center max-w-[1100px] mx-auto">
+          <div className="bg-[#0A0A0A] dark:bg-zinc-900 border border-transparent dark:border-zinc-800 text-white rounded-2xl px-8 md:px-16 py-16 md:py-20 text-center max-w-[1100px] mx-auto shadow-2xl">
             <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">
               Let's get your business found.
             </h2>

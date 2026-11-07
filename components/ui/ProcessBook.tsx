@@ -22,18 +22,18 @@ export default function ProcessBook() {
   const bookRef = useRef(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  // 3D Rotation Logic
+  // 3D Rotation Logic with an initial tilt
   const [isDragging, setIsDragging] = useState(false);
   const [startPos, setStartPos] = useState({ x: 0, y: 0 });
-  const [startRot, setStartRot] = useState({ x: 0, y: 0 });
-
-  const rotateX = useSpring(0, { stiffness: 100, damping: 20 });
-  const rotateY = useSpring(0, { stiffness: 100, damping: 20 });
+  
+  // Start with a nice angle so it looks 3D immediately
+  const rotateX = useSpring(15, { stiffness: 100, damping: 20 });
+  const rotateY = useSpring(-25, { stiffness: 100, damping: 20 });
 
   const handlePointerDown = (e: React.PointerEvent) => {
     setIsDragging(true);
     setStartPos({ x: e.clientX, y: e.clientY });
-    setStartRot({ x: rotateX.get(), y: rotateY.get() });
+    // Store current rotation
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
   };
 
@@ -42,22 +42,24 @@ export default function ProcessBook() {
     const dx = e.clientX - startPos.x;
     const dy = e.clientY - startPos.y;
     
-    // Calculate new rotation (drag right = positive Y, drag up = negative X)
-    rotateY.set(startRot.y + dx * 0.4);
-    rotateX.set(startRot.x - dy * 0.4);
+    rotateY.set(rotateY.get() + dx * 0.5);
+    rotateX.set(rotateX.get() - dy * 0.5);
+    
+    setStartPos({ x: e.clientX, y: e.clientY });
   };
 
   const handlePointerUp = (e: React.PointerEvent) => {
     setIsDragging(false);
     (e.target as HTMLElement).releasePointerCapture(e.pointerId);
-    // Optional: Snap back to center on release
-    // rotateX.set(0);
-    // rotateY.set(0);
+    
+    // Spring back to the default resting angle
+    rotateX.set(15);
+    rotateY.set(-25);
   };
 
   // Dynamic lighting based on rotation
-  const shadowIntensity = useTransform(rotateX, [-30, 0, 30], [0.8, 0.4, 0.8]);
-  const shadowX = useTransform(rotateY, [-30, 30], [40, -40]);
+  const shadowX = useTransform(rotateY, [-45, 45], [30, -30]);
+  const shadowY = useTransform(rotateX, [-45, 45], [30, -10]);
 
   useEffect(() => {
     audioRef.current = new Audio('/page-turn.mp3');
@@ -82,17 +84,17 @@ export default function ProcessBook() {
           How I Work
         </h2>
         <p className="text-zinc-400 mt-4 text-lg flex items-center justify-center gap-2">
-          <Move className="w-4 h-4" /> Drag to rotate the book. Click to open.
+          <Move className="w-4 h-4" /> Drag to rotate. Click to open.
         </p>
       </div>
 
       {/* The Draggable 3D Book */}
-      <motion.div
+      <div
         className="relative z-10 cursor-grab active:cursor-grabbing"
         style={{
-          perspective: 1500,
+          perspective: 2000,
           width: '100%',
-          maxWidth: '600px', // Much larger size
+          maxWidth: '600px',
           display: 'flex',
           justifyContent: 'center',
         }}
@@ -100,7 +102,7 @@ export default function ProcessBook() {
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        onClick={() => { if (!isDragging) setIsOpen(true); }} // Only open if not dragging
+        onClick={() => { if (!isDragging) setIsOpen(true); }}
       >
         <motion.div
           style={{
@@ -108,32 +110,44 @@ export default function ProcessBook() {
             rotateY,
             transformStyle: "preserve-3d",
           }}
-          className="relative"
+          className="relative w-[350px] md:w-[500px]"
         >
           {/* Dynamic shadow */}
           <motion.div 
-            className="absolute inset-0 bg-black rounded-lg blur-3xl -z-10"
+            className="absolute inset-0 bg-black rounded-lg blur-2xl"
             style={{
-              opacity: shadowIntensity,
               x: shadowX,
-              y: 50,
-              scale: 0.9
+              y: shadowY,
+              translateZ: -50,
+              opacity: 0.8,
+              scale: 0.95
             }}
           />
           
+          {/* The Page Block (Faking the thickness of the book) */}
+          <div 
+            className="absolute top-1 right-[-10px] bottom-[-5px] left-1 bg-[#e8dcc4] rounded-r-xl"
+            style={{ transform: 'translateZ(-30px) rotateY(5deg)' }}
+          >
+            {/* Page texture lines */}
+            <div className="absolute inset-0 opacity-20" style={{ backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 2px, #000 2px, #000 3px)' }} />
+          </div>
+
+          {/* The Cover Image */}
           <img 
             src="/process-book.jpg" 
             alt="The Process Book" 
-            className="w-[350px] md:w-[550px] h-auto rounded-r-lg rounded-l-sm shadow-2xl pointer-events-none select-none"
+            className="relative z-10 w-full h-auto rounded-l-sm rounded-r-xl shadow-2xl pointer-events-none select-none"
+            style={{ transform: 'translateZ(0px)' }}
           />
           
-          {/* Spine Highlight Effect */}
-          <div className="absolute top-0 left-0 w-8 h-full bg-gradient-to-r from-black/60 to-transparent rounded-l-sm pointer-events-none" />
+          {/* Spine Highlight */}
+          <div className="absolute top-0 left-0 w-12 h-full bg-gradient-to-r from-black/80 via-black/20 to-transparent rounded-l-sm pointer-events-none z-20" />
           
-          {/* Hover Glow */}
-          <div className="absolute inset-0 bg-yellow-600/0 hover:bg-yellow-600/10 transition-colors duration-500 rounded-lg pointer-events-none" />
+          {/* Edge Highlight for the cover */}
+          <div className="absolute inset-0 border border-white/10 rounded-l-sm rounded-r-xl pointer-events-none z-20" />
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* The Book Modal */}
       <AnimatePresence>

@@ -226,10 +226,9 @@ export default function HomePage() {
         </div>
         
         <div className="relative w-full overflow-hidden">
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-36 bg-gradient-to-r from-white dark:from-[#0A0A0A] to-transparent z-10" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-36 bg-gradient-to-l from-white dark:from-[#0A0A0A] to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 sm:w-36 bg-gradient-to-r from-[#FAFAFA] dark:from-[#09090B] to-transparent z-10" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 sm:w-36 bg-gradient-to-l from-[#FAFAFA] dark:from-[#09090B] to-transparent z-10" />
 
-          {/* Increased padding and icon size to fix duplicate appearance and make them pop */}
           <div className="animate-marquee flex items-center pt-12 pb-4 w-max">
             {[...techStackLogos, ...techStackLogos].map((tech, idx) => {
               const Icon = tech.icon;
@@ -266,7 +265,7 @@ export default function HomePage() {
       </Section>
 
       {/* 3. SECTION 3 (What I Do) */}
-      <Section eyebrow="SERVICES" title="What I Do" bg="white">
+      <Section eyebrow="SERVICES" title="What I Do">
         <div className="grid md:grid-cols-3 gap-6">
           <Card icon={<Layout className="w-5 h-5" />}>
             <h3 className="text-xl font-semibold text-[#0A0A0A] dark:text-zinc-100 mb-3">
@@ -298,7 +297,7 @@ export default function HomePage() {
       </Section>
 
       {/* 4. SECTION 4 (How It Works) */}
-      <Section eyebrow="PROCESS" title="How It Works" bg="grey">
+      <Section eyebrow="PROCESS" title="How It Works">
         <div className="grid md:grid-cols-3 gap-6 relative">
           <Card>
             <span className="block text-5xl font-bold text-brand-ring dark:text-emerald-900/60 tabular-nums mb-4">
@@ -333,7 +332,6 @@ export default function HomePage() {
       <Section
         eyebrow="PROOF"
         title="I don't just talk about AI search. I built the tool that measures it."
-        bg="white"
       >
         <p className="text-lg text-[#52525B] dark:text-zinc-400 max-w-3xl leading-relaxed">
           To show business owners exactly how AI reads a website, I built the AI Visibility Scanner from scratch. Paste in any website address and see how easily AI assistants can find, understand and recommend it. It's free to use.
@@ -403,7 +401,7 @@ export default function HomePage() {
       </section>
 
       {/* 7. FAQ */}
-      <Section eyebrow="FAQ" title="Frequently Asked Questions" bg="white">
+      <Section eyebrow="FAQ" title="Frequently Asked Questions">
         <Faq items={faqItems} />
       </Section>
     </>

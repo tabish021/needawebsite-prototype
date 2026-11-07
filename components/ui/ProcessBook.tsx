@@ -35,91 +35,91 @@ export default function ProcessBook() {
   };
 
   return (
-    <div className="relative w-full min-h-[900px] flex flex-col items-center justify-center overflow-hidden py-24">
+    <div className="relative w-full min-h-[800px] md:min-h-[100vh] flex items-center overflow-hidden">
       
-      {/* Dark Velvet Table Top Background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#2a1215] via-[#0a0505] to-black z-0" />
+      {/* The Canva Table Background */}
+      <div 
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat z-0"
+        style={{ backgroundImage: "url('/table-bg.jpg')" }}
+      />
       
-      {/* Subtle spotlight on the table */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[600px] bg-white/5 rounded-full blur-[120px] pointer-events-none z-0" />
+      {/* A very subtle dark gradient on the left to make the book pop slightly */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent z-0" />
 
-      {/* Header */}
-      <div className="relative z-10 text-center mb-12">
-        <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tight">
-          How I Work
-        </h2>
-        <p className="text-zinc-400 mt-4 text-lg flex items-center justify-center gap-2 h-8">
-          {isOpen ? (
-            <button 
-              onClick={() => setIsOpen(false)}
-              className="flex items-center gap-2 px-4 py-1.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors border border-white/20 text-sm"
-            >
-              <X className="w-4 h-4" /> Close Book
-            </button>
-          ) : (
-            <span className="flex items-center gap-2">
-              <BookOpen className="w-4 h-4" /> Click the book to open it
-            </span>
-          )}
-        </p>
+      {/* Content Container - Aligned to the Left */}
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-8 md:px-24 flex items-center justify-start h-full pt-20">
+        
+        <div className="flex flex-col items-center md:items-start">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative cursor-pointer group"
+            onClick={() => setIsOpen(true)}
+          >
+            {/* 
+              mix-blend-multiply drops the white background, 
+              mix-blend-screen drops the black background. 
+              Since your book image has a black background, we use screen. 
+            */}
+            <img 
+              src="/process-book.jpg" 
+              alt="The Process Book" 
+              className="w-[300px] md:w-[450px] h-auto rounded-sm shadow-[0_25px_50px_-12px_rgba(0,0,0,0.5)] transition-transform duration-500 group-hover:scale-105 mix-blend-multiply"
+            />
+            
+            <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-2 text-[#4a2c1a] font-bold tracking-widest uppercase text-sm transition-transform duration-300 group-hover:-translate-y-2">
+              <BookOpen className="w-4 h-4" /> Open The Book
+            </div>
+          </motion.div>
+        </div>
+
       </div>
 
-      {/* Fixed-Size Container to prevent layout shift */}
-      <div className="relative w-full max-w-[1100px] h-[700px] flex items-center justify-center perspective-[2500px] z-10">
-        
-        {/* The Closed Book */}
-        <AnimatePresence>
-          {!isOpen && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 20 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 1.5, y: -50, filter: "blur(10px)" }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="absolute cursor-pointer group"
-              onClick={() => setIsOpen(true)}
-              style={{ transformStyle: 'preserve-3d' }}
+      {/* The Book Modal */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-8"
+          >
+            {/* Close Button */}
+            <button 
+              onClick={() => setIsOpen(false)}
+              className="absolute top-6 right-6 z-[10010] p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
             >
-              <motion.img 
-                src="/process-book.jpg" 
-                alt="The Process Book" 
-                className="w-[350px] md:w-[500px] h-auto pointer-events-none select-none mix-blend-screen drop-shadow-[0_20px_50px_rgba(0,0,0,0.8)]"
-                whileHover={{ scale: 1.05, rotateZ: -2 }}
-                whileTap={{ scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <X className="w-6 h-6" />
+            </button>
 
-        {/* The Open Book (In Place) */}
-        <AnimatePresence>
-          {isOpen && (
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, rotateX: 20 }}
-              animate={{ opacity: 1, scale: 1, rotateX: 0 }}
-              exit={{ opacity: 0, scale: 0.8, rotateX: 20 }}
-              transition={{ duration: 0.7, type: "spring", bounce: 0.2 }}
-              className="absolute w-full h-full flex items-center justify-center"
+              initial={{ scale: 0.9, y: 30, rotateX: 15 }}
+              animate={{ scale: 1, y: 0, rotateX: 0 }}
+              exit={{ scale: 0.9, y: 30, rotateX: 15 }}
+              transition={{ duration: 0.5, type: "spring", bounce: 0.2 }}
+              className="w-full max-w-5xl perspective-[2000px]"
             >
-              {/* THE LEATHER COVER WRAPPER */}
-              <div className="relative p-4 md:p-6 bg-[#1a0f0f] rounded-2xl shadow-[0_40px_100px_rgba(0,0,0,0.9)] border border-[#3a251a]">
+              {/* THE LEATHER COVER WRAPPER (Simulates the thick book cover) */}
+              <div className="relative p-3 md:p-6 bg-[#1a0f0f] rounded-lg shadow-[0_40px_100px_rgba(0,0,0,0.9)] border border-[#3a251a]">
                 
-                {/* Page stack visual (thickness) on the bottom */}
-                <div className="absolute bottom-2 left-6 right-6 h-4 bg-[#d4c5ab] rounded-b-md shadow-inner z-0" />
-                <div className="absolute bottom-4 left-6 right-6 h-4 bg-[#e8dcc4] rounded-b-md shadow-inner z-0" />
+                {/* Page Stack Visual (Thickness at the bottom) */}
+                <div className="absolute bottom-[-4px] left-3 right-3 h-3 bg-[#d4c5ab] rounded-b-md shadow-inner z-0" />
+                <div className="absolute bottom-[-8px] left-4 right-4 h-3 bg-[#e8dcc4] rounded-b-md shadow-inner z-0" />
+                <div className="absolute bottom-[-12px] left-5 right-5 h-3 bg-[#f4ebd9] rounded-b-md shadow-inner z-0" />
 
-                {/* The Flip Book */}
-                <div className="relative z-10 w-full max-w-5xl">
+                {/* The Flip Book Pages */}
+                <div className="relative z-10 w-full max-w-[1000px] mx-auto bg-[#f4ebd9]">
                   {/* @ts-ignore */}
                   <HTMLFlipBook
                     width={500}
                     height={700}
                     size="stretch"
                     minWidth={300}
-                    maxWidth={600}
+                    maxWidth={550}
                     minHeight={400}
-                    maxHeight={800}
-                    maxShadowOpacity={0.5}
+                    maxHeight={750}
+                    maxShadowOpacity={0.6}
                     showCover={false}
                     mobileScrollSupport={true}
                     onFlip={onFlip}
@@ -255,7 +255,7 @@ export default function ProcessBook() {
                         <p className="text-gray-800 mb-8 text-lg font-sans">Every business has one worth telling. Let's build the website that tells yours.</p>
                         <a 
                           href="/contact" 
-                          className="px-8 py-3 bg-[#2a1215] text-white rounded-md font-semibold hover:bg-black transition-colors font-sans"
+                          className="px-8 py-3 bg-[#2a1215] text-white rounded-md font-semibold hover:bg-black transition-colors font-sans shadow-lg"
                         >
                           Book a Call
                         </a>
@@ -268,9 +268,9 @@ export default function ProcessBook() {
                 <div className="absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-12 bg-gradient-to-r from-black/0 via-black/40 to-black/0 pointer-events-none z-20 mix-blend-multiply" />
               </div>
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

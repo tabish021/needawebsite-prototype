@@ -8,16 +8,18 @@ import { X, BookOpen, ArrowRight } from 'lucide-react';
 
 const HTMLFlipBook = dynamic(() => import('react-pageflip'), { ssr: false });
 
-// Updated Page component to include the engraved hint
+// Updated Page component to include the engraved hint ONLY on right-side pages
 const Page = React.forwardRef(({ children, number }: { children: React.ReactNode, number: number }, ref: any) => {
   return (
     <div className="bg-[#f4ebd9] shadow-inner overflow-hidden relative" ref={ref} data-density="hard">
       {children}
       
-      {/* Engraved hint on every page */}
-      <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 flex items-center gap-1.5 text-[#a89887] italic text-[10px] md:text-xs pointer-events-none select-none tracking-wide [text-shadow:0_1px_0_rgba(255,255,255,0.8)]">
-        Click the page to turn <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
-      </div>
+      {/* Only show the hint on even-numbered pages (the right side of the book) */}
+      {number % 2 === 0 && (
+        <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 flex items-center gap-1.5 text-[#a89887] italic text-[10px] md:text-xs pointer-events-none select-none tracking-wide [text-shadow:0_1px_0_rgba(255,255,255,0.8)]">
+          Click the page to turn <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
+        </div>
+      )}
     </div>
   );
 });

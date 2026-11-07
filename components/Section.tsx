@@ -6,7 +6,7 @@ export interface SectionProps {
   eyebrow?: string;
   title?: string;
   children: React.ReactNode;
-  bg?: 'white' | 'grey';
+  bg?: 'white' | 'grey'; // Kept for compatibility but ignored
   className?: string;
   id?: string;
 }
@@ -15,7 +15,6 @@ export default function Section({
   eyebrow,
   title,
   children,
-  bg = 'white',
   className = '',
   id,
 }: SectionProps) {
@@ -51,15 +50,10 @@ export default function Section({
     };
   }, []);
 
-  const bgClass =
-    bg === 'grey'
-      ? 'bg-[#FAFAFA] dark:bg-[#0E0E10]'
-      : 'bg-white dark:bg-[#121215]';
-
   return (
     <section
       ref={sectionRef}
-      className={`py-20 md:py-28 ${bgClass} transition-colors duration-200 ${className}`.trim()}
+      className={`py-20 md:py-28 bg-transparent transition-colors duration-200 ${className}`.trim()}
       id={id}
     >
       <div
@@ -82,4 +76,3 @@ export default function Section({
     </section>
   );
 }
-

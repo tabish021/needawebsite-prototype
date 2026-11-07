@@ -180,7 +180,9 @@ export default function Website1499() {
       <section className="py-20 bg-white dark:bg-[#0A0A0A] transition-colors duration-200">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">What You Get for ₹1,499</h2>
-          <div className="grid sm:grid-cols-2 gap-4">
+          
+          {/* Added max-w-2xl mx-auto to center the list, and increased gap-x for balance */}
+          <div className="grid sm:grid-cols-2 gap-x-12 gap-y-6 max-w-2xl mx-auto text-left">
             {[
               "A beautiful one page website, custom designed",
               "Mobile-friendly design",

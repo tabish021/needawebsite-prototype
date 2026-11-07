@@ -44,7 +44,7 @@ export default function ProcessBook() {
       />
       
       {/* A very subtle dark gradient on the left to make the book pop slightly */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/30 via-transparent to-transparent z-0" />
+      <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent z-0" />
 
       {/* Content Container - Pushed to the left */}
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-8 md:px-24 flex items-center justify-start h-full pt-20">
@@ -57,11 +57,11 @@ export default function ProcessBook() {
             className="relative cursor-pointer group"
             onClick={() => setIsOpen(true)}
           >
-            {/* mix-blend-screen drops the black background perfectly */}
+            {/* Image now expects a transparent .webp with a heavy drop shadow */}
             <img 
-              src="/process-book.jpg" 
+              src="/process-book.webp" 
               alt="The Process Book" 
-              className="w-[300px] md:w-[450px] h-auto drop-shadow-2xl transition-transform duration-500 group-hover:scale-105 mix-blend-screen"
+              className="w-[300px] md:w-[450px] h-auto drop-shadow-[0_30px_40px_rgba(0,0,0,0.8)] transition-transform duration-500 group-hover:scale-105"
             />
             
             <div className="absolute -bottom-12 left-1/2 -translate-x-1/2 flex items-center gap-2 text-[#4a2c1a] font-bold tracking-widest uppercase text-sm transition-transform duration-300 group-hover:-translate-y-2">

@@ -6,10 +6,29 @@ import { ExternalLink } from 'lucide-react';
 import { Waves } from '@/components/ui/wave-background';
 import SmoothScroll from '@/components/SmoothScroll';
 import ProcessBook from '@/components/ui/ProcessBook';
+import { useInView } from 'framer-motion';
+import { useRef } from 'react';
 
 // Dynamically import heavy components with SSR disabled to prevent build timeouts
 const TechText = dynamic(() => import('@/components/ui/TechText'), { ssr: false });
 const CircularGallery = dynamic(() => import('@/components/ui/CircularGallery'), { ssr: false });
+
+// Helper component to only mount heavy sections when they scroll into view
+function LazyMount({ children, height = "800px" }: { children: React.ReactNode, height?: string }) {
+  const ref = useRef(null);
+  // margin: "400px" pre-loads it slightly before it enters the screen for a seamless experience
+  const isInView = useInView(ref, { once: true, margin: "400px" });
+
+  return (
+    <div ref={ref} style={{ minHeight: height }} className="w-full relative">
+      {isInView ? children : (
+        <div className="absolute inset-0 flex items-center justify-center bg-black">
+          <div className="w-8 h-8 border-4 border-white/20 border-t-white/80 rounded-full animate-spin"></div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 const portfolioImages = [
   { image: "/products/arin-morning-star.webp", text: "Arin Morning Star" },
@@ -52,12 +71,12 @@ export default function CreativeClient() {
       {/* Hero Section */}
       <section className="relative h-screen w-full flex flex-col bg-black overflow-hidden border-b border-white/10">
         
-        {/* Waves - Reduced to 60% to give text more room */}
+        {/* Waves */}
         <div className="absolute top-0 left-0 right-0 h-[60%] z-0">
           <Waves backgroundColor="#000000" strokeColor="#FFFFFF" />
         </div>
 
-        {/* Text Container - Increased to 40%, centered with equal gaps */}
+        {/* Text Container */}
         <div className="relative z-10 mt-auto w-full h-[40%] bg-black flex flex-col justify-center gap-6 md:gap-10 px-8 md:px-16 lg:px-24 pb-8 md:pb-12">
           
           {/* Line 1 */}
@@ -106,7 +125,7 @@ export default function CreativeClient() {
 
       </section>
 
-      {/* 3D Product Gallery Section */}
+      {/* 3D Product Gallery Section - LAZY LOADED */}
       <section className="relative w-full bg-black border-b border-white/10 overflow-hidden py-12">
         <div className="text-center mb-8">
           <h2 className="text-3xl md:text-5xl font-bold text-white tracking-tight">
@@ -115,19 +134,21 @@ export default function CreativeClient() {
           <p className="text-zinc-400 mt-4">Drag to explore my latest product designs</p>
         </div>
         
-        <div className="relative h-[600px] md:h-[800px] w-full">
-          <CircularGallery
-            items={portfolioImages}
-            bend={3}
-            textColor="#ffffff"
-            borderRadius={0.05}
-            scrollEase={0.05}
-            font="bold 30px Inter, sans-serif"
-            itemAspect={0.6}
-            showTitles={false}
-            onItemClick={(item, index) => console.log(item.text, index)}
-          />
-        </div>
+        <LazyMount height="800px">
+          <div className="relative h-[600px] md:h-[800px] w-full">
+            <CircularGallery
+              items={portfolioImages}
+              bend={3}
+              textColor="#ffffff"
+              borderRadius={0.05}
+              scrollEase={0.05}
+              font="bold 30px Inter, sans-serif"
+              itemAspect={0.6}
+              showTitles={false}
+              onItemClick={(item, index) => console.log(item.text, index)}
+            />
+          </div>
+        </LazyMount>
       </section>
 
       {/* Interactive Playground Section */}
@@ -319,8 +340,10 @@ export default function CreativeClient() {
         </div>
       </section>
 
-      {/* The Process Book Section */}
-      <ProcessBook />
+      {/* The Process Book Section - LAZY LOADED */}
+      <LazyMount height="800px">
+        <ProcessBook />
+      </LazyMount>
 
     </div>
   );

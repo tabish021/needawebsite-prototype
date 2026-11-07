@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import JsonLd from '@/components/JsonLd';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import ScrollProgressBar from '@/components/ScrollProgressBar';
+import SiteBackground from '@/components/SiteBackground';
 
 const inter = Inter({
   subsets: ['latin'],

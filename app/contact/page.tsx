@@ -177,7 +177,7 @@ export default function ContactPage() {
         {/* 3. CONTACT FORM */}
         <Card className="mt-12 max-w-2xl mx-auto">
           <h2 className="text-2xl font-bold mb-6 text-[#0A0A0A] dark:text-zinc-100">Send a message</h2>
-          <ContactForm />
+          <ContactForm endpoint="https://formspree.io/f/xoeeodvr" />
         </Card>
       </Section>
 

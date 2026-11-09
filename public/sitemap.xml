@@ -2,34 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://needawebsite.in/</loc>
+    <lastmod>2026-11-09</lastmod>
+  </url>
+  <url>
+    <loc>https://needawebsite.in/websitefor1499/</loc>
+    <lastmod>2026-11-09</lastmod>
+  </url>
+  <url>
+    <loc>https://needawebsite.in/services/</loc>
     <lastmod>2026-11-02</lastmod>
   </url>
   <url>
-    <loc>https://needawebsite.in/services</loc>
+    <loc>https://needawebsite.in/creative/</loc>
+    <lastmod>2026-11-09</lastmod>
+  </url>
+  <url>
+    <loc>https://needawebsite.in/about/</loc>
     <lastmod>2026-11-02</lastmod>
   </url>
   <url>
-    <loc>https://needawebsite.in/creative</loc>
+    <loc>https://needawebsite.in/contact/</loc>
     <lastmod>2026-11-02</lastmod>
   </url>
   <url>
-    <loc>https://needawebsite.in/about</loc>
-    <lastmod>2026-11-02</lastmod>
+    <loc>https://needawebsite.in/privacy/</loc>
+    <lastmod>2026-11-09</lastmod>
   </url>
   <url>
-    <loc>https://needawebsite.in/contact</loc>
-    <lastmod>2026-11-02</lastmod>
+    <loc>https://needawebsite.in/terms/</loc>
+    <lastmod>2026-11-09</lastmod>
   </url>
   <url>
-    <loc>https://needawebsite.in/privacy</loc>
-    <lastmod>2026-11-02</lastmod>
-  </url>
-  <url>
-    <loc>https://needawebsite.in/terms</loc>
-    <lastmod>2026-11-02</lastmod>
-  </url>
-  <url>
-    <loc>https://needawebsite.in/nda</loc>
-    <lastmod>2026-11-02</lastmod>
+    <loc>https://needawebsite.in/nda/</loc>
+    <lastmod>2026-11-09</lastmod>
   </url>
 </urlset>

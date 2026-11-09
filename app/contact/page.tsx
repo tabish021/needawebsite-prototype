@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { CheckCircle2, Loader2, Phone, MessageCircle, ExternalLink } from 'lucide-react';
 import Link from 'next/link';
 
-const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mnppyvyv';
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xoeeodvr';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({

@@ -83,10 +83,10 @@ export default function ProcessBook() {
             className="fixed inset-0 z-[10050] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-8"
           >
             
-            {/* CLOSE BUTTON - Now fixed to the screen top-right, outside the book wrapper */}
+            {/* CLOSE BUTTON - Changed top-6 to top-24 for mobile */}
             <button 
               onClick={() => setIsOpen(false)}
-              className="absolute top-6 right-6 md:top-10 md:right-10 z-[10060] flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors border border-white/20 text-sm font-semibold tracking-wide"
+              className="absolute top-24 right-6 md:top-10 md:right-10 z-[10060] flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors border border-white/20 text-sm font-semibold tracking-wide"
             >
               <span>Close</span>
               <X className="w-5 h-5" />
@@ -252,7 +252,8 @@ export default function ProcessBook() {
                   </HTMLFlipBook>
                 </div>
 
-                <div className="absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-12 bg-gradient-to-r from-black/0 via-black/40 to-black/0 pointer-events-none z-20 mix-blend-multiply" />
+                {/* Spine Crease Gradient - Hidden on mobile */}
+                <div className="hidden md:block absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-12 bg-gradient-to-r from-black/0 via-black/40 to-black/0 pointer-events-none z-20 mix-blend-multiply" />
               </div>
             </motion.div>
           </motion.div>

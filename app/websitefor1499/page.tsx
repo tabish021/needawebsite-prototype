@@ -12,7 +12,22 @@ export const metadata: Metadata = {
 
 const WHATSAPP_LINK = "https://wa.me/919987455707?text=Hi%20Tabish%2C%20I%20want%20to%20buy%20the%20%E2%82%B91%2C499%20One%20Page%20Website.";
 
-// FAQ Data for Schema
+// Extracted features array for the table
+const featureItems = [
+  "A beautiful one page website, custom designed",
+  "Mobile-friendly design",
+  "Basic SEO setup",
+  "Hosting for 1 year",
+  "SSL certificate and security",
+  "WhatsApp chat button",
+  "Contact form",
+  "Google Maps integration",
+  "Social media integration",
+  "Analytics (Visitor tracking)",
+  "Google Business Profile setup",
+  "One round of revisions"
+];
+
 const faqs = [
   { q: "How much does a one page website cost in India?", a: "A one page website for a small business can cost anywhere from a few thousand rupees to much more. At NeedAWebsite, it's ₹1,499, with hosting, SSL, basic SEO setup and more included for the first year." },
   { q: "What is included in the ₹1,499 website?", a: "You get a custom-designed, mobile-friendly one page website with basic SEO setup, 1 year of hosting, SSL security, a WhatsApp chat button, a contact form, Google Maps, social media integration, analytics, Google Business Profile setup and one round of revisions." },
@@ -73,7 +88,7 @@ export default function Website1499() {
           </a>
         </div>
 
-        {/* Image Mockup */}
+        {/* 3D CSS Mockup */}
         <div className="w-full md:w-1/2 relative flex items-center justify-center mt-12 md:mt-0">
           <img
             src="/nourish-mockup.webp"
@@ -142,31 +157,34 @@ export default function Website1499() {
         </div>
       </section>
 
-      {/* What You Get */}
+      {/* What You Get - TABLE LAYOUT */}
       <section className="py-20 bg-white dark:bg-[#0A0A0A] transition-colors duration-200">
         <div className="max-w-4xl mx-auto px-6">
           <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">What You Get for ₹1,499</h2>
           
-          <div className="grid sm:grid-cols-2 gap-x-12 gap-y-6 max-w-2xl mx-auto text-left">
-            {[
-              "A beautiful one page website, custom designed",
-              "Mobile-friendly design",
-              "Basic SEO setup",
-              "Hosting for 1 year",
-              "SSL certificate and security",
-              "WhatsApp chat button",
-              "Contact form",
-              "Google Maps integration",
-              "Social media integration",
-              "Analytics (Visitor tracking)",
-              "Google Business Profile setup",
-              "One round of revisions"
-            ].map((item, i) => (
-              <div key={i} className="flex items-start gap-3">
-                <Check className="w-5 h-5 text-[#16A34A] shrink-0 mt-0.5" />
-                <span className="text-zinc-700 dark:text-zinc-300">{item}</span>
-              </div>
-            ))}
+          <div className="max-w-3xl mx-auto overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 shadow-sm">
+            <table className="w-full text-left border-collapse">
+              <tbody>
+                {[0, 1, 2, 3, 4, 5].map((rowIndex) => (
+                  <tr key={rowIndex} className="border-b border-zinc-200 dark:border-zinc-800 last:border-b-0 hover:bg-[#FAFAFA] dark:hover:bg-zinc-800/50 transition-colors">
+                    {/* Left Column */}
+                    <td className="w-1/2 p-4 md:p-5 border-r border-zinc-200 dark:border-zinc-800 align-top">
+                      <div className="flex items-start gap-3">
+                        <Check className="w-5 h-5 text-[#16A34A] shrink-0 mt-0.5" />
+                        <span className="text-zinc-700 dark:text-zinc-300">{featureItems[rowIndex]}</span>
+                      </div>
+                    </td>
+                    {/* Right Column */}
+                    <td className="w-1/2 p-4 md:p-5 align-top">
+                      <div className="flex items-start gap-3">
+                        <Check className="w-5 h-5 text-[#16A34A] shrink-0 mt-0.5" />
+                        <span className="text-zinc-700 dark:text-zinc-300">{featureItems[rowIndex + 6]}</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>

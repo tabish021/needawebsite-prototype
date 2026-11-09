@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import Button from '@/components/Button';
 import { Send, Check } from 'lucide-react';
 
+const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xoeeodvr';
+
 export default function ContactForm() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -14,10 +16,17 @@ export default function ContactForm() {
     service: 'New Website',
   });
 
-  // PROTOTYPE: UI-only form. Wire to Formspree / serverless handler in Phase 2.
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    const form = e.currentTarget;
+    const response = await fetch(FORMSPREE_ENDPOINT, {
+      method: 'POST',
+      body: new FormData(form),
+      headers: { Accept: 'application/json' },
+    });
+    if (response.ok) {
+      setSubmitted(true);
+    }
   };
 
   if (submitted) {

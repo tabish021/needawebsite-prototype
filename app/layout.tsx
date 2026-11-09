@@ -33,6 +33,31 @@ export const metadata: Metadata = {
   },
 };
 
+// 1. NEW: Explicit Organization Schema (Fixes the 65% score)
+const organizationSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: 'NeedAWebsite',
+  url: 'https://needawebsite.in',
+  logo: 'https://needawebsite.in/og-image.png',
+  description: 'Web design and AI search optimization (SEO, AEO, GEO) for small businesses across India.',
+  telephone: ['+91 9987455707', '+91 9820795707'],
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: 'Mumbai',
+    addressRegion: 'Maharashtra',
+    addressCountry: 'IN',
+  },
+  founder: {
+    '@type': 'Person',
+    name: 'Tabish',
+  },
+  sameAs: [
+    'https://www.instagram.com/needawebsitedotin'
+  ]
+};
+
+// 2. Keep the ProfessionalService Schema too
 const professionalServiceSchema = {
   '@context': 'https://schema.org',
   '@type': 'ProfessionalService',
@@ -61,7 +86,10 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable} suppressHydrationWarning>
       <head>
+        {/* Add BOTH schemas to the head */}
+        <JsonLd data={organizationSchema} />
         <JsonLd data={professionalServiceSchema} />
+        
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -82,7 +110,6 @@ export default function RootLayout({
       </head>
       <body className="bg-transparent text-[#3F3F46] dark:text-zinc-300 min-h-screen flex flex-col antialiased font-sans transition-colors duration-200">
         
-        {/* SITEWIDE ANIMATED GREEN BACKGROUND */}
         <SiteBackground />
 
         <ThemeProvider>

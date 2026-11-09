@@ -8,13 +8,11 @@ import { X, BookOpen, ArrowRight } from 'lucide-react';
 
 const HTMLFlipBook = dynamic(() => import('react-pageflip'), { ssr: false });
 
-// Updated Page component to include the engraved hint ONLY on right-side pages
 const Page = React.forwardRef(({ children, number }: { children: React.ReactNode, number: number }, ref: any) => {
   return (
     <div className="bg-[#f4ebd9] shadow-inner overflow-hidden relative" ref={ref} data-density="hard">
       {children}
       
-      {/* Only show the hint on even-numbered pages (the right side of the book) */}
       {number % 2 === 0 && (
         <div className="absolute bottom-4 right-4 md:bottom-6 md:right-6 flex items-center gap-1.5 text-[#a89887] italic text-[10px] md:text-xs pointer-events-none select-none tracking-wide [text-shadow:0_1px_0_rgba(255,255,255,0.8)]">
           Click the page to turn <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
@@ -51,12 +49,9 @@ export default function ProcessBook() {
         style={{ backgroundImage: "url('/table-bg.webp')" }}
       />
       
-      {/* A very subtle dark gradient on the left to make the book pop slightly */}
       <div className="absolute inset-0 bg-gradient-to-r from-black/20 via-transparent to-transparent z-0" />
 
-      {/* Content Container - Pushed to the left */}
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-8 md:px-24 flex items-center justify-start h-full pt-20">
-        
         <div className="flex flex-col items-center md:items-start w-full md:w-1/2">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -70,13 +65,11 @@ export default function ProcessBook() {
               alt="The Process Book" 
               className="w-[350px] md:w-[650px] lg:w-[750px] h-auto drop-shadow-[0_35px_50px_rgba(0,0,0,0.85)] transition-transform duration-500 group-hover:scale-105"
             />
-            
             <div className="absolute -bottom-14 left-1/2 -translate-x-1/2 flex items-center gap-2 text-[#4a2c1a] font-bold tracking-widest uppercase text-sm md:text-base transition-transform duration-300 group-hover:-translate-y-2">
               <BookOpen className="w-5 h-5" /> Open The Book
             </div>
           </motion.div>
         </div>
-
       </div>
 
       {/* The Book Modal */}
@@ -86,14 +79,17 @@ export default function ProcessBook() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[10000] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-8"
+            // Increased z-index to 10050 to sit above the Navbar (z-10000)
+            className="fixed inset-0 z-[10050] flex items-center justify-center bg-black/90 backdrop-blur-md p-4 md:p-8"
           >
-            {/* Close Button */}
+            
+            {/* CLOSE BUTTON - Now fixed to the screen top-right, outside the book wrapper */}
             <button 
               onClick={() => setIsOpen(false)}
-              className="absolute top-6 right-6 z-[10010] p-3 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors"
+              className="absolute top-6 right-6 md:top-10 md:right-10 z-[10060] flex items-center gap-2 px-5 py-2.5 bg-white/10 hover:bg-white/20 rounded-full text-white transition-colors border border-white/20 text-sm font-semibold tracking-wide"
             >
-              <X className="w-6 h-6" />
+              <span>Close</span>
+              <X className="w-5 h-5" />
             </button>
 
             <motion.div
@@ -101,17 +97,14 @@ export default function ProcessBook() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 30 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="w-full max-w-5xl"
+              className="w-full max-w-5xl relative"
             >
-              {/* THE LEATHER COVER WRAPPER (Simulates the thick book cover) */}
               <div className="relative p-3 md:p-6 bg-[#1a0f0f] rounded-lg shadow-[0_40px_100px_rgba(0,0,0,0.9)] border border-[#3a251a]">
                 
-                {/* Page Stack Visual (Thickness at the bottom) */}
                 <div className="absolute bottom-[-4px] left-3 right-3 h-3 bg-[#d4c5ab] rounded-b-md shadow-inner z-0" />
                 <div className="absolute bottom-[-8px] left-4 right-4 h-3 bg-[#e8dcc4] rounded-b-md shadow-inner z-0" />
                 <div className="absolute bottom-[-12px] left-5 right-5 h-3 bg-[#f4ebd9] rounded-b-md shadow-inner z-0" />
 
-                {/* The Flip Book Pages */}
                 <div className="relative z-10 w-full max-w-[1000px] mx-auto bg-[#f4ebd9]">
                   {/* @ts-ignore */}
                   <HTMLFlipBook
@@ -130,7 +123,6 @@ export default function ProcessBook() {
                     ref={bookRef}
                     usePortrait={true}
                   >
-                    {/* SPREAD 1 */}
                     <Page number={1}>
                       <img src="/book/page-1.webp" className="w-full h-full object-cover" alt="Intro Art" />
                     </Page>
@@ -143,7 +135,6 @@ export default function ProcessBook() {
                       </div>
                     </Page>
 
-                    {/* SPREAD 2 */}
                     <Page number={3}>
                       <img src="/book/page-2.webp" className="w-full h-full object-cover" alt="Chapter 1 Art" />
                     </Page>
@@ -162,7 +153,6 @@ export default function ProcessBook() {
                       </div>
                     </Page>
 
-                    {/* SPREAD 3 */}
                     <Page number={5}>
                       <img src="/book/page-3.webp" className="w-full h-full object-cover" alt="Chapter 2 Art" />
                     </Page>
@@ -178,7 +168,6 @@ export default function ProcessBook() {
                       </div>
                     </Page>
 
-                    {/* SPREAD 4 */}
                     <Page number={7}>
                       <img src="/book/page-4.webp" className="w-full h-full object-cover" alt="Chapter 3 Art" />
                     </Page>
@@ -197,7 +186,6 @@ export default function ProcessBook() {
                       </div>
                     </Page>
 
-                    {/* SPREAD 5 */}
                     <Page number={9}>
                       <img src="/book/page-5.webp" className="w-full h-full object-cover" alt="Chapter 4 Art" />
                     </Page>
@@ -219,7 +207,6 @@ export default function ProcessBook() {
                       </div>
                     </Page>
 
-                    {/* SPREAD 6 */}
                     <Page number={11}>
                       <img src="/book/page-6.webp" className="w-full h-full object-cover" alt="Chapter 5 Art" />
                     </Page>
@@ -234,7 +221,6 @@ export default function ProcessBook() {
                       </div>
                     </Page>
 
-                    {/* SPREAD 7 */}
                     <Page number={13}>
                       <img src="/book/page-7.webp" className="w-full h-full object-cover" alt="Chapter 6 Art" />
                     </Page>
@@ -248,7 +234,6 @@ export default function ProcessBook() {
                       </div>
                     </Page>
 
-                    {/* SPREAD 8 */}
                     <Page number={15}>
                       <img src="/book/page-8.webp" className="w-full h-full object-cover" alt="Closing Art" />
                     </Page>
@@ -267,7 +252,6 @@ export default function ProcessBook() {
                   </HTMLFlipBook>
                 </div>
 
-                {/* Spine Crease Gradient */}
                 <div className="absolute top-4 bottom-4 left-1/2 -translate-x-1/2 w-12 bg-gradient-to-r from-black/0 via-black/40 to-black/0 pointer-events-none z-20 mix-blend-multiply" />
               </div>
             </motion.div>

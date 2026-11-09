@@ -1,18 +1,44 @@
 # NeedAWebsite
-
-> NeedAWebsite is a Mumbai-based web design and development studio run by founder Tabish. It builds fast, mobile-friendly websites for small and medium businesses across India and prepares them to be found on Google and AI assistants such as ChatGPT and Perplexity (SEO, AEO and GEO).
-
+ 
+> NeedAWebsite is a Mumbai-based web design and development studio run by founder Tabish. It builds fast, mobile-friendly websites for small businesses across India, set up to be found on Google and recommended by AI assistants such as ChatGPT and Perplexity (SEO, AEO and GEO).
+ 
+Work is done remotely over calls, WhatsApp and email. Clients deal directly with the founder, who brings in specialists (content writers, graphic designers, backend engineers) when a project needs them. A written quote is given before any work starts.
+ 
 ## Key pages
-- [Home](https://needawebsite.in/): Overview of services and proof of work
-- [Services](https://needawebsite.in/services): Web design and development, AI search optimization, custom web apps
-- [About](https://needawebsite.in/about): About the founder, Tabish
-- [Contact](https://needawebsite.in/contact): Free quote form, phone and WhatsApp
-
-## Tools
-- [AI Visibility Scanner](https://aiscan.needawebsite.in): Free tool that checks how readable a website is to search engines and AI assistants
-
-## Facts
-- Location: Mumbai, India. Serves clients across India remotely.
-- Phone: +91 9987455707, +91 9820795707
-- One-page websites: delivered in about 5 days. Multi-page and custom builds: 4 to 8 weeks.
-- Case study: Nourish by Neelam, a clinical and sports nutrition practice
+- [Home](https://needawebsite.in/): Overview of services, how the process works, proof of work and FAQs
+- [One Page Website for ₹1,499](https://needawebsite.in/websitefor1499/): Fixed-price offer with what is included, what is not, pricing and FAQs
+- [Services](https://needawebsite.in/services/): Web design and development, AI search optimization, custom web apps and dashboards
+- [Creative](https://needawebsite.in/creative/): Interactive web experiences, 3D and animation demos, and the NeedAWebsite design process
+- [About](https://needawebsite.in/about/): About the founder, Tabish
+- [Contact](https://needawebsite.in/contact/): Free quote form, phone and WhatsApp
+ 
+## Offer: one-page website for ₹1,499
+- Price: ₹1,499, including the first year of hosting
+- Delivery: within 48 hours
+- Included: custom-designed one page website, mobile-friendly design, basic SEO setup, 1 year of hosting, SSL certificate and security, WhatsApp chat button, contact form, Google Maps, social media integration, analytics, Google Business Profile setup, and one round of revisions
+- Renewal: hosting renews at ₹1,999 per year from the second year
+- Domain name: not included; bought and owned by the client
+- Not included: extra pages, online selling (e-commerce) and anything not listed above. Design updates later are quoted separately.
+- Suitable for: gyms, pilates studios, salons, beauty parlours, restaurants, cafes, clinics, dentists, coaches, tutors, freelancers, boutiques and other small businesses
+ 
+## Other services
+- Multi-page websites, online stores and custom web apps: typically 4 to 8 weeks depending on size and complexity, with a written quote first
+- AI search optimization: structuring a website so Google and AI assistants can understand and recommend the business
+- After launch: edits, updates and ranking support are available
+- No specific search ranking is guaranteed
+ 
+## Tools and proof
+- [AI Visibility Scanner](https://aiscan.needawebsite.in): Free tool that checks how easily search engines and AI assistants can read and understand a website
+- [Nourish by Neelam](https://nourishbyneelam.com): Case study, a clinical and sports nutrition practice with a full SEO, AEO and GEO foundation
+ 
+## Contact
+- Email: hello@needawebsite.in
+- Phone: +91 99874 55707, +91 98207 95707
+- WhatsApp: https://wa.me/919987455707
+- Instagram: https://www.instagram.com/needawebsitedotin
+- Location: Mumbai, India. Serves clients across India, remotely.
+ 
+## Optional
+- [Privacy Policy](https://needawebsite.in/privacy/)
+- [Terms of Service](https://needawebsite.in/terms/)
+- [Mutual NDA](https://needawebsite.in/nda/)

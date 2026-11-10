@@ -336,6 +336,36 @@ export default function CreativeClient() {
               ))}
             </div>
           </a>
+
+          {/* Card 7: Daisy Bakehouse */}
+          <a
+            href="/creative/daisy-bakehouse"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group relative aspect-video rounded-2xl overflow-hidden border border-white/10 bg-cover bg-center transition-all duration-300 hover:border-white/30 block"
+            style={{ backgroundImage: "url('https://images.unsplash.com/photo-1577149657696-55f1ee62e69e?auto=format&fit=crop&w=900&h=675&q=80')" }}
+          >
+            <div className="absolute inset-0 flex flex-col items-center justify-center p-4 z-10 bg-black/40 backdrop-blur-[2px]">
+              <p className="text-white font-serif text-3xl italic tracking-tight text-center drop-shadow-md">
+                Daisy Bakehouse
+              </p>
+              <p className="text-white/80 text-xs font-sans tracking-widest uppercase mt-1">Scroll & Video Scrub</p>
+            </div>
+            <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col items-center justify-center text-center p-6 z-20">
+              <h3 className="text-white font-bold text-2xl mb-1">Daisy Bakehouse</h3>
+              <p className="text-zinc-300 text-sm mb-4">Product Page & Build-a-Box</p>
+              <span className="bg-white text-black px-4 py-2 rounded-md text-sm font-semibold flex items-center gap-2 shadow-lg hover:bg-zinc-100 transition-colors">
+                Open Demo <ExternalLink className="w-4 h-4" />
+              </span>
+            </div>
+            <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2 pointer-events-none z-30">
+              {['React', 'Scroll Scrub', 'Custom Cart'].map((tech) => (
+                <span key={tech} className="bg-black/50 backdrop-blur-md border border-white/20 text-white text-[10px] font-semibold px-2.5 py-1 rounded-full">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </a>
           
         </div>
       </section>
